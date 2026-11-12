@@ -36,11 +36,7 @@ python -m http.server 8000
 Then open http://localhost:8000 — use this rather than double-clicking the
 files, so `404.html` resolves its links correctly.
 
-## Still to fill in
+## Still to set
 
-Search the project for these and replace them:
-
-- `[your-handle]` — LinkedIn username
-- `[your-x-handle]` — X username
-- `[YOUR PRICE]` — the three prices on the services page
-- `YOUR_FORM_ID` — the Formspree form id in `contact.html`
+- Pricing on the services page is "Custom quote" until real prices are set.
+- The contact form uses FormSubmit. Submit one test message and click the activation link emailed to the address in `contact.html`.
