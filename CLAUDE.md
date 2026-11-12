@@ -17,7 +17,7 @@ Keep it that way. Do not add React, Tailwind, a bundler, or npm unless I ask.
 | `index.html` | Home |
 | `loom-to-tasks.html` | Case study: Loom to Tasks |
 | `lead-tracker.html` | Case study: Lead Tracker |
-| `sourcing-website.html` | Case study: B2B Sourcing Website |
+| `sourcing-website.html` | Case study: Wholesalia, B2B Sourcing Website |
 | `services.html` | Services and pricing |
 | `contact.html` | Contact, with the enquiry form |
 | `404.html` | Not found |
@@ -83,8 +83,11 @@ Email is already set: `abrarzamil.dev@gmail.com`
 
 ## Content rules — do not break these
 
-- The sourcing case study must carry **no client name and no live link**. It says
-  "code stays private". Don't add either unless I say the client agreed in writing.
+- The sourcing case study names the client (**Wholesalia**) and links to 
+  https://gowholesalia.com. The client agreed to this in November 2026. Never put the
+  client's phone numbers, address or email on the portfolio, and never screenshot the
+  live site's footer or its "Can't find the product you need?" contact section.
+  Admin screenshots stay redrawn (the admin is private), and the code stays private.
 - Every mockup uses **sample data** and is labelled as such. Keep those labels.
 - `67/67` (Loom to Tasks) and `156` (Lead Tracker) come from real test suites.
   If a number changes, update it in all three places: the home page tile, the case
