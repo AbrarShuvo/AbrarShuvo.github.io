@@ -44,4 +44,26 @@
   // Contact form: show the thank-you note after FormSubmit redirects back with ?sent=1.
   var note = document.getElementById('sent-note');
   if (note && /[?&]sent=1(&|$)/.test(window.location.search)) note.hidden = false;
+  // Mobile menu: toggle the stacked page links; close on link tap, Escape, or when the viewport widens.
+  var toggle = document.querySelector('.nav-toggle');
+  if (toggle) {
+    var navEl = toggle.closest('nav');
+    var setMenu = function (open) {
+      navEl.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    };
+    toggle.addEventListener('click', function () {
+      setMenu(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+    Array.prototype.forEach.call(navEl.querySelectorAll('.nav-links a'), function (a) {
+      a.addEventListener('click', function () { setMenu(false); });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && navEl.classList.contains('open')) { setMenu(false); toggle.focus(); }
+    });
+    window.matchMedia('(min-width: 760px)').addEventListener('change', function (m) {
+      if (m.matches) setMenu(false);
+    });
+  }
 })();
