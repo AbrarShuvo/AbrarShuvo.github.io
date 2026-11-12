@@ -41,4 +41,7 @@
       });
     });
   }
+  // Contact form: show the thank-you note after FormSubmit redirects back with ?sent=1.
+  var note = document.getElementById('sent-note');
+  if (note && /[?&]sent=1(&|$)/.test(window.location.search)) note.hidden = false;
 })();

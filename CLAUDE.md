@@ -71,14 +71,13 @@ Supporting classes: `.tile` (hover lift), `.btn` / `.arr` (button + arrow nudge)
   Any new one must be too.
 - Don't add third-party scripts (analytics, chat widgets, font loaders) without asking.
 
-## Placeholders still to replace
+## Placeholders
 
-| Find | Replace with | Where |
-|---|---|---|
-| `[your-handle]` | LinkedIn username | footer on all 7 pages, contact page |
-| `[your-x-handle]` | X username | footer on all 7 pages |
-| `[YOUR PRICE]` | three prices | `services.html` |
-| `YOUR_FORM_ID` | Formspree form id | `contact.html` |
+None left. Pricing on `services.html` is "Custom quote" until real prices are set.
+
+## Contact form
+
+`contact.html` posts to **FormSubmit** (`https://formsubmit.co/abrarzamil.dev@gmail.com`), no account needed. Hidden `_subject`, `_template`, `_next` and `_honey` (spam trap) fields configure it. After sending, it redirects to `contact.html?sent=1`; `script.js` reveals the `#sent-note` thank-you note when that query is present. The first submission triggers a one-time FormSubmit activation email to that address.
 
 Email is already set: `abrarzamil.dev@gmail.com`
 
@@ -94,7 +93,7 @@ Email is already set: `abrarzamil.dev@gmail.com`
 
 ## Open decisions
 
-- **Name:** the site says "Abrar Zamil" everywhere; GitHub is `AbrarShuvo`. Not resolved.
+- **Name:** resolved. The site says "Abrar Zamil", matching the LinkedIn profile. GitHub stays `AbrarShuvo`.
 - Dark mode: wanted, not started.
 - `abrarzamil.com`: after the first paid client.
 

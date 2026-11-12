@@ -45,7 +45,7 @@
 <span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.01em">Abrar Zamil</span>
 </a>
 <div style="display: flex; align-items: center; gap: 2px; flex-wrap: wrap">
-<a href="index.html" style="padding: 12px 14px; font-weight: 500; font-size: 15px; text-decoration: none; color: #3A2B4E">Projects</a>
+<a href="index.html#projects" style="padding: 12px 14px; font-weight: 500; font-size: 15px; text-decoration: none; color: #3A2B4E">Projects</a>
 <a href="services.html" style="padding: 12px 14px; font-weight: 500; font-size: 15px; text-decoration: none; color: #3A2B4E">Services</a>
 <a href="contact.html" style="padding: 12px 14px; font-weight: 500; font-size: 15px; text-decoration: none; color: #3A2B4E">Contact</a>
 <a class="btn" href="contact.html" style="margin-left: 6px; padding: 13px 20px; background: #2A1B3D; color: #FFF0E4; border-radius: 999px; font-weight: 600; font-size: 15px; text-decoration: none">Let's talk</a>
@@ -61,7 +61,12 @@
 <section class="pop bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; padding-top: 44px; animation-delay: .1s">
 
 <!-- FORM -->
-<form class="glass" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" style="grid-column: span 7; border-radius: 36px; padding: clamp(24px, 3.4vw, 44px); display: flex; flex-direction: column; gap: 22px">
+<div id="sent-note" class="frost" role="status" hidden style="grid-column: 1 / -1; border-radius: 22px; padding: 16px 22px; font-weight: 600; color: #2A1B3D">Thanks, your message is on its way.</div>
+<form class="glass" action="https://formsubmit.co/abrarzamil.dev@gmail.com" method="POST" style="grid-column: span 7; border-radius: 36px; padding: clamp(24px, 3.4vw, 44px); display: flex; flex-direction: column; gap: 22px">
+<input type="hidden" name="_subject" value="New enquiry from abrarshuvo.github.io">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_next" value="https://abrarshuvo.github.io/contact.html?sent=1">
+<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
 <h2 style="font-size: 30px; letter-spacing: -0.03em; font-weight: 600">Send me a message</h2>
 <div style="display: flex; flex-wrap: wrap; gap: 18px">
 <div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
@@ -124,7 +129,7 @@
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>
 <span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-size: 12px; color: #E8E2FF">Email</span><span style="font-size: 16px; font-weight: 600">abrarzamil.dev@gmail.com</span></span>
 <svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg></a>
-<a class="btn" href="https://www.linkedin.com/in/[your-handle]" style="position: relative; display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: rgba(255,255,255,.14); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,.4); border-radius: 18px; color: #FFFFFF; text-decoration: none">
+<a class="btn" href="https://www.linkedin.com/in/abrar-zamil-shuvo-059b04229" style="position: relative; display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: rgba(255,255,255,.14); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,.4); border-radius: 18px; color: #FFFFFF; text-decoration: none">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
 <span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-size: 12px; color: #E8E2FF">LinkedIn</span><span style="font-size: 16px; font-weight: 600">Message me there</span></span>
 <svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg></a>
@@ -169,8 +174,8 @@
 <div style="flex: 0 1 240px; min-width: 200px; display: flex; flex-direction: column; gap: 2px">
 <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A4B6E; padding-bottom: 10px">Elsewhere</span>
 <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
-<a class="btn" href="https://www.linkedin.com/in/[your-handle]" style="display: flex; align-items: center; gap: 10px; padding: 11px 16px; background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.95); border-radius: 999px; font-size: 14px; font-weight: 600; color: #2A1B3D; text-decoration: none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>LinkedIn</a>
-<a class="btn" href="https://x.com/[your-x-handle]" style="display: flex; align-items: center; gap: 10px; padding: 11px 16px; background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.95); border-radius: 999px; font-size: 14px; font-weight: 600; color: #2A1B3D; text-decoration: none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg>X</a>
+<a class="btn" href="https://www.linkedin.com/in/abrar-zamil-shuvo-059b04229" style="display: flex; align-items: center; gap: 10px; padding: 11px 16px; background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.95); border-radius: 999px; font-size: 14px; font-weight: 600; color: #2A1B3D; text-decoration: none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>LinkedIn</a>
+<a class="btn" href="https://x.com/AbrarZamilShuvo" style="display: flex; align-items: center; gap: 10px; padding: 11px 16px; background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.95); border-radius: 999px; font-size: 14px; font-weight: 600; color: #2A1B3D; text-decoration: none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg>X</a>
 <a class="btn" href="https://github.com/AbrarShuvo" style="display: flex; align-items: center; gap: 10px; padding: 11px 16px; background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.95); border-radius: 999px; font-size: 14px; font-weight: 600; color: #2A1B3D; text-decoration: none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"></path></svg>GitHub</a>
 <a class="btn" href="mailto:abrarzamil.dev@gmail.com" style="display: flex; align-items: center; gap: 10px; padding: 11px 16px; background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.95); border-radius: 999px; font-size: 14px; font-weight: 600; color: #2A1B3D; text-decoration: none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>Email</a>
 </div>
