@@ -1,0 +1,77 @@
+/* Abrar Zamil — portfolio. Glass bento design system. */
+
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#FFF0E4}
+h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;margin:0}
+p{margin:0}
+a{color:#2A1B3D}a:hover{color:#3B5BEA}
+.glass{background:rgba(255,255,255,.58);-webkit-backdrop-filter:blur(24px) saturate(1.5);backdrop-filter:blur(24px) saturate(1.5);border:1px solid rgba(255,255,255,.8);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 1px 2px rgba(74,48,120,.05),0 22px 54px rgba(74,48,120,.13)}
+.frost{background:rgba(255,255,255,.86);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(255,255,255,.95);box-shadow:inset 0 1px 0 #fff,0 18px 44px rgba(30,20,90,.28)}
+.tile{transition:translate .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s ease}
+.tile:hover{translate:0 -6px}
+.glass.tile:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 2px 4px rgba(74,48,120,.06),0 36px 80px rgba(74,48,120,.22)}
+.shine{position:relative;overflow:hidden}
+.shine::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,0) 42%,rgba(255,255,255,.6) 50%,rgba(255,255,255,0) 58%);translate:-110% 0;transition:translate 1s ease;pointer-events:none}
+.shine:hover::after{translate:110% 0}
+.orb{border-radius:50%;background-image:radial-gradient(circle at 32% 26%,rgba(255,255,255,.98) 0,rgba(255,255,255,.9) 5%,rgba(255,255,255,.3) 20%,rgba(255,255,255,.06) 52%,rgba(255,255,255,.22) 78%,rgba(255,255,255,.55) 100%);box-shadow:inset 0 -10px 24px rgba(255,255,255,.4),inset 0 0 0 1px rgba(255,255,255,.6),0 18px 36px rgba(40,24,100,.22);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.blob{position:absolute;border-radius:50%;pointer-events:none}
+.win{box-shadow:0 2px 6px rgba(42,27,61,.10),0 26px 60px rgba(30,20,90,.32)}
+.zoom{transition:scale .6s cubic-bezier(.2,.7,.2,1)}
+.tile:hover .zoom{scale:1.035}
+.btn{transition:translate .2s ease}
+.btn:hover{translate:0 -2px}
+.arr{transition:translate .25s ease}
+.btn:hover .arr{translate:4px 0}
+.par{transition:translate .6s cubic-bezier(.2,.7,.2,1)}
+.p1{translate:calc(var(--mx,0)*10px) calc(var(--my,0)*10px)}
+.p2{translate:calc(var(--mx,0)*-22px) calc(var(--my,0)*-22px)}
+.p3{translate:calc(var(--mx,0)*36px) calc(var(--my,0)*36px)}
+@keyframes pop{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
+.pop{animation:pop .8s cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(31,157,99,.45)}100%{box-shadow:0 0 0 10px rgba(31,157,99,0)}}
+.dot{animation:pulse 1.8s ease-out infinite}
+@keyframes rec{50%{opacity:.25}}
+.rec{animation:rec 1.2s ease-in-out infinite}
+@keyframes floatA{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,40px)}}
+@keyframes floatB{0%,100%{transform:translate(0,0)}50%{transform:translate(36px,-30px)}}
+.fa{animation:floatA 16s ease-in-out infinite}
+.fb{animation:floatB 13s ease-in-out infinite}
+@keyframes bob{0%,100%{translate:0 0}50%{translate:0 -10px}}
+.bob{animation:bob 6s ease-in-out infinite}
+@keyframes spin{to{rotate:360deg}}
+.spin{animation:spin 36s linear infinite}
+@keyframes marquee{to{transform:translateX(-50%)}}
+.marquee{animation:marquee 34s linear infinite}
+.mq:hover .marquee{animation-play-state:paused}
+@keyframes dA{0%,5%{opacity:0;transform:translateY(8px)}11%,93%{opacity:1;transform:none}100%{opacity:0;transform:none}}
+@keyframes dB{0%,15%{opacity:0;transform:translateY(8px)}21%,93%{opacity:1;transform:none}100%{opacity:0;transform:none}}
+@keyframes dC{0%,38%{opacity:0;transform:translateY(8px)}44%,93%{opacity:1;transform:none}100%{opacity:0;transform:none}}
+@keyframes dD{0%,48%{opacity:0;transform:translateY(8px)}54%,93%{opacity:1;transform:none}100%{opacity:0;transform:none}}
+@keyframes dF{0%,66%{opacity:0;transform:scale(.9)}72%,93%{opacity:1;transform:none}100%{opacity:0;transform:none}}
+@keyframes scan{0%,22%{width:0}36%,93%{width:100%}100%{width:100%;opacity:0}}
+.dA{animation:dA 10s ease infinite}.dB{animation:dB 10s ease infinite}.dC{animation:dC 10s ease infinite}.dD{animation:dD 10s ease infinite}.dF{animation:dF 10s ease infinite}
+.scan{animation:scan 10s ease infinite}
+@keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.bar{transform-origin:bottom;animation:grow .9s cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@supports (animation-timeline: view()){.rv{animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 30%}}
+@media (max-width:860px){.bento{grid-template-columns:minmax(0,1fr) !important}.bento>*{grid-column:auto !important}}
+@media (prefers-reduced-motion: reduce){.pop,.dot,.rec,.fa,.fb,.bob,.spin,.marquee,.dA,.dB,.dC,.dD,.dF,.scan,.bar,.rv{animation:none}.tile,.zoom,.btn,.arr,.par,.shine::after{transition:none}.p1,.p2,.p3{translate:none}}
+
+/* --- additions for the live site --- */
+img,svg{max-width:100%}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #3350DC;outline-offset:3px;border-radius:6px}
+input:focus,select:focus,textarea:focus{border-color:#3350DC}
+button{font-family:inherit}
+::selection{background:#FFD34D;color:#2A1B3D}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+
+/* --- phone fixes --- */
+@media (max-width: 700px){
+  .hero-tags{left:10px;right:10px !important;flex-wrap:wrap;justify-content:flex-end}
+  .hero-tags span{font-size:13px !important;padding:7px 12px !important}
+}
+@media (max-width: 430px){
+  .hero-tags span{font-size:12px !important;padding:6px 10px !important}
+}
