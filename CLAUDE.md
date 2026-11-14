@@ -107,6 +107,9 @@ Email is already set: `abrarzamil.dev@gmail.com`
 - `67/67` (Loom to Tasks) and `156` (Lead Tracker) come from real test suites.
   They appear only in the case studies (meta row and result panel).
 - Don't invent metrics, testimonials, client logos or dates.
+- About → Certificates lists only certificates actually issued, each linking to its
+  public credential page (365 Data Science: Statistics, Jan 2025; Introduction to Data
+  and Data Science, Nov 2024). Never add a certificate without its real link.
 
 ## Open decisions
 
