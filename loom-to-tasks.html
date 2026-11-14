@@ -4,21 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Loom to Tasks — case study — Abrar Zamil</title>
-<meta name="description" content="A Python tool that reads a meeting transcript and turns it into structured tasks, owners, deadlines and decisions. 67/67 automated checks passing.">
+<meta name="description" content="Case study: a Python tool that turns meeting transcripts into tasks, owners, deadlines and decisions.">
 <meta name="author" content="Abrar Zamil">
-<meta name="theme-color" content="#FFF0E4">
+<meta name="theme-color" content="#EDEFFF">
 <link rel="canonical" href="https://abrarshuvo.github.io/loom-to-tasks.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Abrar Zamil">
 <meta property="og:title" content="Loom to Tasks — case study — Abrar Zamil">
-<meta property="og:description" content="A Python tool that reads a meeting transcript and turns it into structured tasks, owners, deadlines and decisions. 67/67 automated checks passing.">
+<meta property="og:description" content="Case study: a Python tool that turns meeting transcripts into tasks, owners, deadlines and decisions.">
 <meta property="og:url" content="https://abrarshuvo.github.io/loom-to-tasks.html">
 <meta property="og:image" content="https://abrarshuvo.github.io/images/og-cover.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Loom to Tasks — case study — Abrar Zamil">
-<meta name="twitter:description" content="A Python tool that reads a meeting transcript and turns it into structured tasks, owners, deadlines and decisions. 67/67 automated checks passing.">
+<meta name="twitter:description" content="Case study: a Python tool that turns meeting transcripts into tasks, owners, deadlines and decisions.">
 <meta name="twitter:image" content="https://abrarshuvo.github.io/images/og-cover.png">
 <link rel="icon" href="images/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,245 +27,191 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div id="top" style="position: relative; background: linear-gradient(180deg, #FFF0E4 0%, #F3E9FF 30%, #FFEEDD 62%, #FFF0E4 100%); color: #2A1B3D; font-family: Inter, system-ui, sans-serif; overflow-x: clip">
-
-<div aria-hidden="true" style="position: absolute; inset: 0; overflow: hidden; pointer-events: none">
-<span class="blob fa" style="top: 420px; left: -240px; width: 760px; height: 760px; background: radial-gradient(closest-side, rgba(76,111,255,.40), rgba(76,111,255,0))"></span>
-<span class="blob fb" style="top: 1100px; right: -240px; width: 780px; height: 780px; background: radial-gradient(closest-side, rgba(142,123,255,.40), rgba(142,123,255,0))"></span>
-<span class="blob fa" style="top: 2000px; left: 10%; width: 720px; height: 720px; background: radial-gradient(closest-side, rgba(255,211,77,.46), rgba(255,211,77,0)); animation-delay: -6s"></span>
-<span class="blob fb" style="top: 2900px; right: 2%; width: 740px; height: 740px; background: radial-gradient(closest-side, rgba(255,122,47,.36), rgba(255,122,47,0)); animation-delay: -3s"></span>
+<div id="top" class="page">
+<div class="blobs" aria-hidden="true">
+<span class="blob fa" style="top: 4%; left: -220px; width: 720px; height: 720px; background: radial-gradient(closest-side, rgba(76,111,255,.42), rgba(76,111,255,0))"></span>
+<span class="blob fb" style="top: 14%; right: -260px; width: 780px; height: 780px; background: radial-gradient(closest-side, rgba(255,122,47,.34), rgba(255,122,47,0))"></span>
+<span class="blob fa" style="top: 34%; left: 18%; width: 700px; height: 700px; background: radial-gradient(closest-side, rgba(255,211,77,.42), rgba(255,211,77,0)); animation-delay: -5s"></span>
+<span class="blob fb" style="top: 50%; right: -180px; width: 760px; height: 760px; background: radial-gradient(closest-side, rgba(142,123,255,.40), rgba(142,123,255,0)); animation-delay: -4s"></span>
+<span class="blob fa" style="top: 66%; left: -240px; width: 800px; height: 800px; background: radial-gradient(closest-side, rgba(240,112,150,.30), rgba(240,112,150,0)); animation-delay: -8s"></span>
+<span class="blob fb" style="top: 82%; right: 6%; width: 700px; height: 700px; background: radial-gradient(closest-side, rgba(76,111,255,.34), rgba(76,111,255,0)); animation-delay: -2s"></span>
 </div>
-
-<div style="position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; padding: 16px clamp(16px, 3vw, 32px) 0; display: flex; flex-direction: column; gap: 20px">
-
-<!-- NAV -->
-<nav class="glass" aria-label="Main" style="position: sticky; top: 12px; z-index: 20; align-self: center; width: 100%; max-width: 820px; border-radius: 28px; padding: 8px 8px 8px 22px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap">
-<a href="index.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #2A1B3D; padding: 8px 0">
-<span style="width: 28px; height: 28px; border-radius: 9px; background: linear-gradient(140deg, #3B5BEA, #7A5CE6); color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 20px; line-height: 1">A</span>
-<span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.01em">Abrar Zamil</span>
-</a>
-<div class="nav-right" style="display: flex; align-items: center; gap: 2px; flex-wrap: wrap">
+<div class="wrap">
+<nav class="nav glass" aria-label="Main">
+<a class="brand" href="index.html"><span class="brand-mark">A</span><span class="brand-name">Abrar Zamil</span></a>
+<div class="nav-right">
 <div class="nav-links" id="nav-links">
-<a href="index.html#projects" style="padding: 12px 14px; font-weight: 500; font-size: 15px; text-decoration: none; color: #3A2B4E">Projects</a>
-<a href="services.html" style="padding: 12px 14px; font-weight: 500; font-size: 15px; text-decoration: none; color: #3A2B4E">Services</a>
-<a href="contact.html" style="padding: 12px 14px; font-weight: 500; font-size: 15px; text-decoration: none; color: #3A2B4E">Contact</a>
+<a href="projects.html" aria-current="page">Work</a>
+<a href="services.html">Services</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
 </div>
-<a class="btn" href="contact.html" style="margin-left: 6px; padding: 13px 20px; background: #2A1B3D; color: #FFF0E4; border-radius: 999px; font-weight: 600; font-size: 15px; text-decoration: none">Let's talk</a>
-<button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><svg class="i-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><svg class="i-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+<a class="btn btn-dark nav-cta" href="contact.html">Let&#39;s talk</a>
+<button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><svg class="i-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><svg class="i-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
 </div>
 </nav>
 
-<!-- HERO -->
-<section class="pop" style="display: flex; flex-direction: column; gap: 24px; padding-top: 44px">
-<a href="index.html" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; text-decoration: none; color: #3A2B4E">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>All projects</a>
-<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 28px">
-<div style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
-<span style="align-self: flex-start; padding: 6px 14px; background: rgba(76,111,255,.14); border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #2A3FA8">Case study 01 · AI automation</span>
-<h1 style="font-size: clamp(44px, 6vw, 86px); line-height: 1; letter-spacing: -0.045em; font-weight: 600">Loom to Tasks</h1>
-<p style="font-size: clamp(18px, 1.7vw, 23px); line-height: 1.5; color: #3A2B4E; max-width: 620px">A Python tool that reads a meeting transcript and turns it into structured tasks, owners, deadlines and decisions, so nobody has to rewatch the recording.</p>
-</div>
-<div style="display: flex; gap: 12px; flex-wrap: wrap">
-<a class="btn" href="https://github.com/AbrarShuvo" style="display: inline-flex; align-items: center; gap: 8px; padding: 15px 24px; background: #2A1B3D; color: #FFF0E4; border-radius: 999px; font-weight: 600; font-size: 15px; text-decoration: none" target="_blank" rel="noopener">View code on GitHub
-<svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg></a>
-</div>
-</div>
+<section class="case-head pop">
+<a class="back" href="projects.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>All work</a>
+<span class="pill pill-blue">AI automation</span>
+<h1 class="h1">Loom to Tasks</h1>
+<div class="tags"><span class="tag">Python</span><span class="tag">Gemini API</span><span class="tag">Structured outputs</span><span class="tag">Automated tests</span></div>
+<p class="lead" style="max-width: 720px">A Python tool that reads a recorded meeting and turns it into a clear list of tasks, owners, deadlines and decisions, so nobody has to rewatch the call.</p>
+<div class="btns"><a class="btn btn-dark" href="https://github.com/AbrarShuvo" target="_blank" rel="noopener">View code on GitHub <svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg></a><a class="btn btn-glass" href="contact.html?service=AI%20integrations">Start a similar project</a></div>
+<div class="meta glass" style="margin-top: 8px"><div><span>My role</span><b>Built it end to end</b></div><div><span>Built with</span><b>Python · Gemini API</b></div><div><span>Tested on</span><b>4 sample meetings</b></div><div><span>Status</span><b><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 9px; height: 9px; border-radius: 50%; background: #1F9D63"></span>Working prototype</span></b></div></div>
+</section>
 
-<!-- meta row -->
-<div class="glass" style="border-radius: 24px; display: flex; flex-wrap: wrap">
-<div style="flex: 1 1 200px; min-width: 0; padding: 20px 24px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A4B6E">My role</span><span style="font-size: 16px; font-weight: 600">Solo build, end to end</span></div>
-<div style="flex: 1 1 200px; min-width: 0; padding: 20px 24px; display: flex; flex-direction: column; gap: 4px; border-left: 1px solid rgba(42,27,61,.12)"><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A4B6E">Built with</span><span style="font-size: 16px; font-weight: 600">Python · Gemini API</span></div>
-<div style="flex: 1 1 200px; min-width: 0; padding: 20px 24px; display: flex; flex-direction: column; gap: 4px; border-left: 1px solid rgba(42,27,61,.12)"><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A4B6E">Tested with</span><span style="font-size: 16px; font-weight: 600">4 sample transcripts</span></div>
-<div style="flex: 1 1 200px; min-width: 0; padding: 20px 24px; display: flex; flex-direction: column; gap: 4px; border-left: 1px solid rgba(42,27,61,.12)"><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A4B6E">Status</span><span style="display: inline-flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 600"><span style="width: 9px; height: 9px; border-radius: 50%; background: #1F9D63"></span>Working prototype</span></div>
+<section class="case-visual g-blue pop" style="animation-delay: .1s">
+<span aria-hidden="true" class="orb bob" style="position: absolute; left: 3%; bottom: 8%; width: 120px; height: 120px; background-color: rgba(255,255,255,.14); animation-delay: 0s"></span>
+<span aria-hidden="true" class="orb bob" style="position: absolute; right: 4%; top: 6%; width: 70px; height: 70px; background-color: rgba(255,210,150,.30); animation-delay: -2.5s"></span>
+<span aria-hidden="true" class="orb bob" style="position: absolute; left: 8%; top: 9%; width: 40px; height: 40px; background-color: rgba(255,255,255,.22); animation-delay: -1.2s"></span>
+<span aria-hidden="true" class="orb bob" style="position: absolute; right: 9%; bottom: 12%; width: 54px; height: 54px; background-color: rgba(255,255,255,.18); animation-delay: -3.6s"></span>
+<span aria-hidden="true" class="orb bob" style="position: absolute; left: 44%; top: 3%; width: 26px; height: 26px; background-color: rgba(255,255,255,.26); animation-delay: -4.4s"></span>
+<span aria-hidden="true" class="orb bob" style="position: absolute; right: 30%; bottom: 4%; width: 34px; height: 34px; background-color: rgba(190,170,255,.32); animation-delay: -2s"></span>
+<div style="position: relative; width: 100%; max-width: 920px"><div class="demo" role="img" aria-label="Animated example: a meeting transcript on the left is turned into a list of tasks and a decision on the right">
+<div class="demo-bar"><i style="background: #F26D5F"></i><i style="background: #F5BD4F"></i><i style="background: #5FC454"></i><b>Loom to Tasks</b><span class="demo-live">Live demo</span></div>
+<div class="demo-body">
+<div class="demo-col">
+<span class="demo-h">Meeting transcript</span>
+<div class="line s1"><span class="av av-c">C</span><span><span class="who">Client · 00:12</span>Can we move the launch to Friday?</span></div>
+<div class="line s2"><span class="av av-d">D</span><span><span class="who">Designer · 00:19</span>Sure. I&#39;ll send the new homepage by Thursday.</span></div>
+<div class="line s3"><span class="av av-c">C</span><span><span class="who">Client · 00:31</span>And please add our new team photos.</span></div>
+<div class="line s4"><span class="av av-d">D</span><span><span class="who">Designer · 00:44</span>Noted. I&#39;ll confirm the copy with you first.</span></div>
+<div class="track"><span></span></div>
+</div>
+<div class="demo-col">
+<span class="demo-h">What the AI pulls out</span>
+<span class="wait" aria-hidden="true">Reading the meeting<i>.</i><i>.</i><i>.</i></span>
+<div class="out s5"><span class="chk"></span><span class="t">Send new homepage draft</span><span class="chip chip-b">Designer · Thu</span></div>
+<div class="out s6"><span class="chk"></span><span class="t">Add new team photos</span><span class="chip chip-b">Designer</span></div>
+<div class="out out-dec s7"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6B4E00" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4h12l-2 4 2 4H5"></path></svg><span class="t">Launch moves to Friday</span><span class="chip chip-y">Decision</span></div>
+<span class="saved s8"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FFD34D" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Saved as a task list</span>
+</div>
+</div>
+</div></div>
+</section>
+
+<section class="sec split rv">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<span class="eyebrow">The problem</span>
+<h2 class="h2">The decisions were in the recording. Nobody had time to find them.</h2>
+<p class="body" style="font-size: 17px; max-width: 560px">A design agency records its client meetings. Afterwards, one designer watches the whole recording, writes down what the client asked for and passes it on. It works, but it costs a full rewatch every time, and anything missed is simply lost.</p>
+</div>
+<div class="ba glass">
+<span class="eyebrow" style="color: #5A4B6E">Before</span>
+<div class="ba-row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B43E0A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg><span>Someone rewatches the whole recording</span></div><div class="ba-row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B43E0A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg><span>Notes live in one person’s head</span></div><div class="ba-row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B43E0A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg><span>No record of who owns what</span></div>
+<div style="height: 1px; background: rgba(42,27,61,.12); margin: 4px 0"></div>
+<span class="eyebrow" style="color: #5A4B6E">After</span>
+<div class="ba-row" style="font-weight: 600"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F9D63" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg><span>One command turns the transcript into a task list</span></div><div class="ba-row" style="font-weight: 600"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F9D63" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg><span>Every task has an owner and a deadline</span></div><div class="ba-row" style="font-weight: 600"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F9D63" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg><span>Decisions are kept in writing</span></div>
 </div>
 </section>
 
-<!-- BIG SHOT -->
-<section class="pop" style="position: relative; border-radius: 36px; background: linear-gradient(135deg, #2F47CF 0%, #5B4FDB 38%, #8E6BE8 66%, #F08A6B 100%); box-shadow: 0 30px 80px rgba(60,50,170,.30); padding: clamp(24px, 5vw, 70px); display: flex; align-items: center; justify-content: center; overflow: hidden; animation-delay: .1s">
-<span aria-hidden="true" class="orb bob" style="position: absolute; left: 4%; bottom: 10%; width: 120px; height: 120px; background-color: rgba(255,255,255,.14)"></span>
-<span aria-hidden="true" class="orb bob" style="position: absolute; right: 5%; top: 9%; width: 62px; height: 62px; background-color: rgba(255,210,150,.3); animation-delay: -2.5s"></span>
-<div class="win" style="position: relative; width: 100%; max-width: 860px; background: #FFFFFF; border-radius: 16px; overflow: hidden">
-<div style="display: flex; align-items: center; gap: 6px; padding: 11px 16px; background: #F4EEE7; border-bottom: 1px solid #E6DCD0">
-<span style="width: 11px; height: 11px; border-radius: 50%; background: #F26D5F"></span><span style="width: 11px; height: 11px; border-radius: 50%; background: #F5BD4F"></span><span style="width: 11px; height: 11px; border-radius: 50%; background: #5FC454"></span>
-<span style="flex: 1; text-align: center; font-size: 13px; font-weight: 600; color: #4A3A5C">Loom to Tasks</span>
-<span style="padding: 3px 10px; background: #E3F5EB; border-radius: 999px; font-size: 12px; font-weight: 700; color: #136B43">67/67 checks</span>
-</div>
-<div style="display: flex; flex-wrap: wrap">
-<div style="flex: 1 1 280px; min-width: 0; padding: 18px; display: flex; flex-direction: column; gap: 14px; border-right: 1px solid #EFE8DF; border-bottom: 1px solid #EFE8DF; margin: 0 -1px -1px 0">
-<span style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #6B5E7B">Transcript in</span>
-<div style="display: flex; gap: 9px; font-size: 13px; line-height: 1.45"><span style="flex: none; width: 24px; height: 24px; border-radius: 50%; background: #FFD34D; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700">C</span><span><span style="display: block; font-size: 11px; color: #6B5E7B">Client · 00:12</span>Can we move the launch to Friday?</span></div>
-<div style="display: flex; gap: 9px; font-size: 13px; line-height: 1.45"><span style="flex: none; width: 24px; height: 24px; border-radius: 50%; background: #C9D3FF; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700">D</span><span><span style="display: block; font-size: 11px; color: #6B5E7B">Designer · 00:19</span>Sure. I'll send the new homepage by Thursday.</span></div>
-<div style="display: flex; gap: 9px; font-size: 13px; line-height: 1.45"><span style="flex: none; width: 24px; height: 24px; border-radius: 50%; background: #FFD34D; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700">C</span><span><span style="display: block; font-size: 11px; color: #6B5E7B">Client · 00:31</span>And please update the pricing table.</span></div>
-<div style="display: flex; gap: 9px; font-size: 13px; line-height: 1.45"><span style="flex: none; width: 24px; height: 24px; border-radius: 50%; background: #C9D3FF; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700">D</span><span><span style="display: block; font-size: 11px; color: #6B5E7B">Designer · 00:44</span>Noted. I'll confirm the copy with you first.</span></div>
-</div>
-<div style="flex: 1.15 1 300px; min-width: 0; padding: 18px; display: flex; flex-direction: column; gap: 9px; background: #FFFCF8">
-<div style="display: flex; gap: 6px; font-size: 12px; font-weight: 600; margin-bottom: 2px">
-<span style="padding: 5px 11px; background: #2A1B3D; color: #FFF0E4; border-radius: 8px">Tasks · 2</span>
-<span style="padding: 5px 11px; background: #F4EEE7; color: #4A3A5C; border-radius: 8px">Decisions · 1</span>
-<span style="padding: 5px 11px; background: #F4EEE7; color: #4A3A5C; border-radius: 8px">Owners · 1</span>
-</div>
-<div style="display: flex; align-items: center; gap: 10px; padding: 11px 13px; background: #FFFFFF; border: 1px solid #EFE8DF; border-radius: 10px; font-size: 13px; font-weight: 600"><span style="flex: none; width: 16px; height: 16px; border-radius: 5px; border: 2px solid #C9BDD8"></span><span style="flex: 1; min-width: 0">Send new homepage draft</span><span style="padding: 2px 9px; background: #E6EBFF; border-radius: 999px; font-size: 11px; color: #2A3FA8">Designer</span><span style="font-size: 11px; font-weight: 500; color: #6B5E7B">Thu</span></div>
-<div style="display: flex; align-items: center; gap: 10px; padding: 11px 13px; background: #FFFFFF; border: 1px solid #EFE8DF; border-radius: 10px; font-size: 13px; font-weight: 600"><span style="flex: none; width: 16px; height: 16px; border-radius: 5px; border: 2px solid #C9BDD8"></span><span style="flex: 1; min-width: 0">Update pricing table</span><span style="padding: 2px 9px; background: #E6EBFF; border-radius: 999px; font-size: 11px; color: #2A3FA8">Designer</span><span style="font-size: 11px; font-weight: 500; color: #6B5E7B">Open</span></div>
-<div style="display: flex; align-items: center; gap: 10px; padding: 11px 13px; background: #FFF9E3; border: 1px solid #F1E2A8; border-radius: 10px; font-size: 13px; font-weight: 600"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6B4E00" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4h12l-2 4 2 4H5"></path></svg><span style="flex: 1; min-width: 0">Launch moves to Friday</span><span style="font-size: 11px; font-weight: 600; color: #6B4E00">Decision</span></div>
-<div style="margin-top: auto; padding-top: 8px; font-size: 11px; color: #6B5E7B">Sample output · exported to tasks.json</div>
-</div>
-</div>
-</div>
+<section class="sec" id="how">
+<div class="sec-head rv"><div><span class="eyebrow">How it works</span><h2 class="h2">Three steps</h2></div></div>
+<div class="grid g3 rv"><div class="glass card tile" style="padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span class="orb" style="width: 52px; height: 52px; background-color: rgba(76,111,255,.45); display: flex; align-items: center; justify-content: center; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 21px">1</span>
+<h3 class="h3">Read the transcript</h3>
+<p class="small" style="font-size: 15px">The tool cleans up the transcript and splits it into who said what, and when.</p>
+</div><div class="glass card tile" style="padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span class="orb" style="width: 52px; height: 52px; background-color: rgba(142,123,255,.45); display: flex; align-items: center; justify-content: center; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 21px">2</span>
+<h3 class="h3">Pull out the work</h3>
+<p class="small" style="font-size: 15px">AI picks out the tasks, owners, deadlines and decisions, and has to answer in one fixed format.</p>
+</div><div class="glass card tile" style="padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span class="orb" style="width: 52px; height: 52px; background-color: rgba(255,211,77,.7); display: flex; align-items: center; justify-content: center; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 21px">3</span>
+<h3 class="h3">Check and save</h3>
+<p class="small" style="font-size: 15px">Every answer is checked against that format, asked again if it’s wrong, then saved as a task list other tools can read.</p>
+</div></div>
+<div class="glass card pad rv" style="margin-top: 20px"><div class="flow"><span class="flow-step frost">Transcript</span><span class="flow-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7A5CE6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span><span class="flow-step" style="background: linear-gradient(140deg, #3350DC, #7A5CE6); color: #fff; box-shadow: 0 12px 26px rgba(59,91,234,.28)">AI extraction</span><span class="flow-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7A5CE6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span><span class="flow-step frost">Format check</span><span class="flow-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7A5CE6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span><span class="flow-step" style="background: linear-gradient(140deg, #FFE27A, #FFA45C); box-shadow: 0 12px 26px rgba(255,150,60,.28)">Task list</span></div></div>
 </section>
 
-<!-- PROBLEM -->
-<section class="rv" style="padding: 80px 0 0; display: flex; flex-wrap: wrap; gap: 24px">
-<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
-<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #2A3FA8">The problem</span>
-<h2 style="font-size: clamp(32px, 4vw, 54px); line-height: 1.04; letter-spacing: -0.04em; font-weight: 500">The decisions were in the recording. Nobody had time to find them.</h2>
-<p style="font-size: 17px; line-height: 1.65; color: #3A2B4E; max-width: 560px">A design agency records its client meetings. One designer watches the whole recording, writes down what the client asked for, and carries it to the team. It works, but it costs a full rewatch every time, and anything missed on that pass is simply lost.</p>
+<section class="sec split rv">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<span class="eyebrow">Decisions I made</span>
+<h2 class="h2">Built to be relied on</h2>
 </div>
-<div class="glass" style="flex: 1 1 340px; min-width: 0; border-radius: 28px; padding: 28px; display: flex; flex-direction: column; gap: 14px">
-<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #5A4B6E">Before</span>
-<div style="display: flex; align-items: flex-start; gap: 12px; font-size: 15px; line-height: 1.5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B43E0A" stroke-width="2.6" stroke-linecap="round" style="flex: none; margin-top: 2px" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>Someone rewatches the full recording</div>
-<div style="display: flex; align-items: flex-start; gap: 12px; font-size: 15px; line-height: 1.5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B43E0A" stroke-width="2.6" stroke-linecap="round" style="flex: none; margin-top: 2px" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>Notes live in one person's head</div>
-<div style="display: flex; align-items: flex-start; gap: 12px; font-size: 15px; line-height: 1.5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B43E0A" stroke-width="2.6" stroke-linecap="round" style="flex: none; margin-top: 2px" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>No record of who owns what</div>
-<div style="height: 1px; background: rgba(42,27,61,.12); margin: 6px 0"></div>
-<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #5A4B6E">After</span>
-<div style="display: flex; align-items: flex-start; gap: 12px; font-size: 15px; line-height: 1.5; font-weight: 600"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F9D63" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 2px" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>One command, structured output</div>
-<div style="display: flex; align-items: flex-start; gap: 12px; font-size: 15px; line-height: 1.5; font-weight: 600"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F9D63" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 2px" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Every task has an owner and a date</div>
-<div style="display: flex; align-items: flex-start; gap: 12px; font-size: 15px; line-height: 1.5; font-weight: 600"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F9D63" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 2px" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Decisions kept separately, on the record</div>
-</div>
+<div style="display: flex; flex-direction: column; gap: 14px"><div class="glass card tile" style="padding: 24px 26px; display: flex; flex-direction: column; gap: 6px">
+<h3 class="h3" style="font-size: 19px">It never guesses</h3>
+<p class="small" style="font-size: 15px">If nobody said who owns a task or when it’s due, it writes “unknown” instead of making something up.</p>
+</div><div class="glass card tile" style="padding: 24px 26px; display: flex; flex-direction: column; gap: 6px">
+<h3 class="h3" style="font-size: 19px">One fixed format</h3>
+<p class="small" style="font-size: 15px">The output always has the same shape, so it can go straight into a task tool.</p>
+</div><div class="glass card tile" style="padding: 24px 26px; display: flex; flex-direction: column; gap: 6px">
+<h3 class="h3" style="font-size: 19px">Right answers written first</h3>
+<p class="small" style="font-size: 15px">I wrote the correct answer for every test meeting before running the tool, so the tests measure accuracy, not just “it ran”.</p>
+</div></div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section class="rv" style="padding: 80px 0 0; display: flex; flex-direction: column; gap: 32px">
-<div style="display: flex; flex-direction: column; gap: 14px">
-<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #2A3FA8">How it works</span>
-<h2 style="font-size: clamp(32px, 4vw, 54px); line-height: 1.04; letter-spacing: -0.04em; font-weight: 500">Three steps, one command</h2>
-</div>
-<div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px">
-<div class="glass tile" style="grid-column: span 4; border-radius: 28px; padding: 30px; display: flex; flex-direction: column; gap: 16px">
-<span class="orb" style="width: 56px; height: 56px; background-color: rgba(76,111,255,.45); display: flex; align-items: center; justify-content: center; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 22px">1</span>
-<h3 style="font-size: 25px; letter-spacing: -0.025em; font-weight: 600">Read the transcript</h3>
-<p style="font-size: 15px; line-height: 1.6; color: #3A2B4E">The reader takes the raw transcript file, cleans it up and splits it into speaker turns with timestamps.</p>
-</div>
-<div class="glass tile" style="grid-column: span 4; border-radius: 28px; padding: 30px; display: flex; flex-direction: column; gap: 16px">
-<span class="orb" style="width: 56px; height: 56px; background-color: rgba(142,123,255,.45); display: flex; align-items: center; justify-content: center; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 22px">2</span>
-<h3 style="font-size: 25px; letter-spacing: -0.025em; font-weight: 600">Extract with AI</h3>
-<p style="font-size: 15px; line-height: 1.6; color: #3A2B4E">The model is asked for one exact shape of answer, not free text: tasks, owners, dates and decisions, each in its own field.</p>
-</div>
-<div class="glass tile" style="grid-column: span 4; border-radius: 28px; padding: 30px; display: flex; flex-direction: column; gap: 16px">
-<span class="orb" style="width: 56px; height: 56px; background-color: rgba(255,211,77,.7); display: flex; align-items: center; justify-content: center; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 22px">3</span>
-<h3 style="font-size: 25px; letter-spacing: -0.025em; font-weight: 600">Check and save</h3>
-<p style="font-size: 15px; line-height: 1.6; color: #3A2B4E">Every answer is validated against the schema, retried if it comes back malformed, then written out as tasks.json.</p>
-</div>
-</div>
-<div class="glass" style="border-radius: 28px; padding: clamp(20px, 3vw, 36px); display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 18px">
-<span class="frost" style="padding: 14px 22px; border-radius: 16px; font-weight: 600; font-size: 15px">transcript.txt</span>
-<svg width="34" height="20" viewBox="0 0 34 20" fill="none" stroke="#7A5CE6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 10h28M24 4l6 6-6 6"></path></svg>
-<span style="padding: 14px 22px; border-radius: 16px; font-weight: 600; font-size: 15px; background: linear-gradient(140deg, #3350DC, #7A5CE6); color: #FFFFFF; box-shadow: 0 14px 30px rgba(59,91,234,.3)">AI extraction</span>
-<svg width="34" height="20" viewBox="0 0 34 20" fill="none" stroke="#7A5CE6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 10h28M24 4l6 6-6 6"></path></svg>
-<span class="frost" style="padding: 14px 22px; border-radius: 16px; font-weight: 600; font-size: 15px">schema check</span>
-<svg width="34" height="20" viewBox="0 0 34 20" fill="none" stroke="#7A5CE6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 10h28M24 4l6 6-6 6"></path></svg>
-<span style="padding: 14px 22px; border-radius: 16px; font-weight: 600; font-size: 15px; background: linear-gradient(140deg, #FFE27A, #FFA45C); box-shadow: 0 14px 30px rgba(255,150,60,.3)">tasks.json</span>
-</div>
-</section>
-
-<!-- DECISIONS -->
-<section class="rv" style="padding: 80px 0 0; display: flex; flex-wrap: wrap; gap: 24px">
-<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
-<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #2A3FA8">Decisions I made</span>
-<h2 style="font-size: clamp(30px, 3.6vw, 48px); line-height: 1.04; letter-spacing: -0.04em; font-weight: 500">Making an AI tool you can actually trust</h2>
-<p style="font-size: 17px; line-height: 1.65; color: #3A2B4E; max-width: 520px">An AI tool is only useful if its output is predictable. Most of the work went into making the result the same shape every single time.</p>
-</div>
-<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
-<div class="glass tile" style="border-radius: 22px; padding: 22px 26px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 17px; font-weight: 700">A fixed output shape</span><p style="font-size: 15px; line-height: 1.6; color: #3A2B4E">The model has to answer inside a schema, so the result can be read by other software instead of a human.</p></div>
-<div class="glass tile" style="border-radius: 22px; padding: 22px 26px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 17px; font-weight: 700">Retries on bad answers</span><p style="font-size: 15px; line-height: 1.6; color: #3A2B4E">If a reply doesn't fit the schema, it's asked again rather than passed on broken.</p></div>
-<div class="glass tile" style="border-radius: 22px; padding: 22px 26px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 17px; font-weight: 700">Answer keys written first</span><p style="font-size: 15px; line-height: 1.6; color: #3A2B4E">I wrote what the correct output should be before running the tool, so the tests measure accuracy and not just "it ran".</p></div>
-</div>
-</section>
-
-<!-- RESULT -->
-<section class="rv" style="padding: 80px 0 0">
-<div style="position: relative; border-radius: 36px; background: linear-gradient(125deg, #2A3FC4 0%, #4B45D1 34%, #7A4FD6 62%, #E8697A 86%, #FF9A52 100%); box-shadow: 0 30px 80px rgba(60,50,170,.30); color: #FFFFFF; padding: clamp(28px, 5vw, 64px); overflow: hidden; display: flex; flex-direction: column; gap: 36px">
-<span aria-hidden="true" class="orb bob" style="position: absolute; right: 6%; top: 16%; width: 96px; height: 96px; background-color: rgba(255,210,150,.26)"></span>
+<section class="sec rv">
+<div class="panel g-blue" style="padding: clamp(28px, 5vw, 64px); color: #fff; display: flex; flex-direction: column; gap: 32px; border-radius: 36px; box-shadow: 0 30px 80px rgba(60,50,170,.24)">
+<span aria-hidden="true" class="orb bob" style="position: absolute; right: 5%; top: 10%; width: 64px; height: 64px; background-color: rgba(255,255,255,.2); animation-delay: 0s"></span>
+<span aria-hidden="true" class="orb bob" style="position: absolute; right: 16%; bottom: 10%; width: 30px; height: 30px; background-color: rgba(255,255,255,.22); animation-delay: -2.4s"></span>
 <div style="position: relative; display: flex; flex-direction: column; gap: 14px">
-<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #FFE27A">The result</span>
-<h2 style="font-size: clamp(32px, 4.2vw, 56px); line-height: 1.04; letter-spacing: -0.04em; font-weight: 500; max-width: 760px">It gets every task right, on every test I've written.</h2>
+<span class="eyebrow" style="color: #FFFFFF">The result</span>
+<h2 class="h2" style="color: #fff; max-width: 780px">It found every task, owner and deadline in all four test meetings.</h2>
 </div>
-<div style="position: relative; display: flex; flex-wrap: wrap; gap: 20px">
-<div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: clamp(44px, 4.4vw, 62px); line-height: 1; letter-spacing: -0.04em">67/67</span><span style="font-size: 15px; color: #F1EEFF">automated checks passing</span></div>
-<div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: clamp(44px, 4.4vw, 62px); line-height: 1; letter-spacing: -0.04em">4</span><span style="font-size: 15px; color: #F1EEFF">sample transcripts covered</span></div>
-<div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: clamp(44px, 4.4vw, 62px); line-height: 1; letter-spacing: -0.04em">1</span><span style="font-size: 15px; color: #F1EEFF">command to run it</span></div>
-<div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 6px"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: clamp(44px, 4.4vw, 62px); line-height: 1; letter-spacing: -0.04em">0</span><span style="font-size: 15px; color: #F1EEFF">rewatching the recording</span></div>
-</div>
-<p style="position: relative; font-size: 15px; line-height: 1.6; color: #E8E2FF; max-width: 680px">Tested on written sample transcripts with answer keys I prepared in advance. Real unscripted meetings are the next step.</p>
+<div class="stats" style="position: relative"><div class="stat"><b>67/67</b><span>checks passed. Each compares the output with the right answer</span></div><div class="stat"><b>4</b><span>sample meetings: short, messy, long and written</span></div><div class="stat"><b>1</b><span>command to run it</span></div><div class="stat"><b>0</b><span>rewatching the recording</span></div></div>
+<p style="position: relative; font-size: 15px; line-height: 1.6; color: #FFF3EC; max-width: 700px">Tested on sample meetings with answers prepared in advance. Real client meetings are the next step.</p>
 </div>
 </section>
 
-<!-- SCREENS -->
-<section class="rv" style="padding: 80px 0 0; display: flex; flex-direction: column; gap: 24px">
-<h2 style="font-size: clamp(30px, 3.6vw, 48px); line-height: 1.04; letter-spacing: -0.04em; font-weight: 500">A look inside</h2>
-<div class="bento" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px">
-<div class="glass tile" style="grid-column: span 6; border-radius: 28px; padding: 14px; display: flex; flex-direction: column; gap: 12px">
-<div style="height: 280px; border-radius: 20px; background: linear-gradient(150deg, #D5DCFF, #E9D8FF); display: flex; align-items: center; justify-content: center"><span class="frost" style="padding: 10px 18px; border-radius: 999px; font-size: 14px; font-weight: 600">Add a screenshot of the test run</span></div>
-<span style="padding: 0 12px 10px; font-size: 14px; color: #3A2B4E">The test runner, with all checks green.</span>
-</div>
-<div class="glass tile" style="grid-column: span 6; border-radius: 28px; padding: 14px; display: flex; flex-direction: column; gap: 12px">
-<div style="height: 280px; border-radius: 20px; background: linear-gradient(150deg, #FFE7CC, #FFD4DC); display: flex; align-items: center; justify-content: center"><span class="frost" style="padding: 10px 18px; border-radius: 999px; font-size: 14px; font-weight: 600">Add a screenshot of tasks.json</span></div>
-<span style="padding: 0 12px 10px; font-size: 14px; color: #3A2B4E">The structured output, ready for any task tool.</span>
-</div>
-</div>
+<section class="sec">
+<div class="sec-head rv"><div><span class="eyebrow">A look inside</span><h2 class="h2">Screens</h2></div></div>
+<div class="grid g2"><figure class="shot glass rv" style="grid-column: 1 / -1">
+<div class="shot-box g-blue"><div class="win" style="width: 100%; max-width: 620px">
+<div class="demo-bar"><i style="background: #F26D5F"></i><i style="background: #F5BD4F"></i><i style="background: #5FC454"></i><b>Task list output</b><span class="demo-live" style="text-transform: none; letter-spacing: 0">Sample</span></div>
+<div style="padding: 18px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.75; color: #2A1B3D; overflow-x: auto; white-space: pre"><div><span style="color: #8E7FA3; display: inline-block; width: 26px">1</span>{</div><div><span style="color: #8E7FA3; display: inline-block; width: 26px">2</span>  <span style="color: #3350DC">"tasks"</span>: [</div><div><span style="color: #8E7FA3; display: inline-block; width: 26px">3</span>    { <span style="color: #3350DC">"task"</span>: <span style="color: #B4500E">"Send new homepage draft"</span>,</div><div><span style="color: #8E7FA3; display: inline-block; width: 26px">4</span>      <span style="color: #3350DC">"owner"</span>: <span style="color: #B4500E">"Designer"</span>, <span style="color: #3350DC">"due"</span>: <span style="color: #B4500E">"Thursday"</span> },</div><div><span style="color: #8E7FA3; display: inline-block; width: 26px">5</span>    { <span style="color: #3350DC">"task"</span>: <span style="color: #B4500E">"Add new team photos"</span>,</div><div><span style="color: #8E7FA3; display: inline-block; width: 26px">6</span>      <span style="color: #3350DC">"owner"</span>: <span style="color: #B4500E">"Designer"</span>, <span style="color: #3350DC">"due"</span>: <span style="color: #B4500E">"unknown"</span> }</div><div><span style="color: #8E7FA3; display: inline-block; width: 26px">7</span>  ],</div><div><span style="color: #8E7FA3; display: inline-block; width: 26px">8</span>  <span style="color: #3350DC">"decisions"</span>: [ <span style="color: #B4500E">"Launch moves to Friday"</span> ]</div><div><span style="color: #8E7FA3; display: inline-block; width: 26px">9</span>}</div></div>
+</div></div>
+<figcaption>The output: tasks with owners and deadlines, plus decisions. Unknown details stay “unknown”.</figcaption>
+</figure></div>
 </section>
 
-<!-- NEXT + CTA -->
-<section class="rv" style="padding: 80px 0 0; display: flex; flex-wrap: wrap; gap: 20px">
-<div class="glass" style="flex: 1 1 380px; min-width: 0; border-radius: 32px; padding: clamp(24px, 3.4vw, 40px); display: flex; flex-direction: column; gap: 16px">
-<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #5A4B6E">What's next</span>
-<h3 style="font-size: 28px; letter-spacing: -0.03em; font-weight: 600">Reading the screen, not just the words</h3>
-<p style="font-size: 16px; line-height: 1.65; color: #3A2B4E">In a real client call, half the meaning is what someone points at on screen. The next version reads the screen recording itself, so "make this bit bigger" becomes a task that names the right thing.</p>
-</div>
-<div class="tile" style="flex: 1 1 340px; min-width: 0; background: linear-gradient(140deg, #2A3FC4, #7A4FD6 60%, #FF9A52); box-shadow: 0 26px 60px rgba(60,50,170,.28); color: #FFFFFF; border-radius: 32px; padding: clamp(24px, 3.4vw, 40px); display: flex; flex-direction: column; gap: 18px; position: relative; overflow: hidden">
-<span aria-hidden="true" class="orb bob" style="position: absolute; right: -24px; bottom: -24px; width: 130px; height: 130px; background-color: rgba(255,255,255,.14)"></span>
-<h3 style="position: relative; font-size: 30px; line-height: 1.1; letter-spacing: -0.03em; font-weight: 600">Want something like this for your team?</h3>
-<p style="position: relative; font-size: 16px; line-height: 1.6; color: #F1EEFF">Tell me the task that eats your week. I'll reply with how I'd automate it and a fixed price.</p>
-<div style="position: relative; display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto">
-<a class="btn" href="contact.html" style="display: inline-flex; align-items: center; gap: 10px; padding: 15px 24px; background: #FFFFFF; color: #2A1B3D; border-radius: 999px; font-weight: 700; font-size: 16px; text-decoration: none; box-shadow: 0 14px 30px rgba(20,16,80,.30)">Start a project
-<svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
-<a class="btn" href="lead-tracker.html" style="display: inline-flex; align-items: center; padding: 15px 22px; background: rgba(30,22,90,.42); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,.55); color: #FFFFFF; border-radius: 999px; font-weight: 600; font-size: 16px; text-decoration: none">Next case study</a>
+<section class="sec rv">
+<a class="glass card tile" href="lead-tracker.html" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: clamp(22px, 3vw, 34px); text-decoration: none">
+<span style="display: flex; flex-direction: column; gap: 6px"><span class="eyebrow" style="color: #5A4B6E">Next project</span><span class="h2" style="font-size: clamp(28px, 3.4vw, 44px)">Lead Tracker</span></span>
+<span class="btn btn-dark" style="flex: none">View <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+</a>
+</section>
+
+<section class="sec rv">
+<div class="cta g-hero">
+<span aria-hidden="true" class="ghost" style="right: -20px; bottom: -50px; font-size: clamp(120px, 17vw, 240px)">hello</span>
+<span aria-hidden="true" class="orb bob" style="position: absolute; top: 30px; right: 44px; width: 84px; height: 84px; background-color: rgba(255,210,150,.28)"></span>
+<span aria-hidden="true" class="orb bob" style="position: absolute; left: 6%; bottom: 14%; width: 46px; height: 46px; background-color: rgba(255,255,255,.18); animation-delay: -2.5s"></span>
+<h2 class="h2" style="position: relative">Want something like this?</h2>
+<p style="position: relative">Tell me about your project. I reply within one working day.</p>
+<div class="btns" style="position: relative; justify-content: center">
+<a class="btn btn-light" href="contact.html">Contact me <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a class="btn btn-ondark" href="mailto:abrarzamil.dev@gmail.com"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>Email me</a>
 </div>
 </div>
 </section>
 
-<footer style="padding: 56px 0 36px">
-<div class="glass" style="border-radius: 36px; padding: clamp(24px, 3.4vw, 44px); display: flex; flex-direction: column; gap: 30px">
-<div style="display: flex; flex-wrap: wrap; gap: 32px; justify-content: space-between">
-<div style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
-<a href="index.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #2A1B3D">
-<span style="width: 28px; height: 28px; border-radius: 9px; background: linear-gradient(140deg, #3B5BEA, #7A5CE6); color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 20px; line-height: 1">A</span>
-<span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 19px; letter-spacing: -0.01em">Abrar Zamil</span></a>
-<p style="font-size: 15px; line-height: 1.6; color: #3A2B4E; max-width: 280px">I build AI automations and data dashboards that give teams their hours back.</p>
-<span style="display: inline-flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 600; color: #136B43"><span style="width: 9px; height: 9px; border-radius: 50%; background: #1F9D63"></span>Available for new projects</span>
+<footer class="foot">
+<div class="foot-in glass">
+<div class="foot-cols">
+<div class="foot-col" style="flex: 1 1 260px; max-width: 320px; gap: 12px">
+<a class="brand" href="index.html" style="padding: 0"><span class="brand-mark">A</span><span class="brand-name">Abrar Zamil</span></a>
+<p class="small">Python developer. Automations, AI tools, dashboards and websites.</p>
+<span class="pill pill-green" style="padding: 5px 12px"><span class="dot"></span>Available for new projects</span>
 </div>
-<div style="flex: 0 1 190px; min-width: 150px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A4B6E; padding-bottom: 8px">Pages</span><a href="index.html" style="padding: 7px 0; font-size: 15px; font-weight: 500; text-decoration: none; color: #3A2B4E">Home</a>
-<a href="services.html" style="padding: 7px 0; font-size: 15px; font-weight: 500; text-decoration: none; color: #3A2B4E">Services &amp; pricing</a>
-<a href="contact.html" style="padding: 7px 0; font-size: 15px; font-weight: 500; text-decoration: none; color: #3A2B4E">Contact</a></div>
-<div style="flex: 0 1 190px; min-width: 150px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A4B6E; padding-bottom: 8px">Work</span><a href="loom-to-tasks.html" style="padding: 7px 0; font-size: 15px; font-weight: 500; text-decoration: none; color: #3A2B4E">Loom to Tasks</a>
-<a href="lead-tracker.html" style="padding: 7px 0; font-size: 15px; font-weight: 500; text-decoration: none; color: #3A2B4E">Lead Tracker</a>
-<a href="sourcing-website.html" style="padding: 7px 0; font-size: 15px; font-weight: 500; text-decoration: none; color: #3A2B4E">Sourcing Website</a></div>
-<div style="flex: 0 1 240px; min-width: 200px; display: flex; flex-direction: column; gap: 2px">
-<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A4B6E; padding-bottom: 10px">Elsewhere</span>
-<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
-<a class="btn" href="https://www.linkedin.com/in/abrar-zamil-shuvo-059b04229" style="display: flex; align-items: center; gap: 10px; padding: 11px 16px; background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.95); border-radius: 999px; font-size: 14px; font-weight: 600; color: #2A1B3D; text-decoration: none" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>LinkedIn</a>
-<a class="btn" href="https://x.com/AbrarZamilShuvo" style="display: flex; align-items: center; gap: 10px; padding: 11px 16px; background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.95); border-radius: 999px; font-size: 14px; font-weight: 600; color: #2A1B3D; text-decoration: none" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg>X</a>
-<a class="btn" href="https://github.com/AbrarShuvo" style="display: flex; align-items: center; gap: 10px; padding: 11px 16px; background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.95); border-radius: 999px; font-size: 14px; font-weight: 600; color: #2A1B3D; text-decoration: none" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"></path></svg>GitHub</a>
-<a class="btn" href="mailto:abrarzamil.dev@gmail.com" style="display: flex; align-items: center; gap: 10px; padding: 11px 16px; background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.95); border-radius: 999px; font-size: 14px; font-weight: 600; color: #2A1B3D; text-decoration: none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>Email</a>
+<div class="foot-col"><span>Pages</span>
+<a href="index.html">Home</a><a href="projects.html">Work</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</div>
+<div class="foot-col"><span>Projects</span>
+<a href="loom-to-tasks.html">Loom to Tasks</a><a href="lead-tracker.html">Lead Tracker</a><a href="sourcing-website.html">Wholesalia website</a>
+</div>
+<div class="foot-col" style="min-width: 220px"><span>Elsewhere</span>
+<div class="socials">
+<a href="https://www.linkedin.com/in/abrar-zamil-shuvo-059b04229" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>LinkedIn</a>
+<a href="https://x.com/AbrarZamilShuvo" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>X</a>
+<a href="https://github.com/AbrarShuvo" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"></path></svg>GitHub</a>
+<a href="mailto:abrarzamil.dev@gmail.com"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>Email</a>
 </div>
 </div>
 </div>
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; padding-top: 24px; border-top: 1px solid rgba(42,27,61,.14); font-size: 14px; color: #3A2B4E">
-<span>&copy; 2026 Abrar Zamil &middot; Built in Indonesia</span>
-<a href="#top" style="padding: 10px 0; font-weight: 600">Back to top &uarr;</a>
-</div>
+<div class="foot-bar"><span>&copy; 2026 Abrar Zamil</span><a href="#top" style="font-weight: 600; text-decoration: none; padding: 8px 0">Back to top &uarr;</a></div>
 </div>
 </footer>
-
 </div>
 </div>
 <script src="script.js"></script>

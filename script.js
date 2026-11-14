@@ -3,30 +3,7 @@
   'use strict';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Count up the proof numbers once, when they scroll into view.
-  var counters = document.querySelectorAll('[data-count]');
-  function run(el) {
-    var target = parseInt(el.getAttribute('data-count'), 10);
-    if (isNaN(target) || reduce) return;
-    var start = null, dur = 1600;
-    function step(ts) {
-      if (start === null) start = ts;
-      var p = Math.min(1, (ts - start) / dur);
-      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
-      if (p < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-  if ('IntersectionObserver' in window && !reduce) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { run(e.target); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.4 });
-    Array.prototype.forEach.call(counters, function (el) { io.observe(el); });
-  }
-
-  // Hero parallax: the floating cards drift with the pointer.
+  // Hero parallax: the photo frame drifts gently with the pointer.
   if (!reduce) {
     Array.prototype.forEach.call(document.querySelectorAll('[data-parallax]'), function (el) {
       el.addEventListener('mousemove', function (e) {
@@ -41,9 +18,37 @@
       });
     });
   }
+
+  var params = new URLSearchParams(window.location.search);
+
   // Contact form: show the thank-you note after FormSubmit redirects back with ?sent=1.
   var note = document.getElementById('sent-note');
-  if (note && /[?&]sent=1(&|$)/.test(window.location.search)) note.hidden = false;
+  if (note && params.get('sent') === '1') note.hidden = false;
+
+  // Contact form: "Ask about this" buttons on the services page pass ?service=...
+  var task = document.getElementById('task');
+  var service = params.get('service');
+  if (task && service && !task.value) {
+    task.value = 'I’m interested in: ' + service.slice(0, 60) + '\n\n';
+  }
+
+  // Copy-email button.
+  Array.prototype.forEach.call(document.querySelectorAll('[data-copy]'), function (btn) {
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-copy');
+      var label = btn.querySelector('span');
+      var done = function () {
+        if (!label) return;
+        var old = label.textContent;
+        label.textContent = 'Copied';
+        setTimeout(function () { label.textContent = old; }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () {});
+      }
+    });
+  });
+
   // Mobile menu: toggle the stacked page links; close on link tap, Escape, or when the viewport widens.
   var toggle = document.querySelector('.nav-toggle');
   if (toggle) {
@@ -62,8 +67,8 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && navEl.classList.contains('open')) { setMenu(false); toggle.focus(); }
     });
-    window.matchMedia('(min-width: 760px)').addEventListener('change', function (m) {
-      if (m.matches) setMenu(false);
-    });
+    var mq = window.matchMedia('(min-width: 760px)');
+    var onWide = function (m) { if (m.matches) setMenu(false); };
+    if (mq.addEventListener) mq.addEventListener('change', onWide); else if (mq.addListener) mq.addListener(onWide);
   }
 })();

@@ -8,14 +8,16 @@ Hosted free on GitHub Pages at https://abrarshuvo.github.io
 | File | Page |
 |---|---|
 | `index.html` | Home |
+| `projects.html` | Work: all projects |
 | `loom-to-tasks.html` | Case study: Loom to Tasks |
 | `lead-tracker.html` | Case study: Lead Tracker |
-| `sourcing-website.html` | Case study: B2B Sourcing Website |
-| `services.html` | Services and pricing |
+| `sourcing-website.html` | Case study: Wholesalia website |
+| `services.html` | Services |
+| `about.html` | About |
 | `contact.html` | Contact |
 | `404.html` | Not found |
 | `styles.css` | All styling, shared by every page |
-| `script.js` | Count-up numbers and the hero parallax |
+| `script.js` | Mobile menu, parallax, contact form helpers |
 | `images/` | Photo, screenshots, favicon, link-preview cover |
 
 ## Editing
@@ -35,8 +37,3 @@ python -m http.server 8000
 
 Then open http://localhost:8000 — use this rather than double-clicking the
 files, so `404.html` resolves its links correctly.
-
-## Still to set
-
-- Pricing on the services page is "Custom quote" until real prices are set.
-- The contact form uses FormSubmit. Submit one test message and click the activation link emailed to the address in `contact.html`.

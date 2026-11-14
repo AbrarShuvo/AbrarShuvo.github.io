@@ -14,16 +14,20 @@ Keep it that way. Do not add React, Tailwind, a bundler, or npm unless I ask.
 
 | File | Page |
 |---|---|
-| `index.html` | Home |
+| `index.html` | Home: hero, selected work, what I do, how I work |
+| `projects.html` | Work: all projects |
 | `loom-to-tasks.html` | Case study: Loom to Tasks |
 | `lead-tracker.html` | Case study: Lead Tracker |
-| `sourcing-website.html` | Case study: Wholesalia, B2B Sourcing Website |
-| `services.html` | Services and pricing |
-| `contact.html` | Contact, with the enquiry form |
-| `404.html` | Not found |
-| `styles.css` | All shared styling |
-| `script.js` | Count-up numbers, hero parallax |
-| `images/` | Photo, screenshots, favicon, link-preview cover |
+| `sourcing-website.html` | Case study: Wholesalia website (live client site) |
+| `services.html` | Services: four services, how I work, FAQ |
+| `about.html` | About: intro, experience timeline, tools |
+| `contact.html` | Contact: name, email, about the task |
+| `404.html` | Not found (root-relative links) |
+| `styles.css` | All shared styling and components |
+| `script.js` | Mobile menu, hero parallax, contact prefill, copy-email, thank-you note |
+| `images/` | Photo, Wholesalia screenshots, favicon, link-preview cover |
+
+Nav on every page: Work · Services · About · Contact, plus "Let's talk".
 
 ## Preview
 
@@ -57,13 +61,17 @@ Three classes carry the whole look. Reuse them, don't reinvent them:
 
 Supporting classes: `.tile` (hover lift), `.btn` / `.arr` (button + arrow nudge),
 `.pop` (load-in), `.rv` (reveal on scroll), `.bob` (float), `.win` (app-window shadow),
-`.par` + `.p1/.p2/.p3` (hero parallax depths), `.marquee`, `.frost`.
+`.par` + `.p1/.p2` (hero parallax), `.frost`, `.demo` (Loom live demo), `.dash` (dashboard mock).
 
 ## House rules
 
-- Shared styling goes in `styles.css`. Per-element layout stays as inline `style`
-  attributes — that is deliberate, it's how the pages were authored.
-- Every page repeats the same nav and footer markup. Change one, change all seven.
+- Use the component classes in `styles.css` (`.wrap`, `.sec`, `.h1`/`.h2`, `.btn-dark`,
+  `.btn-glass`, `.proj`, `.svc`, `.meta`, `.case-visual`, `.cta`, `.foot` …) so pages stay
+  consistent. Small one-off tweaks can stay inline.
+- The three case studies share one identical layout, in this order: back link, pill,
+  title, tech tags, summary, two buttons side by side, meta row, hero visual, problem,
+  three steps, decisions, result, screens, next project, CTA. Keep all three in sync.
+- Every page repeats the same nav and footer markup. Change one, change all nine.
 - Test at **390px** after any layout change. No horizontal scroll, ever.
 - Keep the accessibility that's there: real `<label>` for every input, `aria-hidden`
   on decorative SVGs, `aria-label` on icon-only links, visible focus rings.
@@ -71,13 +79,20 @@ Supporting classes: `.tile` (hover lift), `.btn` / `.arr` (button + arrow nudge)
   Any new one must be too.
 - Don't add third-party scripts (analytics, chat widgets, font loaders) without asking.
 
-## Placeholders
+## Writing rules
 
-None left. Pricing on `services.html` is "Custom quote" until real prices are set.
+- **No pricing or payment anywhere** — no prices, rates, "fixed price", deposits or
+  invoices. Clients ask in their message. (Wholesalia's own product prices are fine,
+  they're part of that case study.)
+- Plain, specific client language. No hype lines, no engineer jargon.
+- The About page presents Abrar as a developer, by his work. Don't lead with being a
+  student or the scholarship.
+- Explain numbers in plain words (e.g. "67/67 checks passed. Each compares the output
+  with the right answer"). Don't put bare test counts on the home page.
 
 ## Contact form
 
-`contact.html` posts to **FormSubmit** (`https://formsubmit.co/abrarzamil.dev@gmail.com`), no account needed. Hidden `_subject`, `_template`, `_next` and `_honey` (spam trap) fields configure it. After sending, it redirects to `contact.html?sent=1`; `script.js` reveals the `#sent-note` thank-you note when that query is present. The first submission triggers a one-time FormSubmit activation email to that address.
+`contact.html` has exactly three fields: name, email, about the task. It posts to **FormSubmit** (`https://formsubmit.co/abrarzamil.dev@gmail.com`), no account needed. Hidden `_subject`, `_template`, `_next` and `_honey` (spam trap) fields configure it. After sending, it redirects to `contact.html?sent=1`; `script.js` reveals the `#sent-note` thank-you note when that query is present. The form is activated. `services.html` "Ask about this" buttons link to `contact.html?service=<name>`, and `script.js` prefills the task box with it.
 
 Email is already set: `abrarzamil.dev@gmail.com`
 
@@ -90,8 +105,7 @@ Email is already set: `abrarzamil.dev@gmail.com`
   Admin screenshots stay redrawn (the admin is private), and the code stays private.
 - Every mockup uses **sample data** and is labelled as such. Keep those labels.
 - `67/67` (Loom to Tasks) and `156` (Lead Tracker) come from real test suites.
-  If a number changes, update it in all three places: the home page tile, the case
-  study hero, and the results panel.
+  They appear only in the case studies (meta row and result panel).
 - Don't invent metrics, testimonials, client logos or dates.
 
 ## Open decisions
