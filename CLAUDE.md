@@ -77,6 +77,9 @@ Supporting classes: `.tile` (hover lift), `.btn` / `.arr` (button + arrow nudge)
   on decorative SVGs, `aria-label` on icon-only links, visible focus rings.
 - Every animation is already wrapped in `@media (prefers-reduced-motion: reduce)`.
   Any new one must be too.
+- `styles.css` and `script.js` are linked with a `?v=` tag on all nine pages. After changing
+  either file, change the tag on every page (any new value), or visitors' browsers keep the
+  old cached file and the page shows unstyled.
 - Don't add third-party scripts (analytics, chat widgets, font loaders) without asking.
 
 ## Writing rules
