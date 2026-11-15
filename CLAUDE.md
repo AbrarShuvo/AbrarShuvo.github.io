@@ -15,7 +15,7 @@ Keep it that way. Do not add React, Tailwind, a bundler, or npm unless I ask.
 | File | Page |
 |---|---|
 | `index.html` | Home: hero, selected work, what I do, how I work |
-| `projects.html` | Work: all projects |
+| `projects.html` | Work: all projects, plus the free Glass Bento template (links out to its demo and repo) |
 | `loom-to-tasks.html` | Case study: Loom to Tasks |
 | `lead-tracker.html` | Case study: Lead Tracker |
 | `sourcing-website.html` | Case study: Wholesalia website (live client site) |
@@ -24,7 +24,7 @@ Keep it that way. Do not add React, Tailwind, a bundler, or npm unless I ask.
 | `contact.html` | Contact: name, email, about the task |
 | `404.html` | Not found (root-relative links) |
 | `styles.css` | All shared styling and components |
-| `script.js` | Mobile menu, hero parallax, contact prefill, copy-email, thank-you note |
+| `script.js` | Mobile menu, hero parallax, contact prefill, copy-email, thank-you note, dark mode, scroll progress, back-to-top, card spotlight, reveal fallback, form sending state |
 | `images/` | Photo, Wholesalia screenshots, favicon, link-preview cover |
 
 Nav on every page: Work · Services · About · Contact, plus "Let's talk".
@@ -117,7 +117,11 @@ Email is already set: `abrarzamil.dev@gmail.com`
 ## Open decisions
 
 - **Name:** resolved. The site says "Abrar Zamil", matching the LinkedIn profile. GitHub stays `AbrarShuvo`.
-- Dark mode: wanted, not started.
+- Dark mode: done. A toggle in the nav sets `data-theme` on `<html>` and saves it in
+  `localStorage` (`theme`). A tiny script in `<head>` applies it before paint. Every new
+  component needs a `html[data-theme="dark"]` rule if its colours are hard-coded.
+  The free template (github.com/AbrarShuvo/Glass-bento-portfolio) shares this design
+  system; port improvements both ways.
 - `abrarzamil.com`: after the first paid client.
 
 ## Deploying

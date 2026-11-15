@@ -337,4 +337,76 @@ figure{margin:0}
 @media (prefers-reduced-motion: reduce){.skills-track{animation:none;flex-wrap:wrap;width:auto;justify-content:center;padding:0 16px}.skills-track [aria-hidden="true"]{display:none}}
 
 /* Softer bubbles: keep them in the background, not the main view */
-.orb{opacity:.22}
+.orb[aria-hidden="true"]{opacity:.22}
+/* ================= Polish layer ================= */
+html{-webkit-text-size-adjust:100%;color-scheme:light;scrollbar-color:#B9A9E6 transparent}
+html[data-theme="dark"]{color-scheme:dark}
+body{-webkit-tap-highlight-color:transparent;text-rendering:optimizeLegibility}
+h1,h2,h3,.lead{text-wrap:balance}.body,.small,.result{text-wrap:pretty}
+.stat b,.kpi b,.step-n b{font-variant-numeric:tabular-nums}
+.skip{position:absolute;left:16px;top:-70px;z-index:100;padding:12px 20px;border-radius:999px;background:#2A1B3D;color:#fff;font-weight:600;text-decoration:none;transition:top .2s}
+.skip:focus{top:12px;color:#fff}
+.progress{position:fixed;left:0;top:0;width:100%;height:3px;z-index:60;transform-origin:0 50%;transform:scaleX(var(--p,0));background:linear-gradient(90deg,#3350DC,#7A5CE6,#E8697A,#FF9A52);pointer-events:none}
+.nav{transition:box-shadow .3s ease,background .3s ease}
+.nav.stuck{box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 14px 44px rgba(74,48,120,.22)}
+.nav-right{margin-left:auto}
+.theme-toggle{display:inline-flex;align-items:center;justify-content:center;flex:none;width:42px;height:42px;margin-left:6px;padding:0;border:1px solid rgba(255,255,255,.95);border-radius:999px;background:rgba(255,255,255,.72);color:#2A1B3D;cursor:pointer;transition:rotate .4s cubic-bezier(.2,.7,.2,1)}
+.theme-toggle:hover{rotate:18deg}
+.theme-toggle .i-moon{display:none}
+html[data-theme="dark"] .theme-toggle .i-sun{display:none}
+html[data-theme="dark"] .theme-toggle .i-moon{display:block}
+@media (max-width:759px){.theme-toggle{order:2;margin-left:0}.nav-cta{order:2}}
+/* spotlight that follows the pointer on cards */
+.tile{position:relative}
+.tile::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s ease;background:radial-gradient(420px circle at var(--sx,50%) var(--sy,50%),rgba(255,255,255,.55),transparent 62%)}
+@media (hover:hover){.tile:hover::after{opacity:1}}
+@media (hover:none){.tile:hover{translate:none}.btn:hover{translate:none}}
+/* scroll-reveal fallback for browsers without scroll-driven animation */
+.js-rv .rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.js-rv .rv.in{opacity:1;transform:none}
+/* forms */
+.field input:user-invalid,.field textarea:user-invalid{border-color:#D6455D;box-shadow:0 0 0 3px rgba(214,69,93,.16)}
+.btn[disabled]{opacity:.6;cursor:progress}
+details.glass summary{list-style:none;display:flex;justify-content:space-between;gap:16px}
+details.glass summary::-webkit-details-marker{display:none}
+details.glass summary::after{content:"+";font-weight:500;font-size:22px;line-height:1;transition:rotate .25s ease}
+details.glass[open] summary::after{rotate:45deg}
+.to-top{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:40;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.95);background:rgba(255,255,255,.8);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#2A1B3D;font-size:18px;cursor:pointer;box-shadow:0 12px 30px rgba(40,24,100,.2);opacity:0;visibility:hidden;translate:0 10px;transition:opacity .25s,translate .25s,visibility .25s}
+.to-top.show{opacity:1;visibility:visible;translate:0 0}
+.page{padding-bottom:env(safe-area-inset-bottom)}
+@media print{.nav,.blobs,.progress,.to-top,.skills-strip,.theme-toggle{display:none!important}body,.page{background:#fff!important}.glass,.frost{box-shadow:none!important;backdrop-filter:none!important}}
+@media (prefers-reduced-motion:reduce){.progress{transition:none}.theme-toggle,.theme-toggle:hover,.to-top,details.glass summary::after{transition:none;rotate:none}.js-rv .rv{opacity:1;transform:none;transition:none}.tile::after{display:none}}
+
+/* ================= Dark theme ================= */
+html[data-theme="dark"] body{background:#120C24;color:#EFE8FA}
+html[data-theme="dark"] .page{background:linear-gradient(180deg,#120C24 0%,#190F30 30%,#1D1030 58%,#150D28 100%)}
+html[data-theme="dark"] .blob{opacity:.26!important}
+html[data-theme="dark"] .glass{background:rgba(44,30,78,.52);border-color:rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 22px 54px rgba(0,0,0,.42)}
+html[data-theme="dark"] .frost{background:rgba(34,24,60,.88);border-color:rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 18px 44px rgba(0,0,0,.5)}
+html[data-theme="dark"] .nav.stuck{box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 14px 44px rgba(0,0,0,.5)}
+html[data-theme="dark"] .tile::after{background:radial-gradient(420px circle at var(--sx,50%) var(--sy,50%),rgba(160,140,255,.2),transparent 62%)}
+html[data-theme="dark"] h1,html[data-theme="dark"] h2,html[data-theme="dark"] h3,html[data-theme="dark"] a,html[data-theme="dark"] a:hover,html[data-theme="dark"] .brand,html[data-theme="dark"] .link,html[data-theme="dark"] .back,html[data-theme="dark"] .tag,html[data-theme="dark"] .skill,html[data-theme="dark"] .result,html[data-theme="dark"] .socials a,html[data-theme="dark"] .field label,html[data-theme="dark"] .meta b{color:#F4EEFF}
+html[data-theme="dark"] .lead,html[data-theme="dark"] .body,html[data-theme="dark"] .small,html[data-theme="dark"] .nav-links a,html[data-theme="dark"] .svc li,html[data-theme="dark"] .shot figcaption,html[data-theme="dark"] .foot-col a,html[data-theme="dark"] .foot-bar{color:#CDBFE6}
+html[data-theme="dark"] .hero .lead,html[data-theme="dark"] .cta p{color:#F1EEFF}
+html[data-theme="dark"] .eyebrow,html[data-theme="dark"] .t-org{color:#A9B8FF}
+html[data-theme="dark"] .t-when,html[data-theme="dark"] .meta>div>span,html[data-theme="dark"] .foot-col>span{color:#B8A9D4}
+html[data-theme="dark"] .btn-dark{background:#F4EEFF;color:#2A1B3D}
+html[data-theme="dark"] .btn-dark:hover{color:#2A1B3D}
+html[data-theme="dark"] .btn-light,html[data-theme="dark"] .btn-light:hover{color:#2A1B3D}
+html[data-theme="dark"] .btn-glass{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:#F4EEFF}
+html[data-theme="dark"] .nav-links a[aria-current="page"],html[data-theme="dark"] .tag,html[data-theme="dark"] .skill,html[data-theme="dark"] .socials a,html[data-theme="dark"] .nav-toggle,html[data-theme="dark"] .theme-toggle,html[data-theme="dark"] .copy-btn{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.16);color:#F4EEFF}
+html[data-theme="dark"] .photo-cap{color:#fff}html[data-theme="dark"] .photo-cap span{color:#CDBFE6}
+html[data-theme="dark"] .pill-blue{background:rgba(140,160,255,.2);color:#C9D3FF}
+html[data-theme="dark"] .pill-yellow{color:#FFE27A}html[data-theme="dark"] .pill-orange{color:#FFB98A}
+html[data-theme="dark"] .pill-green{background:rgba(31,157,99,.22);color:#7BE0AE}
+html[data-theme="dark"] .field input,html[data-theme="dark"] .field textarea{background:rgba(255,255,255,.07);color:#fff;border-color:rgba(255,255,255,.2)}
+html[data-theme="dark"] .t-item,html[data-theme="dark"] .foot-bar,html[data-theme="dark"] .meta>div,html[data-theme="dark"] .nav-links{border-color:rgba(255,255,255,.12)}
+html[data-theme="dark"] .to-top{background:rgba(44,30,78,.8);border-color:rgba(255,255,255,.18);color:#fff}
+html[data-theme="dark"] ::selection{background:#7A5CE6;color:#fff}
+html[data-theme="dark"] a:focus-visible,html[data-theme="dark"] button:focus-visible,html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] textarea:focus-visible,html[data-theme="dark"] summary:focus-visible{outline-color:#A9B8FF}
+/* Dark-mode fixes for portfolio-only pieces */
+html[data-theme="dark"] .hero .pill.frost{background:rgba(255,255,255,.92);color:#136B43!important}
+html[data-theme="dark"] .flow-step[style*="FFE27A"]{color:#2A1B3D}
+html[data-theme="dark"] .steps .h3,html[data-theme="dark"] .svc .h3{color:#F4EEFF}
+.step-orb{color:#2A1B3D}
+html[data-theme="dark"] .step-orb{color:#fff}

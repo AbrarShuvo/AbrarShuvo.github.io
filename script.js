@@ -72,3 +72,67 @@
     if (mq.addEventListener) mq.addEventListener('change', onWide); else if (mq.addListener) mq.addListener(onWide);
   }
 })();
+
+// ---- Polish layer: theme, scroll progress, spotlight, reveal fallback, form state
+(function () {
+  'use strict';
+  var root = document.documentElement;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var tb = document.querySelector('.theme-toggle');
+  function setTheme(t, save) {
+    root.setAttribute('data-theme', t);
+    if (tb) {
+      tb.setAttribute('aria-pressed', t === 'dark' ? 'true' : 'false');
+      tb.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute('content', t === 'dark' ? '#120C24' : '#EDEFFF');
+    if (save) { try { localStorage.setItem('theme', t); } catch (e) {} }
+  }
+  setTheme(root.getAttribute('data-theme') || 'light');
+  if (tb) tb.addEventListener('click', function () {
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true);
+  });
+
+  var bar = document.querySelector('.progress'), nav = document.querySelector('.nav'),
+      up = document.querySelector('.to-top'), ticking = false;
+  function onScroll() {
+    var h = root.scrollHeight - window.innerHeight, y = window.scrollY;
+    if (bar) bar.style.setProperty('--p', h > 0 ? (y / h).toFixed(4) : 0);
+    if (nav) nav.classList.toggle('stuck', y > 24);
+    if (up) up.classList.toggle('show', y > 700);
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+  }, { passive: true });
+  onScroll();
+  if (up) up.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  });
+
+  if (window.matchMedia('(hover: hover)').matches && !reduce) {
+    Array.prototype.forEach.call(document.querySelectorAll('.tile'), function (el) {
+      el.addEventListener('pointermove', function (e) {
+        var r = el.getBoundingClientRect();
+        el.style.setProperty('--sx', (e.clientX - r.left) + 'px');
+        el.style.setProperty('--sy', (e.clientY - r.top) + 'px');
+      });
+    });
+  }
+
+  var native = window.CSS && CSS.supports && CSS.supports('animation-timeline: view()');
+  if (!native && !reduce && 'IntersectionObserver' in window) {
+    root.classList.add('js-rv');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    Array.prototype.forEach.call(document.querySelectorAll('.rv'), function (el) { io.observe(el); });
+  }
+
+  var form = document.querySelector('form[action*="formsubmit"]');
+  if (form) form.addEventListener('submit', function () {
+    var b = form.querySelector('[type="submit"]');
+    if (b) { b.disabled = true; b.firstChild.textContent = 'Sending… '; }
+  });
+})();
