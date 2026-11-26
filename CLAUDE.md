@@ -274,6 +274,6 @@ Email is already set: `abrarzamil.dev@gmail.com`
 **Restyle 2026-11-26: flat three-site language (Purple Softworks / Musemind /
 Wavespace), same as the blog. Pushed live 2026-11-26 after Abrar approved the
 preview (snapshot push; the motion round and full-bleed previews went live in
-the same push).** Cache tag is now `?v=9a1f4b` (showreel move + literal button lift, local, not pushed yet).
+the same push).** Cache tag is now `?v=9a1f4b` (showreel move + literal button lift, pushed live 2026-11-26, commit `80af506`).
 
 Push to `main`. GitHub Pages rebuilds in about a minute. There is no CI.
