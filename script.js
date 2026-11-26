@@ -160,6 +160,20 @@
     }
   }
 
+  // Card videos (RxGuard loop): play only while on screen; the still
+  // poster shows when reduced motion is on or the video cannot play.
+  var cardVideos = document.querySelectorAll('.px-visual--video, .proj-visual video');
+  if (cardVideos.length) {
+    if (reduce) {
+      Array.prototype.forEach.call(cardVideos, function (v) { v.removeAttribute('autoplay'); v.pause(); });
+    } else if ('IntersectionObserver' in window) {
+      var vio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { en.target.play().catch(function () {}); } else { en.target.pause(); } });
+      }, { rootMargin: '200px' });
+      Array.prototype.forEach.call(cardVideos, function (v) { vio.observe(v); });
+    }
+  }
+
   // Stats row: count the numbers up when they scroll into view.
   var counters = document.querySelectorAll('.stat b[data-count]');
   if (counters.length) {

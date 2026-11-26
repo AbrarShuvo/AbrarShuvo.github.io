@@ -489,6 +489,16 @@ html[data-theme="dark"] .cta .ghost{color:rgba(255,255,255,.04);-webkit-text-str
 @media (min-width:901px){.grid.g2 .proj:nth-child(2){margin-top:56px}}
 @media (prefers-reduced-motion: reduce){.proj-visual::after,.proj-view{transition:none}}
 
+/* ---------- Work-page panels for projects without a screenshot (round 11) ---------- */
+.proj-panel{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;width:100%;height:100%;min-height:420px;padding:32px}
+.proj-panel b{font-size:clamp(30px,3vw,44px);letter-spacing:-.02em;line-height:1.05}
+.proj-panel span{font-size:15px;opacity:.75;max-width:440px;line-height:1.5}
+.proj-panel--violet{background:var(--violet);color:#fff}
+.proj-panel--dark{background:#141414;color:#fff}
+.proj-panel--paper{background:#fff;color:var(--ink)}
+html[data-theme="dark"] .proj-panel--paper{background:#1E1E1E;color:#fff}
+@media (max-width:720px){.proj-panel{min-height:260px}}
+
 /* ---------- Stokt / Cappen round 2: colour + motion ---------- */
 /* Marquee strip (Stokt + Cappen): lemon band, mono items, orange asterisks */
 /* Hero headline: word-by-word rise (Stokt / Cappen letter reveals) */
@@ -546,6 +556,8 @@ html[data-theme="dark"] .nav-links a.roll::after{color:var(--violet-soft)}
 /* Text sits at the top so the hover title (bottom-left, Aceternity-style)
    never lands on top of it. */
 .px-visual--img{display:block;padding:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.px-visual--video{display:block;padding:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.proj-visual video{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
 .px-visual--loom{background:linear-gradient(135deg,#5B29FE,#752EE1 60%,#FF41AC)}
 .px-visual--lead{background:#F3EEF5;color:var(--ink)}
 .px-visual--dummy{background:var(--grey-band);border:2px dashed #C9C9C9;color:var(--muted)}

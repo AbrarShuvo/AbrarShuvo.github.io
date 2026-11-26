@@ -166,6 +166,89 @@ Motion + colour round 2 (Stokt / Cappen, added 2026-11-26, PUSHED LIVE
   hero/nav/View-project all translate 0 -20px + shadow-2xl, no overflow,
   dark mode OK. The nav button floats high on hover but stays inside the
   bar — looks deliberate, not broken. Reduced-motion disables the lift.
+  Round 10 (2026-11-26, "More projects" showreel on the 3 case-study pages,
+  LOCAL, not pushed yet — Abrar asked: middle, first or end, which fits
+  better): END wins — the reader came for this project, so the showreel sits
+  after the story and before the final "Want something like this?" CTA (the
+  CTA stays the last beat); first would bury the case study, middle would
+  interrupt it. Same 9-card showreel as home (no JS/CSS changes — the driver
+  picks up any page with .px-wrap + #px-stage), heading "More projects",
+  lead "Other things I've built — scroll through the rest.", no header link.
+  Each page's OWN project card is swapped for a violet "All work" panel card
+  (→ projects.html) so no card links to the page you're already on.
+  Verified on Loom page: 9 cards, All work first in row 1, CTA directly
+  after, p=0 tilted 15°/20°/-700 op .2, p=0.45 flat, dark + mobile overflow 0.
+  Round 11 (2026-11-27, all recent projects added, LOCAL, not pushed yet —
+  Abrar: "go for all of them... improve later, I need projects to
+  customize"): 6 new projects. Showreel dummies replaced in all 4 copies
+  (home + 3 case-study pages): RxGuard (real homepage screenshot
+  images/rxguard-hero.jpg, 1280x640, grey band cropped off), The Last
+  Visitor (rain-town still, images/last-visitor-hero.jpg, 1280x800),
+  The Deleted City (white --git panel, no public link yet — artifact
+  unshared, side chat still editing it). Work page: 10 cards now — the 6
+  new ones are RxGuard (Live demo + View code buttons), The Last Visitor
+  (Play it live → muse.ai link, which still serves the previous version
+  until the side chat re-shares), The Deleted City, AI CV Coach (draft,
+  deadline Dec 1 05:00 WIB), Wavespace (client project, no details yet),
+  Personal AI assistant (319 checks passing). The 4 without a live link
+  are .proj-panel visuals (violet/dark/paper, new CSS) with a "Full case
+  study coming soon." line instead of a button — no invented links or
+  results. Card images regenerated 2026-11-27 ~03:35 WIB per Abrar ("RX
+  card colours not good, top/bottom header-footer layers, don't need lots
+  of detail — main thing showing; the game photo is AI-generated, make it
+  better, from the context, good and well detailed"): RxGuard is now a
+  clean generated image — mint shield + checkmark over a prescription
+  paper, "RxGuard" text, no UI clutter (was a busy homepage screenshot);
+  The Last Visitor is a new detailed anime still — Nao with her glowing
+  lantern in the rain town, torii, wet reflections (was the older rain-town
+  still). Both 1280 wide, alts updated. Image rework 2026-11-27 ~03:45 WIB
+  per Abrar ("RxGuard has a screenshot — no header/footer in the preview;
+  Last Visitor: generate a good photo card showing the game interface;
+  AI CV Coach and Wavespace got no photo card preview"): RxGuard is now
+  the REAL headline "Decode Your Prescription & Lab Report" lifted from
+  the homepage screenshot (luminance-keyed onto flat mint, 1280x720) —
+  no header, no footer, no step cards, no grey band; the generated shield
+  is gone. Last Visitor is now a game-interface image — Nao from behind
+  with her lantern, objective + HP bar + map/pause buttons + controls
+  hint, same HUD layout as the real game. AI CV Coach and Wavespace got
+  photo cards too (robot + resume with green checkmark; laptop with a
+  glowing workflow over blue waves) — the violet/dark panels are gone.
+  Only The Deleted City and the assistant bot still use .proj-panel
+  visuals. 4 binary images to upload on the push: rxguard-hero.jpg
+  (40 KB), last-visitor-hero.jpg (232 KB), ai-cv-coach-hero.jpg (79 KB),
+  wavespace-hero.jpg (81 KB). Stats row still says 04 projects —
+  left alone on purpose, needs Abrar's number when we improve them. New
+  images are binary: push them via browser web upload, not the snapshot.
+  Verified: home showreel 9 cards in order, Work 10 titles + 2 panels,
+  all 6 images load, no overflow, dark + mobile OK.
+  Round 12 (2026-11-27 ~04:00 WIB) per Abrar — "RxGuard too bland, make
+  it animated from video; Last Visitor still looks AI + bad resolution;
+  AI CV Coach + Wavespace too AI-generated, use a real screenshot or
+  think and make the best detailed preview": (1) RxGuard is now a
+  LOOPING VIDEO — 6s clip (t=0-6) cut from the explainer V2
+  (~/workspace/goals/hackathons/files/RxGuard-explainer-30s-v2.mp4),
+  header cropped off (1280x660, 506 KB, no audio), <video autoplay muted
+  loop playsinline> with the static headline image as poster; plays only
+  while on screen (IntersectionObserver, 200px margin), still poster when
+  reduced motion is on. CSS .px-visual--video + .proj-visual video;
+  JS cardVideos block in script.js. (2) Last Visitor is now a frame from
+  the Kling video (t=3.5s — Nao close, lantern, rain town), right edge
+  cropped to 1120x720 to remove the KlingAI watermark. A live screenshot
+  of the real game was attempted first (puppeteer to the artifact URL)
+  but the VM proxy blocks it (ERR_TUNNEL_CONNECTION_FAILED), so the
+  frame from the game's own reference video is used instead. (3) AI CV
+  Coach + (4) Wavespace are now DETAILED UI MOCKS built in HTML/CSS and
+  screenshotted (no real app exists to screenshot — no hosted URL or
+  repo for either): CV Coach = CV + score 78 + 4 suggestions + jobs
+  matched; Wavespace = automation dashboard (3 workflows, runs table,
+  how-it-works, connected apps). Mocks are 1280x896 (1.43:1, the Work
+  visual's aspect) so nothing is cropped — the 1280x720 versions lost
+  their side content to the cover crop. Mock sources: /tmp/mock-cv.html,
+  /tmp/mock-wavespace.html (not in the repo). Cache tag ?v=35ef37.
+  Binaries to upload on the push: rxguard-loop.mp4 (506 KB),
+  rxguard-hero.jpg (40 KB, video poster), last-visitor-hero.jpg
+  (108 KB), ai-cv-coach-hero.jpg (148 KB), wavespace-hero.jpg (99 KB).
+  Text files: 15 HTML + styles.css + script.js + CLAUDE.md.
   Round 9 — SHOWREEL MOVED TO HOME (2026-11-26, still local — Abrar: "what
   you put on work I want that animation on the home page... for works I will
   think something later"): the 9-card showreel moved from projects.html to
@@ -274,6 +357,6 @@ Email is already set: `abrarzamil.dev@gmail.com`
 **Restyle 2026-11-26: flat three-site language (Purple Softworks / Musemind /
 Wavespace), same as the blog. Pushed live 2026-11-26 after Abrar approved the
 preview (snapshot push; the motion round and full-bleed previews went live in
-the same push).** Cache tag is now `?v=9a1f4b` (showreel move + literal button lift, pushed live 2026-11-26, commit `80af506`).
+the same push).** Cache tag is now `?v=a7c3e9` (round 11: all recent projects, local, not pushed yet — folds round 10 in).
 
 Push to `main`. GitHub Pages rebuilds in about a minute. There is no CI.
