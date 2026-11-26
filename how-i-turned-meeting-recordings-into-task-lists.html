@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- SITE URL: https://abrarshuvo.github.io/ — change this one line when moving to abrarzamil.com, then find-replace the same URL in the canonical / og:url / og:image tags below. -->
+<meta charset="utf-8">
+<script>try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How I turned meeting recordings into task lists with Python</title>
+<meta name="description" content="How a Python tool turns a recorded meeting into a checked list of tasks, owners and deadlines — no rewatching the call.">
+<meta name="author" content="Abrar Zamil">
+<meta name="theme-color" content="#FDFDFC">
+<link rel="canonical" href="https://abrarshuvo.github.io/how-i-turned-meeting-recordings-into-task-lists.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Abrar Zamil">
+<meta property="og:title" content="How I turned meeting recordings into task lists with Python">
+<meta property="og:description" content="How a Python tool turns a recorded meeting into a checked list of tasks, owners and deadlines — no rewatching the call.">
+<meta property="og:url" content="https://abrarshuvo.github.io/how-i-turned-meeting-recordings-into-task-lists.html">
+<meta property="og:image" content="https://abrarshuvo.github.io/images/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How I turned meeting recordings into task lists with Python">
+<meta name="twitter:description" content="How a Python tool turns a recorded meeting into a checked list of tasks, owners and deadlines — no rewatching the call.">
+<meta name="twitter:image" content="https://abrarshuvo.github.io/images/og-cover.png">
+<link rel="icon" href="images/favicon.svg">
+<link rel="stylesheet" href="styles.css?v=7c1d04">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a><div class="progress" aria-hidden="true"></div>
+<div id="top" class="page">
+<div class="blobs" aria-hidden="true">
+<span class="blob fa" style="top: 4%; left: -220px; width: 720px; height: 720px; background: radial-gradient(closest-side, rgba(76,111,255,.42), rgba(76,111,255,0))"></span>
+<span class="blob fb" style="top: 14%; right: -260px; width: 780px; height: 780px; background: radial-gradient(closest-side, rgba(255,122,47,.34), rgba(255,122,47,0))"></span>
+<span class="blob fa" style="top: 34%; left: 18%; width: 700px; height: 700px; background: radial-gradient(closest-side, rgba(255,211,77,.42), rgba(255,211,77,0)); animation-delay: -5s"></span>
+<span class="blob fb" style="top: 50%; right: -180px; width: 760px; height: 760px; background: radial-gradient(closest-side, rgba(142,123,255,.40), rgba(142,123,255,0)); animation-delay: -4s"></span>
+<span class="blob fa" style="top: 66%; left: -240px; width: 800px; height: 800px; background: radial-gradient(closest-side, rgba(240,112,150,.30), rgba(240,112,150,0)); animation-delay: -8s"></span>
+<span class="blob fb" style="top: 82%; right: 6%; width: 700px; height: 700px; background: radial-gradient(closest-side, rgba(76,111,255,.34), rgba(76,111,255,0)); animation-delay: -2s"></span>
+</div>
+<div class="wrap">
+<nav class="nav" aria-label="Main">
+<a class="brand" href="index.html"><span class="brand-mark">A</span><span class="brand-name">Abrar Zamil</span></a>
+<div class="nav-right">
+<div class="nav-links" id="nav-links">
+<a href="projects.html" aria-current="page">Work</a>
+<a href="services.html">Services</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+</div>
+<a class="btn btn-dark nav-cta" href="contact.html">Let&#39;s talk</a>
+<button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode"><svg class="i-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+<button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><svg class="i-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><svg class="i-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+</nav>
+<main id="main" tabindex="-1">
+
+<section class="case-head pop">
+<span class="eyebrow">Notes</span>
+<h1 class="h1">How I turned meeting recordings into task lists with Python</h1>
+<p class="lead" style="max-width: 720px">A design agency I worked with recorded every client meeting. Afterwards, one designer rewatched the whole recording and wrote down what the client asked for. I built a Python tool that reads the transcript and turns it into a checked list of tasks, owners, deadlines and decisions, so nobody has to rewatch the call.</p>
+<div class="tags"><span class="tag">Python</span><span class="tag">Gemini API</span><span class="tag">Structured outputs</span><span class="tag">Automated tests</span></div>
+<div class="btns"><a class="btn btn-dark" href="loom-to-tasks.html">Read the Loom to Tasks case study <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a class="btn btn-glass" href="contact.html?service=AI%20integrations">Start a similar project</a></div>
+</section>
+
+<section class="sec rv">
+<div style="display: flex; flex-direction: column; gap: 18px; max-width: 720px">
+<span class="eyebrow">The problem</span>
+<h2 class="h2">The decisions were in the recording. Nobody had time to find them.</h2>
+<p class="body" style="font-size: 17px">A design agency records its client meetings. Afterwards, one designer watches the whole recording, writes down what the client asked for and passes it on. It works, but it costs a full rewatch every time, and anything missed is simply lost.</p>
+<p class="body" style="font-size: 17px">The agency didn&#39;t need a new meeting tool. They needed someone to read the meeting they already had and pull the work out of it.</p>
+</div>
+</section>
+
+<section class="sec">
+<div class="sec-head rv"><div><span class="eyebrow">What I built</span><h2 class="h2">A tool that reads the transcript and returns the work</h2></div></div>
+<div style="display: flex; flex-direction: column; gap: 18px; max-width: 720px">
+<p class="body" style="font-size: 17px">The tool takes the transcript of a recorded meeting or Loom video and returns a clear list of decisions, tasks with owner, deadline and priority, and blockers. It is built with Python and the Gemini API, using structured outputs and an automated test suite.</p>
+</div>
+<div class="grid g3 rv" style="margin-top: 20px"><div class="glass card tile" style="padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span class="orb step-orb" style="width: 52px; height: 52px; background-color: rgba(76,111,255,.45); display: flex; align-items: center; justify-content: center; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 21px">1</span>
+<h3 class="h3">Read the transcript</h3>
+<p class="small" style="font-size: 15px">The tool cleans up the transcript and splits it into who said what, and when.</p>
+</div><div class="glass card tile" style="padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span class="orb step-orb" style="width: 52px; height: 52px; background-color: rgba(142,123,255,.45); display: flex; align-items: center; justify-content: center; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 21px">2</span>
+<h3 class="h3">Pull out the work</h3>
+<p class="small" style="font-size: 15px">AI picks out the tasks, owners, deadlines and decisions, and has to answer in one fixed format.</p>
+</div><div class="glass card tile" style="padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span class="orb step-orb" style="width: 52px; height: 52px; background-color: rgba(255,211,77,.7); display: flex; align-items: center; justify-content: center; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 21px">3</span>
+<h3 class="h3">Check and save</h3>
+<p class="small" style="font-size: 15px">Every answer is checked against that format, asked again if it&#39;s wrong, then saved as a task list other tools can read.</p>
+</div></div>
+</section>
+
+<section class="sec rv">
+<div style="display: flex; flex-direction: column; gap: 18px; max-width: 720px">
+<span class="eyebrow">One example</span>
+<h2 class="h2">A short meeting about a pricing page</h2>
+<p class="body" style="font-size: 17px">Here is a sample meeting from the test set. Two decisions and three pieces of work, buried in one short update:</p>
+</div>
+<div class="glass card pad rv" style="margin-top: 20px; max-width: 720px">
+<p class="body" style="font-size: 16px; font-style: italic">&#8220;We decided to go with the three-column pricing table instead of the toggle, because the toggle confused people in the last test. Priya, can you update the icons to the new set by Thursday? Dan, I need you to send the final copy for the headlines by Friday. One blocker: we still don&#39;t have the logo files from the client, so I can&#39;t finish the header.&#8221;</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 720px; margin-top: 20px">
+<p class="body" style="font-size: 17px">The tool returns this, in the same fixed shape every time:</p>
+<div class="glass card tile" style="padding: 22px 26px; display: flex; flex-direction: column; gap: 6px">
+<p class="small" style="font-size: 15px"><b>Decision:</b> use the three-column pricing table instead of the toggle</p>
+<p class="small" style="font-size: 15px"><b>Task:</b> update icons to the new set — Priya, Thursday</p>
+<p class="small" style="font-size: 15px"><b>Task:</b> send the final headline copy — Dan, Friday</p>
+<p class="small" style="font-size: 15px"><b>Blocker:</b> logo files from the client are missing</p>
+</div>
+<p class="body" style="font-size: 17px">Because the output always has the same shape, it can go straight into a task tool instead of being retyped.</p>
+</div>
+</section>
+
+<section class="sec rv">
+<div style="display: flex; flex-direction: column; gap: 18px; max-width: 720px">
+<span class="eyebrow">What made it trustworthy</span>
+<h2 class="h2">It never guesses</h2>
+<p class="body" style="font-size: 17px">The rule that matters most is a simple one: if nobody said who owns a task or when it&#39;s due, the tool writes &#8220;unknown&#8221; instead of making something up. A tentative owner, like &#8220;maybe Lena&#8221;, is named but marked unconfirmed.</p>
+<p class="body" style="font-size: 17px">I also wrote the correct answer for every test meeting before running the tool, so the tests measure accuracy, not just &#8220;it ran&#8221;. Across four sample meetings — short, messy, long and written — it passed 67 out of 67 checks, finding every task, owner and deadline.</p>
+</div>
+</section>
+
+<section class="sec rv">
+<div style="display: flex; flex-direction: column; gap: 18px; max-width: 720px">
+<span class="eyebrow">Honest limits</span>
+<h2 class="h2">What it can&#39;t do yet</h2>
+<p class="body" style="font-size: 17px">It was tested on sample meetings with answers prepared in advance. Real client meetings are the next step. It starts from a transcript — Loom gives you one — it doesn&#39;t record the meeting itself. And a human still reads the list before acting on it. The tool drafts the work; it doesn&#39;t decide it.</p>
+</div>
+</section>
+
+<section class="sec rv">
+<a class="glass card tile" href="loom-to-tasks.html" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: clamp(22px, 3vw, 34px); text-decoration: none">
+<span style="display: flex; flex-direction: column; gap: 6px"><span class="eyebrow" style="color: #5A4B6E">The case study</span><span class="h2" style="font-size: clamp(28px, 3.4vw, 44px)">Loom to Tasks</span></span>
+<span class="btn btn-dark" style="flex: none">View <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+</a>
+</section>
+
+<section class="sec rv">
+<div class="cta">
+<span aria-hidden="true" class="ghost" style="right: -20px; bottom: -50px; font-size: clamp(120px, 17vw, 240px)">hello</span>
+<span aria-hidden="true" class="orb bob" style="position: absolute; top: 30px; right: 44px; width: 84px; height: 84px; background-color: rgba(255,210,150,.28)"></span>
+<span aria-hidden="true" class="orb bob" style="position: absolute; left: 6%; bottom: 14%; width: 46px; height: 46px; background-color: rgba(255,255,255,.18); animation-delay: -2.5s"></span>
+<h2 class="h2" style="position: relative">Have meeting notes piling up?</h2>
+<p style="position: relative">Send me a short message about it. I reply within one working day.</p>
+<div class="btns" style="position: relative; justify-content: center">
+<a class="btn btn-light" href="contact.html">Contact me <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a class="btn btn-ondark" href="mailto:abrarzamil.dev@gmail.com"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>Email me</a>
+</div>
+</div>
+</section>
+
+</main>
+<footer class="foot">
+<div class="foot-in">
+<div class="foot-cols">
+<div class="foot-col" style="flex: 1 1 260px; max-width: 320px; gap: 12px">
+<a class="brand" href="index.html" style="padding: 0"><span class="brand-mark">A</span><span class="brand-name">Abrar Zamil</span></a>
+<p class="small">Python developer. Automations, AI tools, dashboards and websites.</p>
+<span class="pill pill-green" style="padding: 5px 12px"><span class="dot"></span>Available for new projects</span>
+</div>
+<div class="foot-col"><span>Pages</span>
+<a href="index.html">Home</a><a href="projects.html">Work</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</div>
+<div class="foot-col"><span>Projects</span>
+<a href="loom-to-tasks.html">Loom to Tasks</a><a href="lead-tracker.html">Lead Tracker</a><a href="sourcing-website.html">Wholesalia website</a>
+</div>
+<div class="foot-col" style="min-width: 220px"><span>Elsewhere</span>
+<div class="socials">
+<a href="https://www.linkedin.com/in/abrar-zamil-shuvo-059b04229" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>LinkedIn</a>
+<a href="https://x.com/AbrarZamilShuvo" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>X</a>
+<a href="https://github.com/AbrarShuvo" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"></path></svg>GitHub</a>
+<a href="mailto:abrarzamil.dev@gmail.com"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>Email</a>
+</div>
+</div>
+</div>
+<div class="foot-bar"><span>&copy; 2026 Abrar Zamil</span><a href="#top" style="font-weight: 600; text-decoration: none; padding: 8px 0">Back to top &uarr;</a></div>
+</div>
+  <div class="foot-word-wrap" aria-hidden="true">
+    <span class="foot-word">Abrar Zamil</span>
+  </div>
+</footer>
+</div>
+</div>
+<button class="to-top" type="button" aria-label="Back to top">&#8593;</button>
+<script src="script.js?v=7c1d04"></script>
+</body>
+</html>

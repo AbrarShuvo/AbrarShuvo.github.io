@@ -86,7 +86,7 @@
       tb.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
     }
     var m = document.querySelector('meta[name="theme-color"]');
-    if (m) m.setAttribute('content', t === 'dark' ? '#120C24' : '#EDEFFF');
+    if (m) m.setAttribute('content', t === 'dark' ? '#141414' : '#FDFDFC');
     if (save) { try { localStorage.setItem('theme', t); } catch (e) {} }
   }
   setTheme(root.getAttribute('data-theme') || 'light');
@@ -135,4 +135,42 @@
     var b = form.querySelector('[type="submit"]');
     if (b) { b.disabled = true; b.firstChild.textContent = 'Sending… '; }
   });
+
+  // Nav links: Stokt-style rolling text on hover (violet copy slides up).
+  if (!reduce) {
+    Array.prototype.forEach.call(document.querySelectorAll('.nav-links a'), function (a) {
+      var t = a.textContent.trim();
+      if (!t) return;
+      a.setAttribute('data-text', t);
+      a.classList.add('roll');
+    });
+  }
+
+  // Stats row: count the numbers up when they scroll into view.
+  var counters = document.querySelectorAll('.stat b[data-count]');
+  if (counters.length) {
+    var runCount = function (el) {
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var pad = parseInt(el.getAttribute('data-pad') || '0', 10);
+      var fmt = function (n) { var s = String(n); while (s.length < pad) s = '0' + s; return s; };
+      if (reduce) { el.textContent = fmt(target); return; }
+      var start = null;
+      var step = function (ts) {
+        if (!start) start = ts;
+        var p = Math.min((ts - start) / 900, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmt(Math.round(target * eased));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    if ('IntersectionObserver' in window) {
+      var cio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { runCount(en.target); cio.unobserve(en.target); } });
+      }, { threshold: 0.4 });
+      Array.prototype.forEach.call(counters, function (el) { cio.observe(el); });
+    } else {
+      Array.prototype.forEach.call(counters, function (el) { runCount(el); });
+    }
+  }
 })();

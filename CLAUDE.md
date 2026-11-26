@@ -21,6 +21,11 @@ Keep it that way. Do not add React, Tailwind, a bundler, or npm unless I ask.
 | `sourcing-website.html` | Case study: Wholesalia website (live client site) |
 | `services.html` | Services: four services, how I work, FAQ |
 | `python-automation-for-agencies.html` | Landing page: Python automation for agencies, links to the three case studies |
+| `how-i-turned-meeting-recordings-into-task-lists.html` | Article: how meeting recordings become task lists (Loom to Tasks) |
+| `workflow-automation.html` | Service page: workflow automation |
+| `ai-integrations.html` | Service page: AI integrations |
+| `data-dashboards.html` | Service page: data dashboards |
+| `websites.html` | Service page: websites |
 | `about.html` | About: intro, experience timeline, tools |
 | `contact.html` | Contact: name, email, about the task |
 | `404.html` | Not found (root-relative links) |
@@ -29,6 +34,7 @@ Keep it that way. Do not add React, Tailwind, a bundler, or npm unless I ask.
 | `styles.css` | All shared styling and components |
 | `script.js` | Mobile menu, hero parallax, contact prefill, copy-email, thank-you note, dark mode, scroll progress, back-to-top, card spotlight, reveal fallback, form sending state |
 | `images/` | Photo, Wholesalia screenshots, favicon, link-preview cover |
+| `fonts/` | Plus Jakarta Sans variable woff2, self-hosted (no Google Fonts) |
 
 Nav on every page: Work · Services · About · Contact, plus "Let's talk".
 
@@ -42,25 +48,67 @@ Open http://localhost:8000. Use a server, not file://, or `404.html` links break
 
 ## Design system
 
-Fonts: **Bricolage Grotesque** (headings), **Inter** (body), from Google Fonts.
+Fonts: **Plus Jakarta Sans** (everything), self-hosted variable woff2 in
+`fonts/` (`@font-face` in `styles.css`, weights 200–800). No Google Fonts,
+no web-font requests. Headings are weight 800, tight tracking (-.03em).
 
 | Token | Hex | Used for |
 |---|---|---|
-| Cream | `#FFF0E4` | page background |
-| Plum | `#2A1B3D` | headings, dark buttons |
-| Plum soft | `#3A2B4E` | body text |
-| Blue | `#3350DC` / `#4C6FFF` | primary accent |
-| Violet | `#7A5CE6` | gradient middle |
-| Coral | `#E8697A` | gradient middle |
-| Orange | `#FF7A2F` / `#FF9A52` | warm accent |
-| Yellow | `#FFD34D` / `#FFE27A` | highlight |
+| Warm white | `#FDFDFC` | page background |
+| Ink | `#090909` | headings, dark buttons |
+| Body | `#1B1B1B` | body text |
+| Muted | `#6E6E6E` | secondary text |
+| Violet | `#5B29FE` | primary accent, buttons, links |
+| Violet deep | `#4A23CC` | darker violet |
+| Orange | `#FF531A` | warm accent, step numbers |
+| Lemon | `#FFF84B` | highlight, CTA card accent |
+| Lavender | `#F3EEF5` | (kept in CSS; no longer used on preview cards) |
+| Beige | `#EDE0D5` | (kept in CSS; no longer used on preview cards) |
+| Dark | `#141414` | CTA band, footer |
 | Green | `#1F9D63` | available dot, pass states |
 
 Three classes carry the whole look. Reuse them, don't reinvent them:
 
-- `.glass` — frosted panel: translucent white, `backdrop-filter: blur(24px)`, white border, inset top highlight
-- `.orb` — crystal bubble: a `radial-gradient` highlight at 32%/26% plus two inset shadows
-- `.blob` — soft blurred colour cloud drifting behind the page on `floatA` / `floatB`
+- `.glass` — flat card: solid white, 1px `#E5E5E5` hairline border, 24px radius.
+  No blur, no shadow. (The name is kept so all fifteen pages keep working.)
+- `.orb` — flat translucent-white circle used as a soft dot on colour panels.
+- `.blob` — hidden (`display: none`); the markup stays on every page but no
+  colour clouds render. The page background is flat `#FDFDFC`.
+
+Nav is a sticky flat bar (full width, no pill, hairline bottom border when
+scrolled). Hero is a flat white card with the headline, a gradient phrase
+(orange → pink → violet) and the photo in a square-cornered frame. CTA is a
+flat dark `#141414` band. Footer is a dark `#141414` band with link columns
+and a giant cropped "ABRAR ZAMIL" wordmark. Project preview cards are
+full-bleed media (Stokt / Cappen treatment, added 2026-11-26): the visual
+fills the card edge-to-edge with no pastel panel, no browser frame and no
+orbs; real screenshots use `object-fit: cover`, the Loom / Lead Tracker CSS
+demo windows fill the card instead. Hover zooms the media slightly, darkens
+the bottom with a gradient and shows a centred "View project →" pill
+(`.proj-view`). On the home grid the second card sits 56px lower (Cappen
+stagger). New Work entries reuse the same pattern: one `.proj` card, one
+`.proj-visual` with the screenshot (16:10 works best) or a demo window.
+
+Motion + colour round 2 (Stokt / Cappen, added 2026-11-26, still local):
+- `.marquee` — lemon full-bleed strip under the home hero, mono uppercase
+  service names with orange ✳ separators, scrolling left (pauses on hover).
+- Hero headline words rise one by one (`.hero .h1 .w`, staggered delays).
+- Nav links roll on hover: the label slides up and a violet copy slides in
+  (script.js adds `.roll` + `data-text`; no-JS keeps plain links).
+- `.pill-label` — solid black pill section label (Cappen), used on the two
+  work sections instead of the slash eyebrow.
+- `.stats` — four real numbers (04 projects / 03 case studies / 02
+  certificates / 223 automated checks) that count up on scroll (script.js,
+  `data-count` + `data-pad`). Never invent a number.
+- `.cert-list` / `.cert-row` — certificates as hairline rows on About; the
+  hovered row turns solid orange with white text (Stokt awards table).
+- The project-card hover pill (`.proj-view`) is orange, not white.
+- Orange (`--orange`) is the second accent next to violet; lemon
+  (`--lemon`) is used for the marquee and highlight pills. Both keep their
+  light values in dark mode.
+Section labels are Wavespace-style: a violet "/" then uppercase muted text.
+Buttons are pills: `.btn-dark` is violet, `.btn-ondark` is white with violet
+text (for dark bands), `.btn-glass` is white with a hairline border.
 
 Supporting classes: `.tile` (hover lift), `.btn` / `.arr` (button + arrow nudge),
 `.pop` (load-in), `.rv` (reveal on scroll), `.bob` (float), `.win` (app-window shadow),
@@ -74,13 +122,13 @@ Supporting classes: `.tile` (hover lift), `.btn` / `.arr` (button + arrow nudge)
 - The three case studies share one identical layout, in this order: back link, pill,
   title, tech tags, summary, two buttons side by side, meta row, hero visual, problem,
   three steps, decisions, result, screens, next project, CTA. Keep all three in sync.
-- Every page repeats the same nav and footer markup. Change one, change all ten.
+- Every page repeats the same nav and footer markup. Change one, change all fifteen.
 - Test at **390px** after any layout change. No horizontal scroll, ever.
 - Keep the accessibility that's there: real `<label>` for every input, `aria-hidden`
   on decorative SVGs, `aria-label` on icon-only links, visible focus rings.
 - Every animation is already wrapped in `@media (prefers-reduced-motion: reduce)`.
   Any new one must be too.
-- `styles.css` and `script.js` are linked with a `?v=` tag on all ten pages. After changing
+- `styles.css` and `script.js` are linked with a `?v=` tag on all fifteen pages. After changing
   either file, change the tag on every page (any new value), or visitors' browsers keep the
   old cached file and the page shows unstyled.
 - Don't add third-party scripts (analytics, chat widgets, font loaders) without asking.
@@ -88,7 +136,7 @@ Supporting classes: `.tile` (hover lift), `.btn` / `.arr` (button + arrow nudge)
 ## SEO
 
 - Every new page needs a unique `<title>` (under 60 characters), meta description (under 160), canonical, and og:title / og:description / og:type / og:url / og:image + twitter:card. Add it to `sitemap.xml`.
-- Site URL is https://abrarshuvo.github.io/ — it is in a `<!-- SITE URL: ... -->` comment at the top of `<head>` in each page. Change that comment first, then find-replace the same URL in the canonical / og tags. Files containing it: all ten HTML files, `sitemap.xml`, `robots.txt`.
+- Site URL is https://abrarshuvo.github.io/ — it is in a `<!-- SITE URL: ... -->` comment at the top of `<head>` in each page. Change that comment first, then find-replace the same URL in the canonical / og tags. Files containing it: all fifteen HTML files, `sitemap.xml`, `robots.txt`.
 - `404.html` is noindex, with no canonical.
 - One h1 per page, headings in order, meaningful alt text, width and height on images, `loading="lazy"` below the fold.
 
@@ -135,5 +183,10 @@ Email is already set: `abrarzamil.dev@gmail.com`
 - `abrarzamil.com`: after the first paid client.
 
 ## Deploying
+
+**Restyle 2026-11-26: flat three-site language (Purple Softworks / Musemind /
+Wavespace), same as the blog. Pushed live 2026-11-26 after Abrar approved the
+preview (snapshot push; the motion round and full-bleed previews went live in
+the same push).** Cache tag is now `?v=7c1d04`.
 
 Push to `main`. GitHub Pages rebuilds in about a minute. There is no CI.
