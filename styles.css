@@ -609,9 +609,12 @@ html[data-theme="dark"] .px-card{box-shadow:0 12px 32px rgba(0,0,0,.45)}
 }
 
 /* ---------- Buttons with hover lift (round 8, demo whileHover) ---------- */
-/* .btn already lifted 2px; the demo's cards lift 20px, so buttons now lift
-   6px with a soft shadow — same language, scaled for a 48px pill. */
-.btn{transition:translate .2s ease,filter .2s ease,border-color .2s ease,box-shadow .2s ease}
-.btn:hover,.btn:focus-visible{translate:0 -6px;box-shadow:0 16px 32px -12px rgba(9,9,9,.28)}
-html[data-theme="dark"] .btn:hover,html[data-theme="dark"] .btn:focus-visible{box-shadow:0 16px 32px -12px rgba(0,0,0,.6)}
+/* The demo's ProductCard does whileHover={{ y: -20 }} + group-hover shadow-2xl,
+   so every .btn does exactly that on hover/focus-visible — the literal demo
+   values, not a scaled-down version (Abrar re-sent the paste asking for it).
+   Same .35s ease as the showreel cards, so the lift feels like the demo's
+   spring. */
+.btn{transition:translate .35s ease,filter .2s ease,border-color .2s ease,box-shadow .35s ease}
+.btn:hover,.btn:focus-visible{translate:0 -20px;box-shadow:0 25px 50px -12px rgba(0,0,0,.25)}
+html[data-theme="dark"] .btn:hover,html[data-theme="dark"] .btn:focus-visible{box-shadow:0 25px 50px -12px rgba(0,0,0,.6)}
 @media (prefers-reduced-motion: reduce){.btn:hover,.btn:focus-visible{translate:0;box-shadow:none}}

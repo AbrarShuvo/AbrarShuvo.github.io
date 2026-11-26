@@ -130,7 +130,7 @@ Motion + colour round 2 (Stokt / Cappen, added 2026-11-26, PUSHED LIVE
   Reduced motion shows the rows as a plain wrapping grid; touch shows card
   names without hover. To swap a dummy for a real project, replace one
   `.px-card--dummy` block with an `<a class="px-card">` like the others.
-  Round 6 (2026-11-26, pushed live 2026-11-26 ~22:05 WIB, same push as
+  Round 6 (2026-11-26, pushed live 2026-11-26 ~22:01 WIB, same push as
   rounds 7+8): cards are now the demo's exact size, 480×384 (h-96 w-[30rem]),
   80px gaps, all four real projects image-led — Loom and Lead Tracker
   thumbnails are screenshots of their own live CSS demos
@@ -156,10 +156,30 @@ Motion + colour round 2 (Stokt / Cappen, added 2026-11-26, PUSHED LIVE
   script.js) serves both: the showreel uses progress over the full wrap
   height, the banner over the scrollable distance (wrapHeight - viewport).
   About keeps its 48s loop strip — content stays in sync (same 22 skills).
-  Round 8 (2026-11-26, buttons with hover lift, pushed live same push): every
-  .btn lifts 6px (was 2px) with a soft shadow on hover/focus-visible — the
-  demo's whileHover y:-20, scaled for a 48px pill. Reduced-motion disables
-  the lift.
+  Round 8 (2026-11-26, buttons with hover lift, pushed live same push as
+  rounds 6+7; revised 2026-11-26, still local — Abrar re-sent the paste:
+  "Buttons like this"): every .btn lifts 6px (was 2px) with a soft shadow
+  on hover/focus-visible in the first version; the revision uses the demo's
+  LITERAL values — whileHover y:-20 + shadow-2xl (0 25px 50px -12px
+  rgba(0,0,0,.25)), .35s ease like the showreel cards — on every .btn
+  site-wide (hero, nav "Let's talk", View project, form submit). Verified:
+  hero/nav/View-project all translate 0 -20px + shadow-2xl, no overflow,
+  dark mode OK. The nav button floats high on hover but stays inside the
+  bar — looks deliberate, not broken. Reduced-motion disables the lift.
+  Round 9 — SHOWREEL MOVED TO HOME (2026-11-26, still local — Abrar: "what
+  you put on work I want that animation on the home page... for works I will
+  think something later"): the 9-card showreel moved from projects.html to
+  index.html, replacing the "Recent projects" grid. Home order is now hero →
+  showreel → "What I work with" banner → stats. The grid's descriptions,
+  results and inline Loom demo are gone from home (the demo still lives on
+  loom-to-tasks.html and on the Work page list); the showreel cards link to
+  the same case studies. An "All work →" link sits in the showreel header,
+  and the section keeps id="work". The Work page is now a plain list
+  (header + 4 project cards with live demos) until Abrar decides what it
+  should be. No CSS/JS changes — the same driveParallax driver runs the
+  showreel wherever it lives. Images are lazy: they read as unloaded at
+  page load (below the hero fold) and load on scroll — that is normal, not
+  a bug.
 - Nav links roll on hover: the label slides up and a violet copy slides in
   (script.js adds `.roll` + `data-text`; no-JS keeps plain links).
 - `.pill-label` — solid black pill section label (Cappen), used on the two
@@ -254,6 +274,6 @@ Email is already set: `abrarzamil.dev@gmail.com`
 **Restyle 2026-11-26: flat three-site language (Purple Softworks / Musemind /
 Wavespace), same as the blog. Pushed live 2026-11-26 after Abrar approved the
 preview (snapshot push; the motion round and full-bleed previews went live in
-the same push).** Cache tag is now `?v=7f9a2c` (rounds 6–8 pushed live 2026-11-26; see "Rounds 6–8 push" below for the commit).
+the same push).** Cache tag is now `?v=9a1f4b` (showreel move + literal button lift, local, not pushed yet).
 
 Push to `main`. GitHub Pages rebuilds in about a minute. There is no CI.

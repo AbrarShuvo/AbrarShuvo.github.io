@@ -23,7 +23,7 @@
 <meta name="twitter:description" content="Python developer. I automate repetitive work, add AI to the tools you already use, and build dashboards and websites.">
 <meta name="twitter:image" content="https://abrarshuvo.github.io/images/og-cover.png">
 <link rel="icon" href="images/favicon.svg">
-<link rel="stylesheet" href="styles.css?v=7f9a2c">
+<link rel="stylesheet" href="styles.css?v=9a1f4b">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Abrar Zamil","jobTitle":"Python developer","url":"https://abrarshuvo.github.io/","sameAs":["https://github.com/AbrarShuvo","https://www.linkedin.com/in/abrar-zamil-shuvo-059b04229"]}</script>
 </head>
 <body>
@@ -83,77 +83,67 @@
 </div>
 </section>
 
-<section class="sec" id="work">
-<div class="sec-head rv">
-<div><span class="pill-label">Selected work</span><h2 class="h2">Recent projects</h2></div>
-<a class="link" href="projects.html">All work <svg class="arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<!-- Hero Parallax (Aceternity-style, rebuilt in vanilla CSS/JS — no React, no build step).
+     Rows slide apart as you scroll; the grid starts tilted and flattens out.
+     Cards: 4 real projects + 3 dummy placeholders (Abrar will replace them) + 1 CTA + 1 GitHub card. -->
+<section class="px-wrap" id="work" aria-label="Projects in motion">
+<div class="px-head">
+<span class="pill-label">Showreel</span>
+<h2 class="h2">Every project, one sweep</h2>
+<p class="lead" style="max-width: 640px">Scroll &mdash; the rows slide apart and flatten out. Open any card for the full story.</p>
+<p style="margin-top:14px"><a class="link" href="projects.html">All work &rarr;</a></p>
 </div>
-<div style="display: flex; flex-direction: column; gap: 20px">
-<article class="proj proj-wide glass tile rv">
-<div class="proj-copy">
-<span class="pill pill-blue">AI automation</span>
-<h3 class="h3" style="font-size: clamp(28px, 2.8vw, 38px)">Loom to Tasks</h3>
-<p class="body">Turns a recorded meeting into a clear list of tasks, owners, deadlines and decisions, so nobody has to rewatch the call.</p>
-<p class="result"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F9D63" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg><span>Tested on 4 sample meetings: every task and decision found.</span></p>
-
-<a class="btn btn-dark" href="loom-to-tasks.html">View project <span class="sr-only">— Loom to Tasks case study</span> <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<div class="px-stage" id="px-stage">
+<div class="px-row" data-dir="1">
+<a class="px-card" href="loom-to-tasks.html" aria-label="Loom to Tasks — view project">
+<img class="px-visual px-visual--img" src="images/loom-thumb.jpg" alt="Loom to Tasks demo: a meeting transcript turned into a task list" width="920" height="414" loading="lazy" decoding="async">
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Loom to Tasks</span>
+</a>
+<a class="px-card" href="lead-tracker.html" aria-label="Lead Tracker — view project">
+<img class="px-visual px-visual--img" src="images/lead-tracker-thumb.jpg" alt="Lead Tracker dashboard with sample data: new, contacted and won leads" width="760" height="490" loading="lazy" decoding="async">
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Lead Tracker</span>
+</a>
+<a class="px-card" href="sourcing-website.html" aria-label="Wholesalia website — view project">
+<img class="px-visual px-visual--img" src="images/wholesalia-hero.jpg" alt="Featured products on the Wholesalia homepage" width="1280" height="1018" loading="lazy" decoding="async">
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Wholesalia website</span>
+</a>
 </div>
-<div class="proj-visual"><span class="proj-view" aria-hidden="true">View project &rarr;</span><div class="zoom" style="position: relative; width: 100%; display: flex; justify-content: center"><div class="demo" role="img" aria-label="Animated example: a meeting transcript on the left is turned into a list of tasks and a decision on the right">
-<div class="demo-bar"><i style="background: #F26D5F"></i><i style="background: #F5BD4F"></i><i style="background: #5FC454"></i><b>Loom to Tasks</b><span class="demo-live">Live demo</span></div>
-<div class="demo-body">
-<div class="demo-col">
-<span class="demo-h">Meeting transcript</span>
-<div class="line s1"><span class="av av-c">C</span><span><span class="who">Client · 00:12</span>Can we move the launch to Friday?</span></div>
-<div class="line s2"><span class="av av-d">D</span><span><span class="who">Designer · 00:19</span>Sure. I&#39;ll send the new homepage by Thursday.</span></div>
-<div class="line s3"><span class="av av-c">C</span><span><span class="who">Client · 00:31</span>And please add our new team photos.</span></div>
-<div class="line s4"><span class="av av-d">D</span><span><span class="who">Designer · 00:44</span>Noted. I&#39;ll confirm the copy with you first.</span></div>
-<div class="track"><span></span></div>
+<div class="px-row" data-dir="-1">
+<a class="px-card" href="https://abrarshuvo.github.io/Glass-bento-portfolio/" target="_blank" rel="noopener" aria-label="Glass Bento portfolio template — open live demo (opens in a new tab)">
+<img class="px-visual px-visual--img" src="images/glass-bento-preview.jpg" alt="The Glass Bento portfolio template home page" width="1280" height="800" loading="lazy" decoding="async">
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Glass Bento template</span>
+</a>
+<div class="px-card px-card--dummy" aria-label="Coming soon — placeholder for a future project">
+<span class="px-visual px-visual--dummy"><span class="px-plus" aria-hidden="true">+</span><span class="px-visual-big">Coming soon</span><span class="px-visual-sub">New project &mdash; placeholder 1</span></span>
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Coming soon</span>
 </div>
-<div class="demo-col">
-<span class="demo-h">What the AI pulls out</span>
-<span class="wait" aria-hidden="true">Reading the meeting<i>.</i><i>.</i><i>.</i></span>
-<div class="out s5"><span class="chk"></span><span class="t">Send new homepage draft</span><span class="chip chip-b">Designer · Thu</span></div>
-<div class="out s6"><span class="chk"></span><span class="t">Add new team photos</span><span class="chip chip-b">Designer</span></div>
-<div class="out out-dec s7"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6B4E00" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4h12l-2 4 2 4H5"></path></svg><span class="t">Launch moves to Friday</span><span class="chip chip-y">Decision</span></div>
-<span class="saved s8"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FFD34D" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Saved as a task list</span>
+<div class="px-card px-card--dummy" aria-label="Coming soon — placeholder for a future project">
+<span class="px-visual px-visual--dummy"><span class="px-plus" aria-hidden="true">+</span><span class="px-visual-big">Coming soon</span><span class="px-visual-sub">New project &mdash; placeholder 2</span></span>
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Coming soon</span>
 </div>
 </div>
-</div></div></div>
-</article>
-<div class="grid g2">
-<article class="proj glass tile rv">
-<div class="proj-visual"><span class="proj-view" aria-hidden="true">View project &rarr;</span><div class="zoom" style="position: relative; width: 100%; display: flex; justify-content: center"><div class="win dash" role="img" aria-label="Lead Tracker dashboard with sample data: new, contacted and won leads, and leads per day">
-<div class="demo-bar"><i style="background: #F26D5F"></i><i style="background: #F5BD4F"></i><i style="background: #5FC454"></i><b>Lead Tracker · Dashboard</b><span class="demo-live" style="text-transform: none; letter-spacing: 0">Sample data</span></div>
-<div class="dash-body">
-<div class="kpis"><div class="kpi"><span>New leads</span><b>24</b></div><div class="kpi"><span>Contacted</span><b>11</b></div><div class="kpi"><span>Won</span><b style="color: #136B43">5</b></div></div>
-<div style="border: 1px solid #E5E5E5; border-radius: 12px; padding: 12px 12px 8px; display: flex; flex-direction: column; gap: 6px">
-<span style="font-size: 11px; font-weight: 600; color: #4A3A5C">Leads per day</span>
-<div class="bars"><span style="height: 40%; animation-delay: 0.00s"></span><span style="height: 62%; animation-delay: 0.08s"></span><span style="height: 48%; animation-delay: 0.16s"></span><span style="height: 88%; animation-delay: 0.24s" class="hi"></span><span style="height: 70%; animation-delay: 0.32s"></span><span style="height: 30%; animation-delay: 0.40s"></span><span style="height: 22%; animation-delay: 0.48s"></span></div>
-<div class="days"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+<div class="px-row" data-dir="1">
+<div class="px-card px-card--dummy" aria-label="Coming soon — placeholder for a future project">
+<span class="px-visual px-visual--dummy"><span class="px-plus" aria-hidden="true">+</span><span class="px-visual-big">Coming soon</span><span class="px-visual-sub">New project &mdash; placeholder 3</span></span>
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Coming soon</span>
 </div>
-
-</div>
-</div></div></div>
-<div class="proj-copy">
-<span class="pill pill-yellow">Data pipeline</span>
-<h3 class="h3" style="font-size: clamp(28px, 2.8vw, 38px)">Lead Tracker</h3>
-<p class="body">Collects new enquiries from the inbox into one Excel tracker and a weekly dashboard, without anyone typing them in.</p>
-<p class="result"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F9D63" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg><span>Every step is covered by automated tests.</span></p>
-
-<a class="btn btn-dark" href="lead-tracker.html">View project <span class="sr-only">— Lead Tracker case study</span> <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
-</div>
-</article>
-<article class="proj glass tile rv">
-<div class="proj-visual"><span class="proj-view" aria-hidden="true">View project &rarr;</span><div class="zoom" style="position: relative; width: 100%; display: flex; justify-content: center"><img src="images/wholesalia-hero.jpg" alt="Featured products on the Wholesalia homepage: Lunch Box, Massager, Toys and Umbrella with prices and Request quote buttons" width="1280" height="1018" loading="lazy" decoding="async"></div></div>
-<div class="proj-copy">
-<span class="pill pill-orange">Client website · Live</span>
-<h3 class="h3" style="font-size: clamp(28px, 2.8vw, 38px)">Wholesalia website</h3>
-<p class="body">A quotation website for a China-based sourcing company, with an admin panel the owner uses to update products and services.</p>
-<p class="result"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F9D63" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg><span>Live at gowholesalia.com.</span></p>
-
-<a class="btn btn-dark" href="sourcing-website.html">View project <span class="sr-only">— Wholesalia website case study</span> <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
-</div>
-</article>
+<a class="px-card" href="contact.html" aria-label="Your project here — contact Abrar">
+<span class="px-visual px-visual--cta"><span class="px-visual-big">Your project here</span><span class="px-visual-sub">Have something to automate? Let&rsquo;s talk &rarr;</span></span>
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Your project here</span>
+</a>
+<a class="px-card" href="https://github.com/AbrarShuvo" target="_blank" rel="noopener" aria-label="More on GitHub — github.com/AbrarShuvo (opens in a new tab)">
+<span class="px-visual px-visual--git"><span class="px-visual-big">More on GitHub</span><span class="px-visual-sub">github.com/AbrarShuvo &nearr;</span></span>
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">More on GitHub</span>
+</a>
 </div>
 </div>
 </section>
@@ -268,6 +258,6 @@
 </div>
 </div>
 <button class="to-top" type="button" aria-label="Back to top">&#8593;</button>
-<script src="script.js?v=7f9a2c"></script>
+<script src="script.js?v=9a1f4b"></script>
 </body>
 </html>
