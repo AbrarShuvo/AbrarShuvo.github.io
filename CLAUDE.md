@@ -130,6 +130,36 @@ Motion + colour round 2 (Stokt / Cappen, added 2026-11-26, PUSHED LIVE
   Reduced motion shows the rows as a plain wrapping grid; touch shows card
   names without hover. To swap a dummy for a real project, replace one
   `.px-card--dummy` block with an `<a class="px-card">` like the others.
+  Round 6 (2026-11-26, pushed live 2026-11-26 ~22:05 WIB, same push as
+  rounds 7+8): cards are now the demo's exact size, 480×384 (h-96 w-[30rem]),
+  80px gaps, all four real projects image-led — Loom and Lead Tracker
+  thumbnails are screenshots of their own live CSS demos
+  (images/loom-thumb.jpg 920×414, images/lead-tracker-thumb.jpg 760×490,
+  captured with puppeteer after the Loom demo finished playing);
+  dummies / CTA / GitHub stay designed panels. Motion is now the authentic
+  model: the stage is NOT sticky — the tall grid scrolls through the 300vh
+  runway on translateY -700→500 (same numbers as the React original) while
+  rows slide up to 1000px. Hover is shadow-2xl + lift -20px + black shade .8
+  + title bottom-left. Note: `overflow:hidden` on .px-wrap used to break the
+  old sticky stage; the stage is static now, so the clip rule is only about
+  sideways rows (still keep it off — .page overflow-x:clip does that job).
+  The two new thumbnails are binaries: they need a browser web upload at
+  push time (like the font / og-cover / Wholesalia photo).
+  Round 7 (2026-11-26, homepage banner as parallax, pushed live same push):
+  the home "What I work with" banner is now a 200vh parallax runway — two
+  rows of the same 22 skill pills (11/11, same icons, same order, no
+  duplicates) sliding opposite ways on scroll, stage tilts rotateX 10->0 and
+  fades in. The stage IS sticky here (unlike the showreel): the banner is
+  only two rows tall, so it stays pinned while the runway scrolls — a
+  non-sticky stage scrolled away and left the runway blank (caught in
+  verification, fixed before pushing). One driver (`driveParallax` in
+  script.js) serves both: the showreel uses progress over the full wrap
+  height, the banner over the scrollable distance (wrapHeight - viewport).
+  About keeps its 48s loop strip — content stays in sync (same 22 skills).
+  Round 8 (2026-11-26, buttons with hover lift, pushed live same push): every
+  .btn lifts 6px (was 2px) with a soft shadow on hover/focus-visible — the
+  demo's whileHover y:-20, scaled for a 48px pill. Reduced-motion disables
+  the lift.
 - Nav links roll on hover: the label slides up and a violet copy slides in
   (script.js adds `.roll` + `data-text`; no-JS keeps plain links).
 - `.pill-label` — solid black pill section label (Cappen), used on the two
@@ -224,6 +254,6 @@ Email is already set: `abrarzamil.dev@gmail.com`
 **Restyle 2026-11-26: flat three-site language (Purple Softworks / Musemind /
 Wavespace), same as the blog. Pushed live 2026-11-26 after Abrar approved the
 preview (snapshot push; the motion round and full-bleed previews went live in
-the same push).** Cache tag is now `?v=8f3c2d` (rounds 3–5 local, not pushed yet).
+the same push).** Cache tag is now `?v=7f9a2c` (rounds 6–8 pushed live 2026-11-26; see "Rounds 6–8 push" below for the commit).
 
 Push to `main`. GitHub Pages rebuilds in about a minute. There is no CI.

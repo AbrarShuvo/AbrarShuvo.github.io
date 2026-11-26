@@ -188,43 +188,55 @@
     }
   }
 
-  // Hero Parallax on the Work page (Aceternity HeroParallax, vanilla port):
+  // Scroll parallax driver (Aceternity HeroParallax, vanilla port):
   // framer-motion useScroll target=wrap, offset ["start start", "end start"],
-  // plus useSpring stiffness 300 / damping 30 / bounce 100. The spring is
-  // approximated with a per-frame lerp: smoothed progress chases raw progress.
-  // rotateX 15->0, rotateZ 20->0, opacity .2->1 over the first 20% of the
-  // scroll; rows 1+3 slide one way, row 2 the other, over the full scroll.
-  var pxWrap = document.querySelector('.px-wrap');
-  var pxStage = document.getElementById('px-stage');
-  if (pxWrap && pxStage && !reduce) {
-    var pxRows = pxStage.querySelectorAll('.px-row');
-    var pxRaw = 0, pxSmooth = 0, pxTicking = false, pxSettled = true;
-    var pxApply = function () {
-      var p = pxSmooth;
-      var q = Math.min(p / 0.2, 1);
-      pxStage.style.transform = 'rotateX(' + (15 * (1 - q)).toFixed(2) + 'deg) rotateZ(' + (20 * (1 - q)).toFixed(2) + 'deg) translateY(' + (-140 * (1 - q)).toFixed(1) + 'px)';
-      pxStage.style.opacity = (0.2 + 0.8 * q).toFixed(3);
-      Array.prototype.forEach.call(pxRows, function (row) {
+  // plus useSpring stiffness 300 / damping 30 / bounce 100, approximated with
+  // a per-frame lerp: smoothed progress chases raw progress. One driver serves
+  // both the Work showreel and the homepage banner; opts are the demo's
+  // numbers per instance (tilt/rotateZ/translateY over the first 20% of the
+  // scroll, rows 1+3 slide one way, row 2 the other, over the full scroll).
+  var driveParallax = function (wrap, stage, opts) {
+    if (!wrap || !stage || reduce) return;
+    var rows = stage.querySelectorAll('[data-dir]');
+    var raw = 0, smooth = 0, ticking = false, settled = true;
+    var apply = function () {
+      var p = smooth, q = Math.min(p / 0.2, 1);
+      stage.style.transform = 'rotateX(' + (opts.tilt * (1 - q)).toFixed(2) + 'deg) rotateZ(' + (opts.rz * (1 - q)).toFixed(2) + 'deg) translateY(' + (opts.tyFrom + (opts.tyTo - opts.tyFrom) * q).toFixed(1) + 'px)';
+      stage.style.opacity = (opts.opFrom + (1 - opts.opFrom) * q).toFixed(3);
+      Array.prototype.forEach.call(rows, function (row) {
         var dir = parseFloat(row.getAttribute('data-dir') || '1');
-        var travel = Math.min(500, row.scrollWidth * 0.35);
+        var travel = Math.min(opts.travel, row.scrollWidth * opts.travelK);
         row.style.transform = 'translateX(' + (dir * p * travel).toFixed(1) + 'px)';
       });
     };
-    var pxStep = function () {
-      pxSmooth += (pxRaw - pxSmooth) * 0.12;
-      if (Math.abs(pxRaw - pxSmooth) < 0.0005) { pxSmooth = pxRaw; pxSettled = true; }
-      pxApply();
-      if (!pxSettled) requestAnimationFrame(pxStep); else pxTicking = false;
+    var step = function () {
+      smooth += (raw - smooth) * 0.12;
+      if (Math.abs(raw - smooth) < 0.0005) { smooth = raw; settled = true; }
+      apply();
+      if (!settled) requestAnimationFrame(step); else ticking = false;
     };
-    var pxUpdate = function () {
-      var r = pxWrap.getBoundingClientRect();
-      var total = pxWrap.offsetHeight - window.innerHeight;
-      var raw = total > 0 ? Math.min(Math.max(-r.top / total, 0), 1) : 0;
-      if (raw !== pxRaw) { pxRaw = raw; pxSettled = false; }
-      if (!pxTicking) { pxTicking = true; requestAnimationFrame(pxStep); }
+    var update = function () {
+      var r = wrap.getBoundingClientRect();
+      // totalMode "full": progress spans the whole wrap (authentic demo,
+      // offset ["start start","end start"]) — the showreel's tall grid scrolls
+      // through. "scrollable": progress spans wrapHeight - viewportHeight —
+      // for a sticky stage, which stays pinned while the runway scrolls.
+      var total = opts.totalMode === 'scrollable' ? wrap.offsetHeight - window.innerHeight : wrap.offsetHeight;
+      var next = total > 0 ? Math.min(Math.max(-r.top / total, 0), 1) : 0;
+      if (next !== raw) { raw = next; settled = false; }
+      if (!ticking) { ticking = true; requestAnimationFrame(step); }
     };
-    window.addEventListener('scroll', pxUpdate, { passive: true });
-    window.addEventListener('resize', pxUpdate);
-    pxUpdate();
-  }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  };
+  // Work showreel (round 5, round 6): authentic model — tall grid scrolls
+  // through the 300vh runway on translateY -700->500, rows slide up to 1000px.
+  driveParallax(document.querySelector('.px-wrap'), document.getElementById('px-stage'),
+    { tilt: 15, rz: 20, tyFrom: -700, tyTo: 500, opFrom: 0.2, travel: 1000, travelK: 0.5 });
+  // Homepage "What I work with" banner (round 7): 200vh runway, gentler tilt
+  // 10->0, no translateY, rows slide up to 600px. Sticky stage, so progress
+  // spans the scrollable distance (wrapHeight - viewportHeight).
+  driveParallax(document.querySelector('.skx-wrap'), document.getElementById('skx-stage'),
+    { tilt: 10, rz: 0, tyFrom: 0, tyTo: 0, opFrom: 0.2, travel: 600, travelK: 0.3, totalMode: 'scrollable' });
 })();

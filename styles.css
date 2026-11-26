@@ -418,7 +418,7 @@ details.glass[open] summary::after{rotate:45deg}
 .to-top{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:40;width:46px;height:46px;border-radius:50%;border:1px solid var(--hairline);background:var(--card);color:var(--ink);font-size:18px;cursor:pointer;opacity:0;visibility:hidden;translate:0 10px;transition:opacity .25s,translate .25s,visibility .25s}
 .to-top.show{opacity:1;visibility:visible;translate:0 0}
 .page{padding-bottom:env(safe-area-inset-bottom)}
-@media print{.nav,.blobs,.progress,.to-top,.skills-strip,.theme-toggle,.px-wrap{display:none!important}body,.page{background:#fff!important}.glass,.frost{box-shadow:none!important;backdrop-filter:none!important}}
+@media print{.nav,.blobs,.progress,.to-top,.skills-strip,.theme-toggle,.px-wrap,.skx-wrap{display:none!important}body,.page{background:#fff!important}.glass,.frost{box-shadow:none!important;backdrop-filter:none!important}}
 @media (prefers-reduced-motion:reduce){.progress{transition:none}.theme-toggle,.theme-toggle:hover,.to-top,details.glass summary::after{transition:none;rotate:none}.js-rv .rv{opacity:1;transform:none;transition:none}.tile::after{display:none}}
 
 /* ================= Dark theme ================= */
@@ -531,17 +531,21 @@ html[data-theme="dark"] .nav-links a.roll::after{color:var(--violet-soft)}
 /* NOTE: no overflow:hidden here — it breaks position:sticky on .px-stage.
    Horizontal overflow from the sliding rows is clipped by .page's
    overflow-x:clip instead (the nav proves sticky survives that). */
-.px-head{max-width:1200px;margin:0 auto;padding:72px 24px 0}
+.px-head{max-width:1200px;margin:0 auto;padding:120px 24px 0}
 .px-head .lead{margin-top:16px}
-.px-stage{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;transform-style:preserve-3d;will-change:transform,opacity;padding:24px 0}
-.px-row{display:flex;gap:28px;width:max-content;will-change:transform}
-.px-card{position:relative;flex-shrink:0;display:block;width:calc(clamp(180px,26vh,240px)*1.667);height:clamp(180px,26vh,240px);border-radius:16px;overflow:hidden;text-decoration:none;color:#fff;transition:transform .35s ease;box-shadow:0 12px 32px rgba(9,9,9,.14)}
-.px-card:hover,.px-card:focus-visible{transform:translateY(-20px)}
+/* Round 6: the stage is NOT sticky — like the React original, the tall grid
+   scrolls through the 300vh runway on translateY (-700 → 500) while the rows
+   slide sideways. Cards are the demo's exact size: 480×384 (h-96 w-[30rem]),
+   80px gaps (space-x-20 / mb-20). */
+.px-stage{display:flex;flex-direction:column;align-items:center;gap:80px;transform-style:preserve-3d;will-change:transform,opacity;padding:40px 0}
+.px-row{display:flex;gap:80px;width:max-content;will-change:transform}
+.px-card{position:relative;flex-shrink:0;display:block;width:min(480px,82vw);aspect-ratio:5/4;border-radius:16px;overflow:hidden;text-decoration:none;color:#fff;transition:transform .35s ease,box-shadow .35s ease;box-shadow:0 12px 32px rgba(9,9,9,.14)}
+.px-card:hover,.px-card:focus-visible{transform:translateY(-20px);box-shadow:0 25px 50px -12px rgba(0,0,0,.25)}
 .px-card:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
 .px-visual{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-start;gap:8px;padding:20px}
 /* Text sits at the top so the hover title (bottom-left, Aceternity-style)
    never lands on top of it. */
-.px-visual--img{display:block;padding:0;width:100%;height:100%;object-fit:cover}
+.px-visual--img{display:block;padding:0;width:100%;height:100%;object-fit:cover;object-position:center}
 .px-visual--loom{background:linear-gradient(135deg,#5B29FE,#752EE1 60%,#FF41AC)}
 .px-visual--lead{background:#F3EEF5;color:var(--ink)}
 .px-visual--dummy{background:var(--grey-band);border:2px dashed #C9C9C9;color:var(--muted)}
@@ -569,7 +573,7 @@ html[data-theme="dark"] .px-card{box-shadow:0 12px 32px rgba(0,0,0,.45)}
   .px-head{padding-top:56px}
   .px-stage{gap:16px}
   .px-row{gap:16px}
-  .px-card{width:calc(clamp(160px,24vh,200px)*1.5);height:clamp(160px,24vh,200px);border-radius:12px}
+  .px-card{width:min(480px,82vw);border-radius:12px}
   .px-visual{padding:14px}
   .px-visual-big{font-size:22px}
   .px-kpis b{font-size:24px}
@@ -583,3 +587,31 @@ html[data-theme="dark"] .px-card{box-shadow:0 12px 32px rgba(0,0,0,.45)}
   .px-card,.px-shade,.px-title{transition:none}
   .px-card:hover,.px-card:focus-visible{transform:none}
 }
+
+/* ---------- Homepage banner as parallax (round 7) ---------- */
+/* The "What I work with" banner, same motion language as the Work showreel:
+   200vh runway, perspective, two rows of skill pills sliding opposite ways
+   on scroll, stage tilts rotateX 10->0 and fades in. Same 22 skills, same
+   icons, same order as About (split 11/11, no duplicates — a one-way sweep
+   needs none); About keeps its 48s loop. */
+.skx-wrap{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);height:200vh;perspective:1000px;position:relative}
+/* NOTE: the stage is sticky here (unlike the showreel) — the banner is only
+   two rows of pills, so it stays pinned in the viewport while the 200vh
+   runway scrolls, tilting flat and sliding apart. A non-sticky stage would
+   scroll away and leave the runway blank. */
+.skx-stage{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transform-style:preserve-3d;will-change:transform,opacity;padding:20px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.skx-row{display:flex;width:max-content;will-change:transform}
+.skx-track{display:flex;gap:14px;margin:0;padding:0 7px;list-style:none}
+@media (prefers-reduced-motion: reduce){
+  .skx-wrap{height:auto;perspective:none}
+  .skx-stage{position:static;height:auto}
+  .skx-row{flex-wrap:wrap;justify-content:center;width:auto;max-width:1200px;padding:0 24px}
+}
+
+/* ---------- Buttons with hover lift (round 8, demo whileHover) ---------- */
+/* .btn already lifted 2px; the demo's cards lift 20px, so buttons now lift
+   6px with a soft shadow — same language, scaled for a 48px pill. */
+.btn{transition:translate .2s ease,filter .2s ease,border-color .2s ease,box-shadow .2s ease}
+.btn:hover,.btn:focus-visible{translate:0 -6px;box-shadow:0 16px 32px -12px rgba(9,9,9,.28)}
+html[data-theme="dark"] .btn:hover,html[data-theme="dark"] .btn:focus-visible{box-shadow:0 16px 32px -12px rgba(0,0,0,.6)}
+@media (prefers-reduced-motion: reduce){.btn:hover,.btn:focus-visible{translate:0;box-shadow:none}}
