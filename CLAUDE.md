@@ -32,7 +32,7 @@ Keep it that way. Do not add React, Tailwind, a bundler, or npm unless I ask.
 | `sitemap.xml` | Sitemap: all pages except 404 |
 | `robots.txt` | Allows all, points to sitemap.xml |
 | `styles.css` | All shared styling and components |
-| `script.js` | Mobile menu, hero parallax, contact prefill, copy-email, thank-you note, dark mode, scroll progress, back-to-top, card spotlight, reveal fallback, form sending state |
+| `script.js` | Mobile menu, hero parallax, contact prefill, copy-email, thank-you note, dark mode, scroll progress, back-to-top, card spotlight, reveal fallback, form sending state, Work-page Hero Parallax driver |
 | `images/` | Photo, Wholesalia screenshots, favicon, link-preview cover |
 | `fonts/` | Plus Jakarta Sans variable woff2, self-hosted (no Google Fonts) |
 
@@ -88,11 +88,48 @@ the bottom with a gradient and shows a centred "View project →" pill
 (`.proj-view`). On the home grid the second card sits 56px lower (Cappen
 stagger). New Work entries reuse the same pattern: one `.proj` card, one
 `.proj-visual` with the screenshot (16:10 works best) or a demo window.
+Wholesalia card photo (round 3, 2026-11-26, still local): fresh screenshot of
+https://gowholesalia.com/ taken 2026-11-26 — the "Featured products" section
+(heading + 4 products + Wheelchair row), 1280×1018, which matches the card
+visual's ratio so nothing is cropped. The live site's hero slideshow photo
+does NOT load (empty pink panel on desktop and mobile — likely a missing
+image on the client site, flag it to the client). The old hero shot
+(1318×478, headline only) is superseded.
 
-Motion + colour round 2 (Stokt / Cappen, added 2026-11-26, still local):
-- `.marquee` — lemon full-bleed strip under the home hero, mono uppercase
-  service names with orange ✳ separators, scrolling left (pauses on hover).
+Motion + colour round 2 (Stokt / Cappen, added 2026-11-26, PUSHED LIVE
+2026-11-26, commit 533a758):
+- "What I work with" section on the home page (added 2026-11-26 round 4, still
+  local): the same `.skills-strip` card as the About page — "/ Tools" eyebrow
+  + "What I work with" heading + all 22 skill pills scrolling (48s loop,
+  pauses on hover, edge fade). The old `.marquee` lemon strip is gone
+  (removed from index.html and styles.css, Abrar said it looked bad and the
+  About section was better). Keep the two strips in sync: same 22 skills,
+  same icons, same order.
 - Hero headline words rise one by one (`.hero .h1 .w`, staggered delays).
+- Loom demo (`.demo`, home + loom-to-tasks.html): the 10s infinite loop is
+  gone — it used to empty out and replay, so the first card often showed an
+  empty "Reading the meeting…" right column. Since round 4 it plays ONCE when
+  it scrolls into view (script.js adds `.play`, 12s sequence, outputs appear
+  by ~4s) and holds the finished state; no JS or reduced motion shows the
+  finished state directly. Columns are taller (min-height 370px) so the
+  window fills the card instead of ending in empty white space.
+- Hero Parallax on the Work page (Aceternity HeroParallax, added 2026-11-26
+  round 5, still local): a 300vh section on projects.html, directly under the
+  "Selected work" header and above the project list. The grid starts tilted
+  (rotateX 15 / rotateZ 20, opacity .2) and flattens over the first 20% of the
+  scroll; rows 1+3 slide one way, row 2 the other (script.js, spring
+  approximated with a per-frame lerp). Cards are the real projects —
+  Loom, Lead Tracker, Wholesalia, Glass Bento — plus 3 "Coming soon" dummy
+  placeholders (Abrar will replace them with real projects), a "Your project
+  here" card linking to contact, and a "More on GitHub" card. This is a
+  vanilla CSS/JS port: the site has no React / Next.js / Tailwind / shadcn,
+  so the .tsx component cannot be pasted in as-is (no build step, no
+  framer-motion, no next/image). If the site ever moves to Next.js, the React
+  version would live in components/ui (shadcn default) with framer-motion
+  installed; until then the port keeps GitHub Pages working with zero deps.
+  Reduced motion shows the rows as a plain wrapping grid; touch shows card
+  names without hover. To swap a dummy for a real project, replace one
+  `.px-card--dummy` block with an `<a class="px-card">` like the others.
 - Nav links roll on hover: the label slides up and a violet copy slides in
   (script.js adds `.roll` + `data-text`; no-JS keeps plain links).
 - `.pill-label` — solid black pill section label (Cappen), used on the two
@@ -187,6 +224,6 @@ Email is already set: `abrarzamil.dev@gmail.com`
 **Restyle 2026-11-26: flat three-site language (Purple Softworks / Musemind /
 Wavespace), same as the blog. Pushed live 2026-11-26 after Abrar approved the
 preview (snapshot push; the motion round and full-bleed previews went live in
-the same push).** Cache tag is now `?v=7c1d04`.
+the same push).** Cache tag is now `?v=8f3c2d` (rounds 3–5 local, not pushed yet).
 
 Push to `main`. GitHub Pages rebuilds in about a minute. There is no CI.

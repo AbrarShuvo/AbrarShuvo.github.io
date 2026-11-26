@@ -23,7 +23,7 @@
 <meta name="twitter:description" content="Selected work by Abrar Zamil: Loom to Tasks, Lead Tracker, the Wholesalia website and a portfolio template.">
 <meta name="twitter:image" content="https://abrarshuvo.github.io/images/og-cover.png">
 <link rel="icon" href="images/favicon.svg">
-<link rel="stylesheet" href="styles.css?v=7c1d04">
+<link rel="stylesheet" href="styles.css?v=8f3c2d">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a><div class="progress" aria-hidden="true"></div>
@@ -57,6 +57,69 @@
 <span class="pill-label">Work</span>
 <h1 class="h1">Selected work</h1>
 <p class="lead" style="max-width: 640px">Real projects: the problem each one solves, how I built it, and how it turned out. Open any project for the full story.</p>
+</section>
+<!-- Hero Parallax (Aceternity-style, rebuilt in vanilla CSS/JS — no React, no build step).
+     Rows slide apart as you scroll; the grid starts tilted and flattens out.
+     Cards: 4 real projects + 3 dummy placeholders (Abrar will replace them) + 1 CTA + 1 GitHub card. -->
+<section class="px-wrap" aria-label="Projects in motion">
+<div class="px-head">
+<span class="pill-label">Showreel</span>
+<h2 class="h2">Every project, one sweep</h2>
+<p class="lead" style="max-width: 640px">Scroll &mdash; the rows slide apart and flatten out. Open any card for the full story.</p>
+</div>
+<div class="px-stage" id="px-stage">
+<div class="px-row" data-dir="1">
+<a class="px-card" href="loom-to-tasks.html" aria-label="Loom to Tasks — view project">
+<span class="px-visual px-visual--loom"><span class="px-visual-pill">AI automation</span><span class="px-visual-big">Loom &rarr; Tasks</span><span class="px-visual-sub">Meeting transcript &rarr; task list</span></span>
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Loom to Tasks</span>
+</a>
+<a class="px-card" href="lead-tracker.html" aria-label="Lead Tracker — view project">
+<span class="px-visual px-visual--lead"><span class="px-kpis"><span><b>24</b>New</span><span><b>11</b>Contacted</span><span><b>5</b>Won</span></span><span class="px-visual-sub">Sample data &middot; Excel tracker + dashboard</span></span>
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Lead Tracker</span>
+</a>
+<a class="px-card" href="sourcing-website.html" aria-label="Wholesalia website — view project">
+<img class="px-visual px-visual--img" src="images/wholesalia-hero.jpg" alt="Featured products on the Wholesalia homepage" width="1280" height="1018" loading="lazy" decoding="async">
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Wholesalia website</span>
+</a>
+</div>
+<div class="px-row" data-dir="-1">
+<a class="px-card" href="https://abrarshuvo.github.io/Glass-bento-portfolio/" target="_blank" rel="noopener" aria-label="Glass Bento portfolio template — open live demo (opens in a new tab)">
+<img class="px-visual px-visual--img" src="images/glass-bento-preview.jpg" alt="The Glass Bento portfolio template home page" width="1280" height="800" loading="lazy" decoding="async">
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Glass Bento template</span>
+</a>
+<div class="px-card px-card--dummy" aria-label="Coming soon — placeholder for a future project">
+<span class="px-visual px-visual--dummy"><span class="px-plus" aria-hidden="true">+</span><span class="px-visual-big">Coming soon</span><span class="px-visual-sub">New project &mdash; placeholder 1</span></span>
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Coming soon</span>
+</div>
+<div class="px-card px-card--dummy" aria-label="Coming soon — placeholder for a future project">
+<span class="px-visual px-visual--dummy"><span class="px-plus" aria-hidden="true">+</span><span class="px-visual-big">Coming soon</span><span class="px-visual-sub">New project &mdash; placeholder 2</span></span>
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Coming soon</span>
+</div>
+</div>
+<div class="px-row" data-dir="1">
+<div class="px-card px-card--dummy" aria-label="Coming soon — placeholder for a future project">
+<span class="px-visual px-visual--dummy"><span class="px-plus" aria-hidden="true">+</span><span class="px-visual-big">Coming soon</span><span class="px-visual-sub">New project &mdash; placeholder 3</span></span>
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Coming soon</span>
+</div>
+<a class="px-card" href="contact.html" aria-label="Your project here — contact Abrar">
+<span class="px-visual px-visual--cta"><span class="px-visual-big">Your project here</span><span class="px-visual-sub">Have something to automate? Let&rsquo;s talk &rarr;</span></span>
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Your project here</span>
+</a>
+<a class="px-card" href="https://github.com/AbrarShuvo" target="_blank" rel="noopener" aria-label="More on GitHub — github.com/AbrarShuvo (opens in a new tab)">
+<span class="px-visual px-visual--git"><span class="px-visual-big">More on GitHub</span><span class="px-visual-sub">github.com/AbrarShuvo &nearr;</span></span>
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">More on GitHub</span>
+</a>
+</div>
+</div>
 </section>
 <section style="display: flex; flex-direction: column; gap: 24px; padding-top: 40px">
 <article class="proj proj-wide glass tile rv">
@@ -124,7 +187,7 @@
 <div class="tags"><span class="tag">Figma</span><span class="tag">Supabase</span><span class="tag">Vercel</span></div>
 <a class="btn btn-dark" href="sourcing-website.html">View project <span class="sr-only">— Wholesalia website case study</span> <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
 </div>
-<div class="proj-visual"><span class="proj-view" aria-hidden="true">View project &rarr;</span><div class="zoom" style="position: relative; width: 100%; display: flex; justify-content: center"><img src="images/wholesalia-hero.jpg" alt="The Wholesalia homepage: header with search and Get a quotation, then the headline We Trust In Long-Term Business Excellence with Request a quotation, Browse products and Browse catalogs buttons" width="1318" height="478" loading="lazy" decoding="async"></div></div>
+<div class="proj-visual"><span class="proj-view" aria-hidden="true">View project &rarr;</span><div class="zoom" style="position: relative; width: 100%; display: flex; justify-content: center"><img src="images/wholesalia-hero.jpg" alt="Featured products on the Wholesalia homepage: Lunch Box, Massager, Toys and Umbrella with prices and Request quote buttons" width="1280" height="1018" loading="lazy" decoding="async"></div></div>
 </article><article class="proj proj-wide glass tile rv" style="direction: rtl">
 <div class="proj-copy" style="direction: ltr">
 <span class="pill pill-blue">Free template · Open source</span>
@@ -184,6 +247,6 @@
 </div>
 </div>
 <button class="to-top" type="button" aria-label="Back to top">&#8593;</button>
-<script src="script.js?v=7c1d04"></script>
+<script src="script.js?v=8f3c2d"></script>
 </body>
 </html>
