@@ -20,9 +20,12 @@ Keep it that way. Do not add React, Tailwind, a bundler, or npm unless I ask.
 | `lead-tracker.html` | Case study: Lead Tracker |
 | `sourcing-website.html` | Case study: Wholesalia website (live client site) |
 | `services.html` | Services: four services, how I work, FAQ |
+| `python-automation-for-agencies.html` | Landing page: Python automation for agencies, links to the three case studies |
 | `about.html` | About: intro, experience timeline, tools |
 | `contact.html` | Contact: name, email, about the task |
 | `404.html` | Not found (root-relative links) |
+| `sitemap.xml` | Sitemap: all pages except 404 |
+| `robots.txt` | Allows all, points to sitemap.xml |
 | `styles.css` | All shared styling and components |
 | `script.js` | Mobile menu, hero parallax, contact prefill, copy-email, thank-you note, dark mode, scroll progress, back-to-top, card spotlight, reveal fallback, form sending state |
 | `images/` | Photo, Wholesalia screenshots, favicon, link-preview cover |
@@ -71,16 +74,23 @@ Supporting classes: `.tile` (hover lift), `.btn` / `.arr` (button + arrow nudge)
 - The three case studies share one identical layout, in this order: back link, pill,
   title, tech tags, summary, two buttons side by side, meta row, hero visual, problem,
   three steps, decisions, result, screens, next project, CTA. Keep all three in sync.
-- Every page repeats the same nav and footer markup. Change one, change all nine.
+- Every page repeats the same nav and footer markup. Change one, change all ten.
 - Test at **390px** after any layout change. No horizontal scroll, ever.
 - Keep the accessibility that's there: real `<label>` for every input, `aria-hidden`
   on decorative SVGs, `aria-label` on icon-only links, visible focus rings.
 - Every animation is already wrapped in `@media (prefers-reduced-motion: reduce)`.
   Any new one must be too.
-- `styles.css` and `script.js` are linked with a `?v=` tag on all nine pages. After changing
+- `styles.css` and `script.js` are linked with a `?v=` tag on all ten pages. After changing
   either file, change the tag on every page (any new value), or visitors' browsers keep the
   old cached file and the page shows unstyled.
 - Don't add third-party scripts (analytics, chat widgets, font loaders) without asking.
+
+## SEO
+
+- Every new page needs a unique `<title>` (under 60 characters), meta description (under 160), canonical, and og:title / og:description / og:type / og:url / og:image + twitter:card. Add it to `sitemap.xml`.
+- Site URL is https://abrarshuvo.github.io/ — it is in a `<!-- SITE URL: ... -->` comment at the top of `<head>` in each page. Change that comment first, then find-replace the same URL in the canonical / og tags. Files containing it: all ten HTML files, `sitemap.xml`, `robots.txt`.
+- `404.html` is noindex, with no canonical.
+- One h1 per page, headings in order, meaningful alt text, width and height on images, `loading="lazy"` below the fold.
 
 ## Writing rules
 
