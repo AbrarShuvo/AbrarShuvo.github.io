@@ -130,6 +130,22 @@
     Array.prototype.forEach.call(document.querySelectorAll('.rv'), function (el) { io.observe(el); });
   }
 
+  // Scroll sentences (home): each .sent-card reveals one by one as it
+  // scrolls into view. .js-sent hides them first (CSS); without IO or
+  // with reduced motion they are all shown at once.
+  var sentCards = document.querySelectorAll('.sent-card');
+  if (sentCards.length) {
+    if (!reduce && 'IntersectionObserver' in window) {
+      root.classList.add('js-sent');
+      var sio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); sio.unobserve(en.target); } });
+      }, { threshold: 0.15 });
+      Array.prototype.forEach.call(sentCards, function (el) { sio.observe(el); });
+    } else {
+      Array.prototype.forEach.call(sentCards, function (el) { el.classList.add('in'); });
+    }
+  }
+
   var form = document.querySelector('form[action*="formsubmit"]');
   if (form) form.addEventListener('submit', function () {
     var b = form.querySelector('[type="submit"]');
