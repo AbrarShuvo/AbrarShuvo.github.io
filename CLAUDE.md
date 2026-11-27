@@ -320,6 +320,32 @@ Motion + colour round 2 (Stokt / Cappen, added 2026-11-26, PUSHED LIVE
   9e67d98 (18 files: 15 HTML + styles.css + script.js + CLAUDE.md).
   Verified live: home 200, ?v=c4d8a1, 0 brand-mark references, hero-flat
   present.
+  Round 17 (2026-11-27 — "End-to-End Digital Capabilities" section,
+  Abrar: Musemind screenshot): 6 pastel photo cards on home after the
+  showreel marquee, one per real service page (Workflow Automation,
+  AI Integrations, Data Dashboards, Websites, Python Automation for
+  Agencies, Meeting Recordings to Tasks). Musemind pattern: title
+  top-left + arrow, tilted real UI below on a flat pastel. Photos
+  3200×4000 (1600×2000 @2x) in ~/workspace/capabilities-photos/,
+  images/cap-01..06 in the repo; each photo is the whole card (4:5,
+  clean pastel top quarter) with the HTML title overlaid on that
+  clean area — title colour fixed #090909 so it reads in dark mode
+  too (photos stay light). Cards are whole-card links to the service
+  pages; hover scales the photo 1.03 (off for reduced motion).
+  Pastels cycle lavender #F3EEF5 / beige #EDE0D5 / blue-grey #D6DCE1.
+  Section header copies Musemind: eyebrow + H2 + subline (Abrar's own
+  words: "From first call to handover — automations, AI tools,
+  dashboards and websites, built around your real work.") + "Contact
+  me" pill. Facts are real only: Wavespace 265 runs, RxGuard STOP
+  verdict, Lead Tracker 24/11/5, Wholesalia storefront, Loom 67/67 +
+  "due": "unknown". NOTE: the real Loom demo transcript is about
+  moving the launch to Friday / the new homepage — NOT a pricing page
+  (the article H2 says pricing page); cap-06 uses the real transcript.
+  Wholesalia product crops are low-res supplier photos (soft at full
+  zoom, fine at card size). Cache tag ?v=469490 on all 22 pages.
+  Verified: viewport shots at scroll position (fullPage hides .rv —
+  see Round 16 note), desktop 1440 light + dark, mobile 390, 0
+  overflow. NOT pushed — awaiting Abrar's approval.
   Round 16 (2026-11-27 — photo galleries + 7 new case-study pages,
   Abrar: "Push all"): all 69 photos wired into pages. Galleries on the 3
   existing case studies (Loom 7, Lead Tracker 7, Wholesalia 7) + 7 NEW
@@ -466,6 +492,6 @@ Email is already set: `abrarzamil.dev@gmail.com`
 **Restyle 2026-11-26: flat three-site language (Purple Softworks / Musemind /
 Wavespace), same as the blog. Pushed live 2026-11-26 after Abrar approved the
 preview (snapshot push; the motion round and full-bleed previews went live in
-the same push).** Cache tag is now `?v=9b20d2` (rounds 13+14+15 pushed live 2026-11-27 ~11:41 WIB: text 9e67d98; round 16 pushed live 2026-11-27 ~12:10 WIB: text 5cdb30b + media b67dab8/8c0a5d6/06a4a3d — verified live: all 10 case-study pages 200, home ?v=9b20d2, 5 gallery images 200 with exact byte sizes).
+the same push).** Cache tag is now `?v=469490` (rounds 13+14+15 pushed live 2026-11-27 ~11:41 WIB: text 9e67d98; round 16 pushed live 2026-11-27 ~12:10 WIB: text 5cdb30b + media b67dab8/8c0a5d6/06a4a3d — verified live: all 10 case-study pages 200, home ?v=9b20d2, 5 gallery images 200 with exact byte sizes; round 17 capabilities section built locally, awaiting Abrar's approval).
 
 Push to `main`. GitHub Pages rebuilds in about a minute. There is no CI.
