@@ -395,6 +395,32 @@
   // BEND is strong while travelling: stretch cap +55%, skewX up to
   // 12 deg, fringe + blur from --warp-warp, steady ~0.8 while
   // auto-circling, 0 whenever the ring is still (sharp at rest).
+  // v8 (round 18; Abrar on LIVE v7: "that effect is not smooth at
+  // all, it have blur motion like unplanned and the color it's not
+  // looking like glass card"): ZERO motion blur — the CSS img blur
+  // is deleted and the fringes are hard 0-blur rims, so the bend is
+  // now a CLEAN GEOMETRIC bend only: stretch cap +18%, skewX cap
+  // 5 deg (steady ~0.8 warp while auto-circling, 0 when still).
+  // The glass itself moved into CSS: the photo sits inset 12px in a
+  // frosted frame (see styles.css .warp-card). Constant-speed
+  // linear circling (1 card / 4.5s) is UNCHANGED.
+  // v10 (round 18; Abrar on the v9 preview: "extract the letters
+  // inside the details and put it on a glass. Total glass, no blue
+  // yellow red hue... I don't want glass border, I want the whole
+  // thing glass and the details and words and everything will be on
+  // top of the glass"): v8/v9 were the WRONG design — a photo inside
+  // a glass frame. v10: NO PHOTOS as cards — the words/details from
+  // inside the 6 photos are now REAL HTML TEXT on the cards, and the
+  // WHOLE CARD is one clear colourless glass slab (see styles.css).
+  // The chromatic fringe is DELETED (no coloured drop-shadows); the
+  // photo-bleed layers are REMOVED entirely (no imgs left to read).
+  // v11 (round 18; Abrar on the v10 preview, then chose CUTOUT):
+  // the photos are BACK as transparent PNG cutouts on the whole clear
+  // glass card — background gone, foreground details float directly on
+  // the glass. layout() is back to the 2:1 photo ratio (cardH = 0.5x
+  // cardW). Motion unchanged: zero blur,
+  // clean geometric bend only (stretch +18%, skew 5 deg), constant-
+  // speed linear circling (1 card / 4.5s).
   var WARP_CW = 256;
   var WARP_FOCAL = 734.103;
   var WARP_G = { qA: 0.46401, XLA: 165.774, zA: 35.354, psiA: 1.44638, a1: 1.31454, a2: 1.10948, qB: 0.74999, XB: 204.525, ZB: 355.405, bB: 0.69311, bE: 0.04614, vC: 203.134, aC: 229.260, kB: 0.01087, bP: 0.99129, qPR: 1.01828, bPL: 1.00920, qPL: 1.07139 };
@@ -503,25 +529,6 @@
     var dragStartX = 0, dragStartProgress = 0, dragDx = 0;
     // v4: ring-velocity tracker for the gentle motion stretch (smoothed, 0 at rest).
     var prevProg = progress, prevNow = 0, warpSm = 0, warpDir = 1;
-    // v3 colour bleed — DISABLED in v4 CSS (opacity 0): the prism washes
-    // are the background now. Layers are still created here so the init
-    // code and per-page markup stay untouched.
-    var bleedA = document.createElement('div');
-    bleedA.className = 'warp-bleed';
-    var bleedB = document.createElement('div');
-    bleedB.className = 'warp-bleed';
-    stage.insertBefore(bleedB, ring);
-    stage.insertBefore(bleedA, ring);
-    var bleedOn = bleedA, bleedOff = bleedB, bleedSrc = '';
-    function setBleed(src) {
-      if (!src || src === bleedSrc) return;
-      bleedSrc = src;
-      bleedOff.style.backgroundImage = 'url("' + src + '")';
-      bleedOff.classList.add('is-on');
-      bleedOn.classList.remove('is-on');
-      var tmp = bleedOn; bleedOn = bleedOff; bleedOff = tmp;
-    }
-
     // v7: NO hover-pause, NO off-screen-pause — those froze the ring
     // while Abrar was looking at it (diagnosed: front photo frozen
     // 30s with mouse parked). Only drag + hidden tab pause.
@@ -529,12 +536,15 @@
 
     // Size the stage + cards: front card is --warp-frac of the stage width;
     // unit = px per pose unit; perspective focal length follows from it.
+    // v11: cards are CUTOUT IMAGES again (transparent PNGs on clear
+    // glass), so the height is back to the 2:1 photo ratio, as in
+    // v6-v9 — cardH = 0.5x cardW on desktop and mobile alike.
     function layout() {
       var stageW = stage.clientWidth;
       if (!stageW) return;
       var frac = parseFloat(getComputedStyle(root).getPropertyValue('--warp-frac')) || 0.69;
       cardW = Math.round(stageW * frac);
-      cardH = Math.round(cardW / 2);
+      cardH = Math.round(cardW * 0.5);
       unit = cardW / WARP_CW;
       stage.style.perspective = (WARP_FOCAL * unit).toFixed(0) + 'px';
       stage.style.height = (cardH + (stageW <= 720 ? 110 : 120)) + 'px';
@@ -560,7 +570,7 @@
     // --warp-warp / --warp-dir per card — 0 at rest, 1 mid-whip; the front
     // card stretches least so it stays readable. v7: steady ~0.8 while
     // auto-circling (constant speed), velocity-driven on manual moves,
-    // 0 whenever the ring is still. Bend: stretch cap +55%, skewX 12deg.
+    // 0 whenever the ring is still. Bend (v8): stretch cap +18%, skewX 5deg.
     function renderFrame() {
       var i, q, pose, aq, fade, dim;
       var nowMs = performance.now();
@@ -580,13 +590,15 @@
         aq = Math.abs(q);
         var card = cards[i];
         var cardWarp = warpSm * (aq < 0.3 ? 0.12 : Math.min(1, 0.30 + aq * 0.55));
-        // v7: the BEND — side cards stretch hard (up to +55%) and shear
-        // (skewX up to 12 deg) while travelling, like the bent left card
-        // in Abrar's reference; the front stays near-flat (~7%). CSS
-        // adds blur + chromatic fringe from --warp-warp. Warp is 0
-        // whenever the ring is still: perfectly sharp, no smear.
-        var stretch = 1 + cardWarp * 0.55;
-        var skew = (warpDir * cardWarp * 12).toFixed(1);
+        // v8/v10: the BEND is clean geometry only — gentle stretch
+        // (up to +18%) and a small shear (skewX up to 5 deg) while
+        // travelling, like the bent side card in Abrar's reference
+        // but SHARP: no blur anywhere (the card filter is none, the
+        // chromatic fringes are DELETED in v10 — no colour at all).
+        // The front stays near-flat (~2% stretch, ~0.5 deg). Warp is
+        // 0 whenever the ring is still: perfectly sharp, no smear.
+        var stretch = 1 + cardWarp * 0.18;
+        var skew = (warpDir * cardWarp * 5).toFixed(1);
         card.style.transform = 'translate3d(' + (pose[0] * unit).toFixed(1) + 'px, 0, ' + (-pose[1] * unit).toFixed(1) + 'px) rotateY(' + (pose[2] * 180 / Math.PI).toFixed(2) + 'deg) skewX(' + skew + 'deg) scaleX(' + stretch.toFixed(3) + ')';
         fade = aq <= 1.5 ? 1 : aq >= 2.5 ? 0 : 1 - (aq - 1.5);
         card.style.opacity = fade.toFixed(2);
@@ -601,8 +613,6 @@
       if (newCur !== cur) {
         cur = newCur;
         if (count) count.textContent = (cur + 1) + ' / ' + n;
-        var frontImg = cards[cur] && cards[cur].querySelector('img');
-        if (frontImg) setBleed(frontImg.getAttribute('src'));
       }
     }
 
@@ -712,7 +722,7 @@
     stage.addEventListener('pointerdown', function (e) {
       if (e.target.closest('.warp-controls')) return; // arrows/counter are buttons, not a drag
       root.focus({ preventScroll: true }); // let ArrowLeft/Right work after a mouse/touch interaction
-      e.preventDefault(); // stop the browser's native image drag, which would swallow the pointer stream
+      e.preventDefault(); // stop the browser's native drag, which would swallow the pointer stream
       dragging = true;
       mode = 'drag';
       spinAnim = null;
@@ -730,8 +740,6 @@
 
     layout();
     renderFrame();
-    var firstImg = cards[0] && cards[0].querySelector('img');
-    if (firstImg) setBleed(firstImg.getAttribute('src'));
     requestAnimationFrame(tick);
   });
 })();

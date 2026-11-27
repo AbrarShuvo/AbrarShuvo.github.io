@@ -23,7 +23,7 @@
 <meta name="twitter:description" content="Case study: a 404 page turned into a dark horror game — Nao, her lantern and the Eraser, built for the 404 Hackathon by haX.baby.">
 <meta name="twitter:image" content="https://abrarshuvo.github.io/images/last-visitor-hero.jpg">
 <link rel="icon" href="images/favicon.svg">
-<link rel="stylesheet" href="styles.css?v=a8b203">
+<link rel="stylesheet" href="styles.css?v=86e784">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a><div class="progress" aria-hidden="true"></div>
@@ -140,14 +140,24 @@
 </section>
 <section class="sec" id="gallery">
 <div class="sec-head rv"><div><span class="eyebrow">The case, in pictures</span><h2 class="h2">The case, in pictures</h2></div><p class="lead" style="max-width: 560px">The whole story, picture by picture — the town, the game, the Eraser, and the 404 that flips to FOUND.</p></div>
-<div style="display: flex; flex-direction: column; gap: 20px">
-<figure class="shot glass rv"><img src="images/lv-01-hero.jpg" width="3200" height="1600" loading="lazy" decoding="async" alt="The Last Visitor — Nao with her lantern in the rain-soaked town, a 404 page that plays like a horror film" style="width: 100%; height: auto; border-radius: 16px"></figure>
-<figure class="shot glass rv"><img src="images/lv-02-approach.jpg" width="3200" height="1600" loading="lazy" decoding="async" alt="The opening film, one shot in five seconds — the town, Nao arrives, closer" style="width: 100%; height: auto; border-radius: 16px"></figure>
-<figure class="shot glass rv"><img src="images/lv-03-game.jpg" width="3200" height="1600" loading="lazy" decoding="async" alt="The game screen, minimal on purpose — objective and 404 at the edges, WASD and lantern controls" style="width: 100%; height: auto; border-radius: 16px"></figure>
-<figure class="shot glass rv"><img src="images/lv-04-eraser.jpg" width="3200" height="1600" loading="lazy" decoding="async" alt="The Eraser — it only moves when unseen; keep it in sight and it stops" style="width: 100%; height: auto; border-radius: 16px"></figure>
-<figure class="shot glass rv"><img src="images/lv-05-404.jpg" width="3200" height="1600" loading="lazy" decoding="async" alt="The ending — a giant 404 slams in, then flips to FOUND, then HOME" style="width: 100%; height: auto; border-radius: 16px"></figure>
-<figure class="shot glass rv"><img src="images/lv-06-poster.jpg" width="3200" height="1600" loading="lazy" decoding="async" alt="Poster — Nao arrived in a town that shouldn&rsquo;t exist" style="width: 100%; height: auto; border-radius: 16px"></figure>
-<figure class="shot glass rv"><img src="images/lv-07-phone.jpg" width="3200" height="1600" loading="lazy" decoding="async" alt="The Last Visitor in one hand — the game on a phone, held in one hand" style="width: 100%; height: auto; border-radius: 16px"></figure>
+<div class="warp-carousel rv" data-warp tabindex="0" role="region" aria-roledescription="carousel" aria-label="The Last Visitor case in pictures">
+<div class="warp-stage">
+<div class="warp-ring">
+<figure class="warp-card"><img src="images/lv-01-hero.jpg" alt="The Last Visitor — Nao with her lantern in the rain-soaked town, a 404 page that plays like a horror film"></figure>
+<figure class="warp-card"><img src="images/lv-02-approach.jpg" alt="The opening film, one shot in five seconds — the town, Nao arrives, closer"></figure>
+<figure class="warp-card"><img src="images/lv-03-game.jpg" alt="The game screen, minimal on purpose — objective and 404 at the edges, WASD and lantern controls"></figure>
+<figure class="warp-card"><img src="images/lv-04-eraser.jpg" alt="The Eraser — it only moves when unseen; keep it in sight and it stops"></figure>
+<figure class="warp-card"><img src="images/lv-05-404.jpg" alt="The ending — a giant 404 slams in, then flips to FOUND, then HOME"></figure>
+<figure class="warp-card"><img src="images/lv-06-poster.jpg" alt="Poster — Nao arrived in a town that shouldn&rsquo;t exist"></figure>
+<figure class="warp-card"><img src="images/lv-07-phone.jpg" alt="The Last Visitor in one hand — the game on a phone, held in one hand"></figure>
+</div>
+<div class="warp-fx" aria-hidden="true"></div>
+<div class="warp-controls">
+<button type="button" class="warp-arrow" data-warp-prev aria-label="Previous photo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"></path></svg></button>
+<span class="warp-count" aria-live="polite">1 / 7</span>
+<button type="button" class="warp-arrow" data-warp-next aria-label="Next photo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+</div>
+</div>
 </div>
 </section>
 
@@ -272,6 +282,6 @@
 </div>
 </div>
 <button class="to-top" type="button" aria-label="Back to top">&#8593;</button>
-<script src="script.js?v=a8b203"></script>
+<script src="script.js?v=86e784"></script>
 </body>
 </html>

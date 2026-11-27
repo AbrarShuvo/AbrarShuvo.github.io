@@ -23,7 +23,7 @@
 <meta name="twitter:description" content="Case study: Glass Bento, a free frosted-glass portfolio template — 7 pages, dark mode and a working contact form, in plain HTML and CSS.">
 <meta name="twitter:image" content="https://abrarshuvo.github.io/images/glass-bento-preview.jpg">
 <link rel="icon" href="images/favicon.svg">
-<link rel="stylesheet" href="styles.css?v=a8b203">
+<link rel="stylesheet" href="styles.css?v=86e784">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a><div class="progress" aria-hidden="true"></div>
@@ -155,14 +155,24 @@
 
 <section class="sec" id="gallery">
 <div class="sec-head rv"><div><span class="eyebrow">In pictures</span><h2 class="h2">The gallery</h2><p class="lead" style="max-width: 640px">Seven photos of the template &mdash; the hero, dark mode, the bento grid, the live site, the poster and the phone.</p></div></div>
-<div style="display: flex; flex-direction: column; gap: 20px">
-<img src="images/gb-01-hero.jpg" width="3200" height="1600" loading="lazy" decoding="async" alt="Glass Bento hero — a frosted-glass portfolio template for students and freelancers, with the template home page below" style="width: 100%; height: auto; border-radius: 24px; display: block">
-<img src="images/gb-02-darkmode.jpg" width="3200" height="1600" loading="lazy" decoding="async" alt="Light and dark mode side by side — one tap flips the whole site, and the choice is remembered" style="width: 100%; height: auto; border-radius: 24px; display: block">
-<img src="images/gb-03-bento.jpg" width="3200" height="1600" loading="lazy" decoding="async" alt="The bento grid — seven ready pages built from frosted panels: Home, Work, Case study, Services, About, Contact and 404" style="width: 100%; height: auto; border-radius: 24px; display: block">
-<img src="images/gb-04-browser.jpg" width="3200" height="1600" loading="lazy" decoding="async" alt="The real template home page in a browser window — the live demo, not a mockup" style="width: 100%; height: auto; border-radius: 24px; display: block">
-<img src="images/gb-05-cafe.jpg" width="3200" height="1600" loading="lazy" decoding="async" alt="Your portfolio, before the coffee gets cold — the template over a café photo" style="width: 100%; height: auto; border-radius: 24px; display: block">
-<img src="images/gb-06-poster.jpg" width="3200" height="1600" loading="lazy" decoding="async" alt="Poster — fill in your details, push to GitHub, live in minutes" style="width: 100%; height: auto; border-radius: 24px; display: block">
-<img src="images/gb-07-phone.jpg" width="3200" height="1600" loading="lazy" decoding="async" alt="The template on a phone, held in one hand" style="width: 100%; height: auto; border-radius: 24px; display: block">
+<div class="warp-carousel rv" data-warp tabindex="0" role="region" aria-roledescription="carousel" aria-label="Glass Bento case in pictures">
+<div class="warp-stage">
+<div class="warp-ring">
+<figure class="warp-card"><img src="images/gb-cut-01.png" alt="Glass Bento hero — a frosted-glass portfolio template for students and freelancers, with the template home page below"></figure>
+<figure class="warp-card"><img src="images/gb-cut-02.png" alt="Light and dark mode side by side — one tap flips the whole site, and the choice is remembered"></figure>
+<figure class="warp-card"><img src="images/gb-cut-03.png" alt="The bento grid — seven ready pages built from frosted panels: Home, Work, Case study, Services, About, Contact and 404"></figure>
+<figure class="warp-card"><img src="images/gb-cut-04.png" alt="The real template home page in a browser window — the live demo, not a mockup"></figure>
+<figure class="warp-card"><img src="images/gb-05-cafe.jpg" alt="Your portfolio, before the coffee gets cold — the template over a café photo"></figure>
+<figure class="warp-card"><img src="images/gb-06-poster.jpg" alt="Poster — fill in your details, push to GitHub, live in minutes"></figure>
+<figure class="warp-card"><img src="images/gb-cut-07.png" alt="The template on a phone, held in one hand"></figure>
+</div>
+<div class="warp-fx" aria-hidden="true"></div>
+<div class="warp-controls">
+<button type="button" class="warp-arrow" data-warp-prev aria-label="Previous photo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"></path></svg></button>
+<span class="warp-count" aria-live="polite">1 / 7</span>
+<button type="button" class="warp-arrow" data-warp-next aria-label="Next photo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+</div>
+</div>
 </div>
 </section>
 
@@ -281,6 +291,6 @@
 </div>
 </div>
 <button class="to-top" type="button" aria-label="Back to top">&#8593;</button>
-<script src="script.js?v=a8b203"></script>
+<script src="script.js?v=86e784"></script>
 </body>
 </html>

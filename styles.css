@@ -737,127 +737,86 @@ html[data-theme="dark"] .stat .stat-n{color:var(--violet-soft)}
 @keyframes brand-dot{to{transform:scale(1)}}
 @media (prefers-reduced-motion: reduce){.brand-name::after,.brand-dot{animation:none;transform:none}}
 
-/* ================= Warp Carousel — vanilla 3D ring, v5 (round 18) ================= */
+/* ================= Warp Carousel — vanilla 3D ring, v11 (round 18) ================= */
 /* Faithful vanilla port of the Louis Studios "Warp Carousel" motion: the fitted
    poseAt ring geometry + spinN whip-then-creep curve + autoplayProgress (see
    ~/workspace/research_notes/warp-motion-reference.md). The ring is driven
    per-frame by JS (requestAnimationFrame); each card is positioned with
    translate3d + rotateY inside the stage's perspective, so facing-away cards
    render as mirrored quads exactly like the original's canvas projection.
-   v5 (Abrar rejected v4 — "You are not even close to that what I want",
-   with the Musemind glass-prism "M" logo as reference): the glass is CLEAR,
-   the same colour as the page. The WHOLE STAGE is one continuous glass
-   slab — NO coloured panel, NO gradient washes, NO violet glow, NO photo
-   bleed (still disabled). The stage background is exactly var(--bg), so it
-   melts into the page with no visible boundary. The glass is visible ONLY
-   through the signatures of the reference photo:
-   - a hairline RAINBOW EDGE around the slab (.warp-stage::before, masked
-     to a 1px border: cyan → magenta/pink → warm gold, low opacity);
-   - FAINT DIAGONAL LIGHT STREAKS sweeping the stage (.warp-fx, white at
-     ~.1 alpha, drifting almost imperceptibly on a 24s loop);
-   - SOFT DIFFUSED SHADOWS under the slab and under the front card (neutral
-     grey, never violet).
-   The photos sit IN THE MIDDLE of the glass. Each card is a clear glass
-   slab: photo fully readable, thin bright edge, faint iridescent edge
-   tints (cyan on one side, warm gold on the other, like the prism edges).
-   Motion is a gentle stretch only (scaleX up to +10%, front card ~3%).
-   CONTROLS REMOVED (Abrar: "remove the one to six part and the left right
-   part totally"): .warp-controls is display:none — no counter, no arrows
-   on screen at all. Markup stays (JS already null-guards prev/next/count),
-   autoplay + drag keep working. Autoplay is the driver (automated circling,
-   ~4s, whip curve, pauses on hover/drag/hidden/off-screen); NO scroll
-   driving. Dark mode: same principle — stage is exactly the dark page bg
-   (--bg #141414), glass visible only via slightly stronger rainbow edges
-   + faint light streaks. No captions — the gallery has none.
-   v6 (round 18; Abrar on v5: glass "a bit stronger, not that much" +
-   photos should warp "like the card at the animation I showed you
-   before" + the glass band "from left to right, no border, like a
-   header or footer taking the whole part"): (1) glass one modest step
-   stronger — rainbow edge opacity .75→.9 light / .9→1 dark, edge
-   1px→1.5px, light streaks and card gloss a touch stronger; still no
-   washes / panel / glow. (2) FULL-BLEED BAND: .warp-carousel breaks
-   out of the centred .wrap with width:100vw +
-   margin-left:calc(50% - 50vw) (safe: .page already has
-   overflow-x:clip), .warp-stage border-radius 0, and the rainbow
-   hairline now runs only along the TOP and BOTTOM of the band,
-   spanning the whole width — no border around the slab. Photos stay
-   centred in the band. (3) MOTION WARP RESTORED, moderate: stretch
-   cap 0.10→0.22 in JS; CSS re-adds photo blur (up to 3px) +
-   cyan/magenta drop-shadow fringes that flip with --warp-dir, all
-   driven by --warp-warp (0 at rest = perfectly sharp, no fringe,
-   no blur).
-   v7 (round 18; Abrar on LIVE v6: "it's not moving automatically, after
-   moving a bit it stopped" + re-sent the reference: the side card BENDS
-   when it travels, and the front card is only ~1/3 of the stage):
-   diagnosed 30s headless — hover-pause froze the front photo for the
-   full 30s with the mouse parked, and the whip-then-creep autoplay only
-   spiked warp to ~0.15 at the whip. Autoplay is now constant-speed
-   linear circling in JS (1 card / 4.5s, never stops; no hover-pause,
-   no off-screen-pause). Cards SMALLER: --warp-frac .69 -> .34
-   (mobile .78 -> .62), so the front card is ~1/3 of the band like the
-   reference. The BEND: stretch cap +55%, skewX up to 12 deg, fringes
-   +-10px, blur up to 4px — steady while travelling, 0 at rest. The
-   card itself is glass: stronger bright inset edge + rainbow hairline
-   across the card top + stronger cyan/gold edge tints; photo pixels
-   inside stay normal and readable. Background unchanged (v6 glass
-   band, full-bleed, no border).
-   Follow-up (Abrar: the two lines up and down are not needed): the
-   .warp-stage::before top/bottom hairlines are DELETED entirely — no
-   lines separate the band from the page above/below it. Glass shows
-   only via the cards + faint streaks/shadows. "Newsline" meant
-   MUSEMIND — no background change. *//* v6: FULL-BLEED BAND — the glass strip runs left to right, edge to edge,
-   like a header/footer. Breaks out of the centred .wrap (max-width 1200px)
-   with the standard 100vw trick; .page already has overflow-x:clip, so no
-   horizontal scrollbar. The heading above stays in the column; only the
-   glass band goes full width. */
+   v11 (round 18; Abrar on the v10 preview: "You removed all the photos,
+   people and everything, every detail, and only use black and white — I
+   didn't need this. Everything will remain, only the background will be
+   gone, and the remaining details will directly go attach on the glass."
+   He then chose CUTOUT): the 6 approved photos are BACK, in full colour,
+   people and all details intact — but each photo's flat BACKGROUND is
+   removed (transparent PNG cutouts, re-rendered from the HTML composite
+   sources in ~/workspace/rxguard-photos/, hand+phone recomposited the
+   same way minus its teal backdrop). The remaining foreground details
+   float DIRECTLY on the clear glass card: the glass IS the card
+   background behind the cutout. NO frame, NO border look, NO white slab.
+   TOTAL GLASS, NO COLOUR: no blue, yellow, red, cyan, magenta, gold,
+   rainbow or icy-blue anywhere in this block — the glass is clear, the
+   same as the page, floating there like the Musemind prism: visible only
+   through a soft neutral shadow, a bright CLEAR edge and one faint white
+   light streak. The chromatic fringe stays DELETED — no coloured
+   drop-shadows. Motion bend stays geometric only (JS: stretch cap +18%,
+   skew cap 5 deg), zero blur.
+   ONE honest exception: rx-06 (poster) keeps its full photo. Its
+   background is a real pharmacy photograph, and its headline is white
+   text made to sit on that dark photo — with the photo removed the
+   white headline would be invisible on the light glass, and recolouring
+   it would redesign the approved photo. rx-05's phone IS a clean cutout
+   (the phone was a separate composited layer); the pharmacy scene behind
+   it is gone, the people stay visible on rx-06. Card height comes from
+   JS layout() (2:1 photo ratio, as in v6-v9); the aspect-ratio below is
+   only the pre-JS fallback.
+   CONTROLS REMOVED (Abrar, v5): .warp-controls is display:none — no
+   counter, no arrows. Autoplay is the driver (constant-speed linear
+   circling, 1 card / 4.5s, never stops; no hover/off-screen pause,
+   only drag + hidden-tab pause); NO scroll driving. Full-bleed band,
+   stage bg exactly var(--bg), NO top/bottom band lines. */
+/* v11: FULL-BLEED BAND — the glass strip runs left to right, edge to edge,
+   like a header/footer. Breaks out of the centred .wrap with the standard
+   100vw trick; .page already has overflow-x:clip, so no horizontal scrollbar.
+   The heading above stays in the column; only the band goes full width. */
 .warp-carousel{--warp-frac:.34;width:100vw;max-width:100vw;margin-left:calc(50% - 50vw)}
-.warp-stage{position:relative;overflow:hidden;border-radius:0;background:var(--bg);cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;box-shadow:0 30px 70px rgba(15,20,40,.07)}
-/* v7 follow-up (Abrar: "the two lines up and down are not needed"):
-   the top/bottom rainbow hairlines are REMOVED entirely — no lines
-   marking the band's edges at all, so the glass band melts into the
-   page with zero boundary. The old .warp-stage::before hairline rule
-   is deleted (and its dark-mode opacity override below). Glass now
-   shows only through the CARDS (glass edges/refraction/gloss) and
-   the faint light streaks + soft shadows. */
+.warp-stage{position:relative;overflow:hidden;border-radius:0;background:var(--bg);cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;box-shadow:0 30px 70px rgba(0,0,0,.06)}
 .warp-stage:active{cursor:grabbing}
 .warp-ring{position:absolute;inset:0;transform-style:preserve-3d}
-.warp-bleed{position:absolute;inset:-56px;z-index:0;background-size:cover;background-position:center;background-repeat:no-repeat;filter:blur(56px) saturate(1.35);opacity:0;transition:opacity 1s ease;pointer-events:none}
-.warp-bleed.is-on{opacity:0} /* v5: photo bleed DISABLED — the stage is clear glass, no colour behind the cards */
-/* v6: MOTION WARP RESTORED, moderate — the card throws a cyan fringe on
-   one edge and magenta on the other while the ring spins, flipping with
-   --warp-dir; both fringes scale with --warp-warp, so at rest (warp 0)
-   there is no fringe at all. */
-.warp-card{position:absolute;margin:0;border-radius:14px;overflow:hidden;cursor:pointer;will-change:transform,opacity,filter;box-shadow:inset 0 0 0 1px rgba(255,255,255,.55);filter:drop-shadow(calc(var(--warp-dir,1)*var(--warp-warp,0)*-10px) 0 6px rgba(80,200,255,calc(var(--warp-warp,0)*.65))) drop-shadow(calc(var(--warp-dir,1)*var(--warp-warp,0)*10px) 0 6px rgba(255,60,180,calc(var(--warp-warp,0)*.6)))}
-/* v6: photo blurs (up to 3px) and saturates slightly while moving, driven
-   by --warp-warp; at rest the blur is exactly 0 — perfectly sharp. */
-.warp-card img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none;filter:blur(calc(var(--warp-warp,0)*4px)) saturate(calc(1 + var(--warp-warp,0)*.3))}
-/* Clear glass slab card (v5): faint iridescent edge tints — cyan on the left
-   edge, warm gold on the right — plus a faint diagonal gloss that slides
-   with the spin direction while the ring moves. Photo stays fully readable. */
-.warp-card::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(80,200,255,.9),rgba(255,120,190,.7),rgba(255,200,90,.85)) top/100% 1.5px no-repeat,linear-gradient(to right,rgba(80,200,255,.7),transparent 6%),linear-gradient(to left,rgba(255,190,90,.62),transparent 6%),linear-gradient(115deg,transparent 32%,rgba(255,255,255,.30) 44%,rgba(255,255,255,.08) 52%,transparent 64%),linear-gradient(to bottom,rgba(255,255,255,.18),transparent 28%);opacity:.38;transform:translateX(calc(var(--warp-dir,1)*var(--warp-warp,0)*38%))}
-.warp-card.is-front::before{opacity:.6}
-.warp-card::after{content:"";position:absolute;inset:0;background:rgba(5,5,12,.55);opacity:var(--warp-dim,0);pointer-events:none}
-.warp-card.is-front{box-shadow:0 30px 70px rgba(15,20,40,.16),inset 0 0 0 1px rgba(255,255,255,.6),inset 0 1px 0 rgba(255,255,255,.45)}
-/* Faint diagonal light streaks across the glass (v5): two soft white bands +
-   a soft shadow pooling at the bottom. No violet, no colour — light only.
-   Drifts almost imperceptibly (24s, transform only). */
-.warp-fx{position:absolute;inset:-2%;pointer-events:none;z-index:2;background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.18) 47%,rgba(255,255,255,.05) 52%,transparent 58%),linear-gradient(115deg,transparent 68%,rgba(255,255,255,.11) 73%,transparent 79%),linear-gradient(to top,rgba(15,20,40,.05),transparent 18%);animation:warp-glass-shimmer 24s ease-in-out infinite alternate}
+/* v11: THE WHOLE CARD IS ONE CLEAR COLOURLESS GLASS SLAB. Nearly-clear
+   frosted fill, backdrop blur of the page behind it, one bright CLEAR
+   (white, uncoloured) 1px edge, soft neutral shadow. No frame, no
+   coloured fill, no rainbow, no icy blue. The cutout image sits directly
+   on the glass — no padding, no inner box — so the glass shows through
+   the transparent parts of the PNG. */
+.warp-card{position:absolute;margin:0;box-sizing:border-box;aspect-ratio:2/1;padding:0;border-radius:20px;overflow:hidden;cursor:pointer;will-change:transform,opacity,filter;background:rgba(255,255,255,.07);-webkit-backdrop-filter:blur(14px) saturate(1.15);backdrop-filter:blur(14px) saturate(1.15);border:1px solid rgba(255,255,255,.55);box-shadow:0 24px 55px rgba(0,0,0,.14),0 6px 18px rgba(0,0,0,.08);filter:none}
+.warp-card img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none}
+/* v11: the ONLY overlay on a card is the neutral dark dim for side
+   cards (opacity from --warp-dim; 0 on the front card). It paints over
+   the image (the img is not positioned), so side cards dim evenly. */
+.warp-card::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:var(--warp-dim,0);pointer-events:none}
+.warp-card.is-front{box-shadow:0 32px 70px rgba(0,0,0,.18),0 8px 22px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.7)}
+/* One faint diagonal WHITE light streak across the stage only (never
+   over a card), capped at .10 alpha; plus a soft neutral shadow
+   pooling at the bottom. Drifts almost imperceptibly (24s). */
+.warp-fx{position:absolute;inset:-2%;pointer-events:none;z-index:2;background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.10) 47%,rgba(255,255,255,.04) 52%,transparent 58%),linear-gradient(115deg,transparent 68%,rgba(255,255,255,.07) 73%,transparent 79%),linear-gradient(to top,rgba(0,0,0,.04),transparent 18%);animation:warp-glass-shimmer 24s ease-in-out infinite alternate}
 @keyframes warp-glass-shimmer{from{transform:translate3d(-1.5%,0,0)}to{transform:translate3d(1.5%,0,0)}}
 /* Controls REMOVED (v5, Abrar): no counter, no arrows — the carousel is pure
    automated animation. Markup stays in the pages; JS null-guards the
    missing controls, autoplay + drag keep working. */
 .warp-controls{display:none}
 /* Dark mode: the stage is exactly the dark page background (--bg #141414) —
-   seamless with the page. Glass visible only via slightly stronger rainbow
-   edges + faint light streaks; no coloured panel, no violet glow. */
+   seamless with the page. The clear glass reads via its bright edge and
+   neutral shadow. */
 html[data-theme="dark"] .warp-stage{box-shadow:0 30px 70px rgba(0,0,0,.45)}
-html[data-theme="dark"] .warp-bleed.is-on{opacity:0}
-html[data-theme="dark"] .warp-card.is-front{box-shadow:0 30px 80px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.45),inset 0 1px 0 rgba(255,255,255,.28)}
-html[data-theme="dark"] .warp-fx{background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.13) 47%,rgba(255,255,255,.04) 52%,transparent 58%),linear-gradient(115deg,transparent 68%,rgba(255,255,255,.08) 73%,transparent 79%),linear-gradient(to top,rgba(0,0,0,.35),transparent 20%)}
+html[data-theme="dark"] .warp-card{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.35);box-shadow:0 24px 55px rgba(0,0,0,.5),0 6px 18px rgba(0,0,0,.4)}
+html[data-theme="dark"] .warp-card.is-front{box-shadow:0 32px 70px rgba(0,0,0,.6),0 8px 22px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.5)}
+html[data-theme="dark"] .warp-fx{background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.08) 47%,rgba(255,255,255,.03) 52%,transparent 58%),linear-gradient(115deg,transparent 68%,rgba(255,255,255,.06) 73%,transparent 79%),linear-gradient(to top,rgba(0,0,0,.3),transparent 20%)}
 @media (max-width:720px){
   .warp-carousel{--warp-frac:.62}
+  .warp-card{aspect-ratio:2/1}
 }
 @media (prefers-reduced-motion: reduce){
-  .warp-bleed{transition:none}
   .warp-fx{animation:none}
 }
