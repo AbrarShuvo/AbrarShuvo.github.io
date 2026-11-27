@@ -785,20 +785,40 @@ html[data-theme="dark"] .stat .stat-n{color:var(--violet-soft)}
    cap 0.10→0.22 in JS; CSS re-adds photo blur (up to 3px) +
    cyan/magenta drop-shadow fringes that flip with --warp-dir, all
    driven by --warp-warp (0 at rest = perfectly sharp, no fringe,
-   no blur). */
-/* v6: FULL-BLEED BAND — the glass strip runs left to right, edge to edge,
+   no blur).
+   v7 (round 18; Abrar on LIVE v6: "it's not moving automatically, after
+   moving a bit it stopped" + re-sent the reference: the side card BENDS
+   when it travels, and the front card is only ~1/3 of the stage):
+   diagnosed 30s headless — hover-pause froze the front photo for the
+   full 30s with the mouse parked, and the whip-then-creep autoplay only
+   spiked warp to ~0.15 at the whip. Autoplay is now constant-speed
+   linear circling in JS (1 card / 4.5s, never stops; no hover-pause,
+   no off-screen-pause). Cards SMALLER: --warp-frac .69 -> .34
+   (mobile .78 -> .62), so the front card is ~1/3 of the band like the
+   reference. The BEND: stretch cap +55%, skewX up to 12 deg, fringes
+   +-10px, blur up to 4px — steady while travelling, 0 at rest. The
+   card itself is glass: stronger bright inset edge + rainbow hairline
+   across the card top + stronger cyan/gold edge tints; photo pixels
+   inside stay normal and readable. Background unchanged (v6 glass
+   band, full-bleed, no border).
+   Follow-up (Abrar: the two lines up and down are not needed): the
+   .warp-stage::before top/bottom hairlines are DELETED entirely — no
+   lines separate the band from the page above/below it. Glass shows
+   only via the cards + faint streaks/shadows. "Newsline" meant
+   MUSEMIND — no background change. *//* v6: FULL-BLEED BAND — the glass strip runs left to right, edge to edge,
    like a header/footer. Breaks out of the centred .wrap (max-width 1200px)
    with the standard 100vw trick; .page already has overflow-x:clip, so no
    horizontal scrollbar. The heading above stays in the column; only the
    glass band goes full width. */
-.warp-carousel{--warp-frac:.69;width:100vw;max-width:100vw;margin-left:calc(50% - 50vw)}
+.warp-carousel{--warp-frac:.34;width:100vw;max-width:100vw;margin-left:calc(50% - 50vw)}
 .warp-stage{position:relative;overflow:hidden;border-radius:0;background:var(--bg);cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;box-shadow:0 30px 70px rgba(15,20,40,.07)}
-/* v6: rainbow hairlines along the TOP and BOTTOM of the full-width glass
-   band only (no border around the slab, no rounded corners) — cyan,
-   magenta/pink, warm gold, like the prism edges in the Musemind
-   reference. A touch stronger than v5 (opacity .9, 1.5px). Nothing else
-   colours the stage. */
-.warp-stage::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,rgba(80,200,255,.95) 0%,rgba(255,120,190,.80) 35%,rgba(255,200,90,.85) 65%,rgba(80,200,255,.75) 100%) top/100% 1.5px no-repeat,linear-gradient(90deg,rgba(80,200,255,.75) 0%,rgba(255,200,90,.85) 35%,rgba(255,120,190,.80) 65%,rgba(80,200,255,.95) 100%) bottom/100% 1.5px no-repeat;opacity:.9}
+/* v7 follow-up (Abrar: "the two lines up and down are not needed"):
+   the top/bottom rainbow hairlines are REMOVED entirely — no lines
+   marking the band's edges at all, so the glass band melts into the
+   page with zero boundary. The old .warp-stage::before hairline rule
+   is deleted (and its dark-mode opacity override below). Glass now
+   shows only through the CARDS (glass edges/refraction/gloss) and
+   the faint light streaks + soft shadows. */
 .warp-stage:active{cursor:grabbing}
 .warp-ring{position:absolute;inset:0;transform-style:preserve-3d}
 .warp-bleed{position:absolute;inset:-56px;z-index:0;background-size:cover;background-position:center;background-repeat:no-repeat;filter:blur(56px) saturate(1.35);opacity:0;transition:opacity 1s ease;pointer-events:none}
@@ -807,15 +827,15 @@ html[data-theme="dark"] .stat .stat-n{color:var(--violet-soft)}
    one edge and magenta on the other while the ring spins, flipping with
    --warp-dir; both fringes scale with --warp-warp, so at rest (warp 0)
    there is no fringe at all. */
-.warp-card{position:absolute;margin:0;border-radius:14px;overflow:hidden;cursor:pointer;will-change:transform,opacity,filter;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);filter:drop-shadow(calc(var(--warp-dir,1)*var(--warp-warp,0)*-7px) 0 5px rgba(80,200,255,calc(var(--warp-warp,0)*.55))) drop-shadow(calc(var(--warp-dir,1)*var(--warp-warp,0)*7px) 0 5px rgba(255,60,180,calc(var(--warp-warp,0)*.5)))}
+.warp-card{position:absolute;margin:0;border-radius:14px;overflow:hidden;cursor:pointer;will-change:transform,opacity,filter;box-shadow:inset 0 0 0 1px rgba(255,255,255,.55);filter:drop-shadow(calc(var(--warp-dir,1)*var(--warp-warp,0)*-10px) 0 6px rgba(80,200,255,calc(var(--warp-warp,0)*.65))) drop-shadow(calc(var(--warp-dir,1)*var(--warp-warp,0)*10px) 0 6px rgba(255,60,180,calc(var(--warp-warp,0)*.6)))}
 /* v6: photo blurs (up to 3px) and saturates slightly while moving, driven
    by --warp-warp; at rest the blur is exactly 0 — perfectly sharp. */
-.warp-card img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none;filter:blur(calc(var(--warp-warp,0)*3px)) saturate(calc(1 + var(--warp-warp,0)*.3))}
+.warp-card img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none;filter:blur(calc(var(--warp-warp,0)*4px)) saturate(calc(1 + var(--warp-warp,0)*.3))}
 /* Clear glass slab card (v5): faint iridescent edge tints — cyan on the left
    edge, warm gold on the right — plus a faint diagonal gloss that slides
    with the spin direction while the ring moves. Photo stays fully readable. */
-.warp-card::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to right,rgba(80,200,255,.58),transparent 5%),linear-gradient(to left,rgba(255,190,90,.52),transparent 5%),linear-gradient(115deg,transparent 32%,rgba(255,255,255,.30) 44%,rgba(255,255,255,.08) 52%,transparent 64%),linear-gradient(to bottom,rgba(255,255,255,.18),transparent 28%);opacity:.32;transform:translateX(calc(var(--warp-dir,1)*var(--warp-warp,0)*38%))}
-.warp-card.is-front::before{opacity:.55}
+.warp-card::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(80,200,255,.9),rgba(255,120,190,.7),rgba(255,200,90,.85)) top/100% 1.5px no-repeat,linear-gradient(to right,rgba(80,200,255,.7),transparent 6%),linear-gradient(to left,rgba(255,190,90,.62),transparent 6%),linear-gradient(115deg,transparent 32%,rgba(255,255,255,.30) 44%,rgba(255,255,255,.08) 52%,transparent 64%),linear-gradient(to bottom,rgba(255,255,255,.18),transparent 28%);opacity:.38;transform:translateX(calc(var(--warp-dir,1)*var(--warp-warp,0)*38%))}
+.warp-card.is-front::before{opacity:.6}
 .warp-card::after{content:"";position:absolute;inset:0;background:rgba(5,5,12,.55);opacity:var(--warp-dim,0);pointer-events:none}
 .warp-card.is-front{box-shadow:0 30px 70px rgba(15,20,40,.16),inset 0 0 0 1px rgba(255,255,255,.6),inset 0 1px 0 rgba(255,255,255,.45)}
 /* Faint diagonal light streaks across the glass (v5): two soft white bands +
@@ -831,12 +851,11 @@ html[data-theme="dark"] .stat .stat-n{color:var(--violet-soft)}
    seamless with the page. Glass visible only via slightly stronger rainbow
    edges + faint light streaks; no coloured panel, no violet glow. */
 html[data-theme="dark"] .warp-stage{box-shadow:0 30px 70px rgba(0,0,0,.45)}
-html[data-theme="dark"] .warp-stage::before{opacity:1}
 html[data-theme="dark"] .warp-bleed.is-on{opacity:0}
 html[data-theme="dark"] .warp-card.is-front{box-shadow:0 30px 80px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.45),inset 0 1px 0 rgba(255,255,255,.28)}
 html[data-theme="dark"] .warp-fx{background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.13) 47%,rgba(255,255,255,.04) 52%,transparent 58%),linear-gradient(115deg,transparent 68%,rgba(255,255,255,.08) 73%,transparent 79%),linear-gradient(to top,rgba(0,0,0,.35),transparent 20%)}
 @media (max-width:720px){
-  .warp-carousel{--warp-frac:.78}
+  .warp-carousel{--warp-frac:.62}
 }
 @media (prefers-reduced-motion: reduce){
   .warp-bleed{transition:none}

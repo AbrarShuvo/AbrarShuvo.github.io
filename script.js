@@ -380,6 +380,21 @@
   // drop-shadow fringes, all from --warp-warp, zero at rest). The
   // stage is now a FULL-BLEED band (see styles.css .warp-carousel:
   // 100vw breakout, radius 0, rainbow hairlines top + bottom only).
+  // v7 (round 18; Abrar on LIVE v6: "it's not moving automatically,
+  // after moving a bit it stopped" + re-sent the original reference:
+  // the side card BENDS when it travels left/right, and look at the
+  // photo card size — front card is only ~1/3 of the stage): DIAGNOSED
+  // with a 30s headless probe — with the mouse parked on the stage the
+  // front photo FROZE for the full 30s (hover-pause), and even without
+  // hover the whip-then-creep autoplay only spiked warp to ~0.15 at
+  // the whip and sat at ~0.02 the rest of the cycle, so it read as
+  // "moved a bit then stopped". FIX: autoplay is now CONSTANT-SPEED
+  // linear circling (1 card / 4.5s) that NEVER stops — hover-pause and
+  // off-screen-pause are GONE (only drag + hidden tab pause). Cards
+  // are SMALLER (--warp-frac .69 -> .34, mobile .78 -> .62) and the
+  // BEND is strong while travelling: stretch cap +55%, skewX up to
+  // 12 deg, fringe + blur from --warp-warp, steady ~0.8 while
+  // auto-circling, 0 whenever the ring is still (sharp at rest).
   var WARP_CW = 256;
   var WARP_FOCAL = 734.103;
   var WARP_G = { qA: 0.46401, XLA: 165.774, zA: 35.354, psiA: 1.44638, a1: 1.31454, a2: 1.10948, qB: 0.74999, XB: 204.525, ZB: 355.405, bB: 0.69311, bE: 0.04614, vC: 203.134, aC: 229.260, kB: 0.01087, bP: 0.99129, qPR: 1.01828, bPL: 1.00920, qPL: 1.07139 };
@@ -428,7 +443,6 @@
   var WARP_TK = [0, 3, 6, 8, 10, 11, 12, 13, 14, 16, 18, 21, 25, 30, 36, 45, 55, 70, 88, 110];
   var WARP_TB = [0, 0.02175, 0.12069, 0.22549, 0.35493, 0.43254, 0.51436, 0.5952, 0.6751, 0.83199, 0.9709, 1.12669, 1.27958, 1.40975, 1.53561, 1.68385, 1.79183, 1.89191, 1.95233, 2];
   var WARP_DRIFT = 0.06511;
-  var WARP_REST = 81.828;
   var WARP_FRAMES = 110;
   var WARP_SLOPES = (function () {
     var nn = WARP_TK.length;
@@ -467,13 +481,11 @@
     if (frames <= knee) return warpSpin(frames);
     return warpSpin(knee + ((frames - knee) * (WARP_FRAMES - knee)) / (nn - knee));
   }
-  var WARP_LEAD = (WARP_FRAMES - WARP_REST) / 30;
-  function warpAutoplay(t, start, step, interval) {
-    if (t < WARP_LEAD) return start - step + WARP_DRIFT + step * warpSpin(WARP_REST + t * 30);
-    var k = Math.floor((t - WARP_LEAD) / interval);
-    var tau = (t - WARP_LEAD - k * interval) * 30;
-    return start + k * step + WARP_DRIFT + step * warpSpinN(tau, interval * 30);
-  }
+  // v7: warpAutoplay (whip-then-creep) REMOVED — it made the ring read
+  // as "moved a bit then stopped" (fast whip, then a long near-still
+  // creep with warp ~0.02). Autoplay is now constant-speed linear
+  // circling (see tick). warpSpinN / warpSpin stay for manual spins.
+  var WARP_AUTO_RATE = 1 / 4.5; // v7: cards per second, constant smooth circling
   Array.prototype.forEach.call(document.querySelectorAll('[data-warp]'), function (root) {
     var ring = root.querySelector('.warp-ring');
     var stage = root.querySelector('.warp-stage');
@@ -481,16 +493,11 @@
     var count = root.querySelector('.warp-count');
     var n = cards.length;
     if (!ring || !stage || n < 2) return;
-    var progress = warpAutoplay(0, 0, 1, 4); // mount: ring creeps into card 0
+    var progress = WARP_DRIFT; // v7: mount with card 0 front; continuous circling starts at once
     var mode = reduce ? 'idle' : 'auto';
-    var autoStart = 0;
-    var autoT0 = performance.now();
     var spinAnim = null;
-    var hovering = false;
     var dragging = false;
-    var inView = true;
-    var pauseStart = null;
-    var hiddenAt = null;
+    var lastTick = 0;
     var cardW = 0, cardH = 0, unit = 1;
     var cur = 0;
     var dragStartX = 0, dragStartProgress = 0, dragDx = 0;
@@ -515,7 +522,10 @@
       var tmp = bleedOn; bleedOn = bleedOff; bleedOff = tmp;
     }
 
-    function paused() { return hovering || dragging || document.hidden || !inView; }
+    // v7: NO hover-pause, NO off-screen-pause — those froze the ring
+    // while Abrar was looking at it (diagnosed: front photo frozen
+    // 30s with mouse parked). Only drag + hidden tab pause.
+    function paused() { return dragging || document.hidden; }
 
     // Size the stage + cards: front card is --warp-frac of the stage width;
     // unit = px per pose unit; perspective focal length follows from it.
@@ -548,8 +558,9 @@
     // stage's perspective. Far cards fade out; nearer cards dim slightly.
     // v4: also tracks ring angular velocity (smoothed, ~90ms) into
     // --warp-warp / --warp-dir per card — 0 at rest, 1 mid-whip; the front
-    // card stretches least so it stays readable. v6: moderate stretch
-    // (cap +22%) + CSS blur/fringe from --warp-warp; zero at rest.
+    // card stretches least so it stays readable. v7: steady ~0.8 while
+    // auto-circling (constant speed), velocity-driven on manual moves,
+    // 0 whenever the ring is still. Bend: stretch cap +55%, skewX 12deg.
     function renderFrame() {
       var i, q, pose, aq, fade, dim;
       var nowMs = performance.now();
@@ -558,7 +569,9 @@
       var vel = (progress - prevProg) / dt;
       prevProg = progress;
       if (Math.abs(vel) > 0.05) warpDir = vel > 0 ? 1 : -1;
-      var target = reduce ? 0 : Math.min(1, Math.abs(vel) / 1.2);
+      // v7: steady 0.8 while auto-circling at constant speed, velocity-
+      // driven on manual spins/drags, 0 when the ring is still (sharp).
+      var target = reduce ? 0 : Math.min(1, Math.max(mode === 'auto' ? 0.8 : 0, Math.abs(vel) / 0.3));
       warpSm += (target - warpSm) * Math.min(1, dt / 0.09);
       if (warpSm < 0.005) warpSm = 0;
       for (i = 0; i < n; i++) {
@@ -566,16 +579,18 @@
         pose = warpPoseAt(q);
         aq = Math.abs(q);
         var card = cards[i];
-        var cardWarp = warpSm * (aq < 0.3 ? 0.3 : Math.min(1, 0.35 + aq * 0.45));
-        // v6: moderate stretch restored (max +22% on side cards, ~7% on
-        // the front) — the photos warp like the cards in Abrar's original
-        // animation while moving; CSS adds the blur + chromatic fringe
-        // from --warp-warp. At rest warp is 0: perfectly sharp, no smear.
-        var stretch = 1 + cardWarp * 0.22;
-        card.style.transform = 'translate3d(' + (pose[0] * unit).toFixed(1) + 'px, 0, ' + (-pose[1] * unit).toFixed(1) + 'px) rotateY(' + (pose[2] * 180 / Math.PI).toFixed(2) + 'deg) scaleX(' + stretch.toFixed(3) + ')';
+        var cardWarp = warpSm * (aq < 0.3 ? 0.12 : Math.min(1, 0.30 + aq * 0.55));
+        // v7: the BEND — side cards stretch hard (up to +55%) and shear
+        // (skewX up to 12 deg) while travelling, like the bent left card
+        // in Abrar's reference; the front stays near-flat (~7%). CSS
+        // adds blur + chromatic fringe from --warp-warp. Warp is 0
+        // whenever the ring is still: perfectly sharp, no smear.
+        var stretch = 1 + cardWarp * 0.55;
+        var skew = (warpDir * cardWarp * 12).toFixed(1);
+        card.style.transform = 'translate3d(' + (pose[0] * unit).toFixed(1) + 'px, 0, ' + (-pose[1] * unit).toFixed(1) + 'px) rotateY(' + (pose[2] * 180 / Math.PI).toFixed(2) + 'deg) skewX(' + skew + 'deg) scaleX(' + stretch.toFixed(3) + ')';
         fade = aq <= 1.5 ? 1 : aq >= 2.5 ? 0 : 1 - (aq - 1.5);
         card.style.opacity = fade.toFixed(2);
-        dim = Math.min(0.55, aq * 0.22);
+        dim = Math.min(0.35, aq * 0.18); // v7: lighter dim — side cards stay vivid like the reference, not muddy
         card.style.setProperty('--warp-dim', dim.toFixed(2));
         card.style.setProperty('--warp-warp', cardWarp.toFixed(2));
         card.style.setProperty('--warp-dir', String(warpDir));
@@ -617,23 +632,21 @@
       if (d) spinTo(curIdx + d);
     }
 
-    // Main loop: autoplay follows autoplayProgress exactly (whip every
-    // interval, slow creep between); manual spins run on spinN; the clock
-    // freezes while paused (hover / drag / hidden / off-screen).
+    // Main loop (v7): autoplay is CONSTANT-SPEED circling — progress
+    // advances linearly, so the ring never stops and the bend is visible
+    // through the whole left-to-right travel. Manual spins still run on
+    // spinN; when one ends, linear circling resumes from there. The
+    // clock is frame-dt based, so a hidden tab just pauses (no jump on
+    // return) and hovering never freezes the ring.
     function tick(now) {
+      var dt = lastTick ? Math.min(0.1, Math.max(0, (now - lastTick) / 1000)) : 0.016;
+      lastTick = now;
       if (mode === 'auto') {
-        if (paused()) {
-          if (pauseStart === null) pauseStart = now;
-        } else {
-          if (pauseStart !== null) { autoT0 += now - pauseStart; pauseStart = null; }
-          progress = warpAutoplay((now - autoT0) / 1000, autoStart, 1, 4);
-        }
+        if (!paused()) progress += dt * WARP_AUTO_RATE;
       } else if (mode === 'spin' && spinAnim) {
         var f = (now - spinAnim.start) * 30 / 1000;
         if (f >= spinAnim.dur) {
           progress = spinAnim.to;
-          autoStart = spinAnim.to - WARP_DRIFT;
-          autoT0 = now - WARP_LEAD * 1000;
           spinAnim = null;
           mode = reduce ? 'idle' : 'auto';
         } else {
@@ -711,21 +724,8 @@
       window.addEventListener('pointerup', endDrag);
       window.addEventListener('pointercancel', endDrag);
     });
-    stage.addEventListener('mouseenter', function () { hovering = true; });
-    stage.addEventListener('mouseleave', function () { hovering = false; });
-    document.addEventListener('visibilitychange', function () {
-      if (document.hidden) {
-        if (hiddenAt === null) hiddenAt = performance.now();
-      } else if (hiddenAt !== null) {
-        autoT0 += performance.now() - hiddenAt;
-        hiddenAt = null;
-      }
-    });
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) {
-        inView = entries[0].isIntersecting;
-      }, { threshold: 0.1 }).observe(root);
-    }
+    // v7: no hover / visibility / off-screen listeners — nothing but
+    // drag and document.hidden (via paused()) may stop the ring.
     window.addEventListener('resize', function () { layout(); renderFrame(); });
 
     layout();
