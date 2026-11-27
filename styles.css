@@ -533,6 +533,8 @@ html[data-theme="dark"] .nav-links a.roll::after{color:var(--violet-soft)}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding:34px 0;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
 .stat b{display:block;font-size:clamp(36px,4.5vw,54px);font-weight:800;letter-spacing:-.03em;line-height:1}
 .stat span{display:block;margin-top:10px;font-size:14px;color:var(--muted)}
+/* Stat labels inside dark result panels stay light (the rule above would dim them) */
+.panel .stat span{color:#f1eeff}
 @media (max-width:720px){.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 20px}}
 /* Certificates as rows (Stokt awards table): the hovered row turns orange */
 .cert-list{border-top:1px solid var(--hairline)}

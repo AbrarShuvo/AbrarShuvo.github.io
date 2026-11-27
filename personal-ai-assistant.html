@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- SITE URL: https://abrarshuvo.github.io/ — change this one line when moving to abrarzamil.com, then find-replace the same URL in the canonical / og:url / og:image tags below. -->
+<meta charset="utf-8">
+<script>try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Personal AI assistant — Abrar Zamil, Python developer</title>
+<meta name="description" content="Case study: my own Telegram bot assistant — tasks, deadlines, briefs, news and LMS dates in one chat, in Bangla or English.">
+<meta name="author" content="Abrar Zamil">
+<meta name="theme-color" content="#FDFDFC">
+<link rel="canonical" href="https://abrarshuvo.github.io/personal-ai-assistant.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Abrar Zamil">
+<meta property="og:title" content="Personal AI assistant — Abrar Zamil, Python developer">
+<meta property="og:description" content="Case study: my own Telegram bot assistant — tasks, deadlines, briefs, news and LMS dates in one chat, in Bangla or English.">
+<meta property="og:url" content="https://abrarshuvo.github.io/personal-ai-assistant.html">
+<meta property="og:image" content="https://abrarshuvo.github.io/images/as-01-hero.jpg">
+<meta property="og:image:width" content="3200">
+<meta property="og:image:height" content="1600">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Personal AI assistant — Abrar Zamil, Python developer">
+<meta name="twitter:description" content="Case study: my own Telegram bot assistant — tasks, deadlines, briefs, news and LMS dates in one chat, in Bangla or English.">
+<meta name="twitter:image" content="https://abrarshuvo.github.io/images/as-01-hero.jpg">
+<link rel="icon" href="images/favicon.svg">
+<link rel="stylesheet" href="styles.css?v=9b20d2">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a><div class="progress" aria-hidden="true"></div>
+<div id="top" class="page">
+<div class="blobs" aria-hidden="true">
+<span class="blob fa" style="top: 4%; left: -220px; width: 720px; height: 720px; background: radial-gradient(closest-side, rgba(76,111,255,.42), rgba(76,111,255,0))"></span>
+<span class="blob fb" style="top: 14%; right: -260px; width: 780px; height: 780px; background: radial-gradient(closest-side, rgba(255,122,47,.34), rgba(255,122,47,0))"></span>
+<span class="blob fa" style="top: 34%; left: 18%; width: 700px; height: 700px; background: radial-gradient(closest-side, rgba(255,211,77,.42), rgba(255,211,77,0)); animation-delay: -5s"></span>
+<span class="blob fb" style="top: 50%; right: -180px; width: 760px; height: 760px; background: radial-gradient(closest-side, rgba(142,123,255,.40), rgba(142,123,255,0)); animation-delay: -4s"></span>
+<span class="blob fa" style="top: 66%; left: -240px; width: 800px; height: 800px; background: radial-gradient(closest-side, rgba(240,112,150,.30), rgba(240,112,150,0)); animation-delay: -8s"></span>
+<span class="blob fb" style="top: 82%; right: 6%; width: 700px; height: 700px; background: radial-gradient(closest-side, rgba(76,111,255,.34), rgba(76,111,255,0)); animation-delay: -2s"></span>
+</div>
+<div class="wrap">
+<nav class="nav" aria-label="Main">
+<a class="brand" href="index.html"><span class="brand-name">Abrar Zamil<span class="brand-dot" aria-hidden="true"></span></span></a>
+<div class="nav-right">
+<div class="nav-links" id="nav-links">
+<a href="projects.html" aria-current="page">Work</a>
+<a href="services.html">Services</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+</div>
+<a class="btn btn-dark nav-cta" href="contact.html">Let&#39;s talk</a>
+<button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode"><svg class="i-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+<button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><svg class="i-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><svg class="i-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+</nav>
+<main id="main" tabindex="-1">
+
+<section class="case-head pop">
+<a class="back" href="projects.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>All work</a>
+<span class="pill pill-blue">AI automation</span>
+<h1 class="h1">Personal AI assistant</h1>
+<div class="tags"><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">Telegram bot</span><span class="tag">Claude Haiku</span></div>
+<p class="lead" style="max-width: 720px">My own assistant, behind a Telegram bot — it keeps my tasks, deadlines, briefs, news and Khabar&rsquo;s orders in one place, and answers in Bangla, Banglish or English.</p>
+<p class="body" style="max-width: 720px"><b>Who this is for:</b> me — one place for tasks, deadlines, briefs, news and orders, instead of seven workstreams in seven places.</p>
+<div class="btns"><a class="btn btn-dark" href="contact.html">Let&#39;s talk</a><a class="btn btn-glass" href="projects.html">All work</a></div>
+<div class="meta glass" style="margin-top: 8px"><div><span>My role</span><b>Built it end to end</b></div><div><span>Built with</span><b>Python · FastAPI · Claude Haiku</b></div><div><span>Tested on</span><b>319 automated checks</b></div><div><span>Status</span><b><span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 9px; height: 9px; border-radius: 50%; background: #1F9D63"></span>In daily use</span></b></div></div>
+</section>
+
+<section class="case-visual pop" style="animation-delay: .1s; padding: 0">
+<img src="images/as-01-hero.jpg" alt="Personal AI assistant overview — one brain for the whole day, with the Telegram chat, the 07:00 morning brief and the Pad dashboard" width="3200" height="1600" loading="eager" decoding="async" style="display: block; width: 100%; height: auto">
+</section>
+
+<section class="sec split rv">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<span class="eyebrow">The problem</span>
+<h2 class="h2 wr">Everything I had to remember lived somewhere else.</h2>
+<p class="body" style="font-size: 17px; max-width: 560px">Deadlines live in the LMS, orders and leads each live somewhere else, and follow-ups live in my head. Every morning started with catching up — checking each place before the day could start.</p>
+</div>
+<div class="ba glass">
+<span class="eyebrow" style="color: #5A4B6E">Before</span>
+<div class="ba-row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B43E0A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg><span>Deadlines in the LMS, orders and leads elsewhere</span></div><div class="ba-row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B43E0A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg><span>Follow-ups only in my head</span></div><div class="ba-row"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B43E0A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg><span>Mornings start with catching up</span></div>
+<div style="height: 1px; background: rgba(42,27,61,.12); margin: 4px 0"></div>
+<span class="eyebrow" style="color: #5A4B6E">After</span>
+<div class="ba-row" style="font-weight: 600"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F9D63" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg><span>One chat holds tasks, deadlines and orders</span></div><div class="ba-row" style="font-weight: 600"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F9D63" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg><span>Briefs arrive at 07:00 and 21:00</span></div><div class="ba-row" style="font-weight: 600"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F9D63" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg><span>Nothing sends or schedules without my yes</span></div>
+</div>
+</section>
+
+<section class="sec" id="how">
+<div class="sec-head rv"><div><span class="eyebrow">How it works</span><h2 class="h2">Three steps</h2></div></div>
+<div class="grid g3 rv"><div class="glass card tile" style="padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span class="orb step-orb" style="width: 52px; height: 52px; background-color: rgba(76,111,255,.45); display: flex; align-items: center; justify-content: center; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 21px">1</span>
+<h3 class="h3">Say it in chat</h3>
+<p class="small" style="font-size: 15px">Type, tap a command, or send a voice note in Bangla. /add, /brief, /deadlines, /news, /lms, /speak.</p>
+</div><div class="glass card tile" style="padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span class="orb step-orb" style="width: 52px; height: 52px; background-color: rgba(142,123,255,.45); display: flex; align-items: center; justify-content: center; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 21px">2</span>
+<h3 class="h3">The brain picks the tool</h3>
+<p class="small" style="font-size: 15px">Claude Haiku reads the message and picks one of 16 tools — tasks, LMS, Gmail, news, orders.</p>
+</div><div class="glass card tile" style="padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<span class="orb step-orb" style="width: 52px; height: 52px; background-color: rgba(255,211,77,.7); display: flex; align-items: center; justify-content: center; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 21px">3</span>
+<h3 class="h3">It answers short, and waits for yes</h3>
+<p class="small" style="font-size: 15px">Replies stay short. Nothing sends, spends or schedules without explicit confirmation.</p>
+</div></div>
+<div class="glass card pad rv" style="margin-top: 20px"><div class="flow"><span class="flow-step frost">Telegram chat</span><span class="flow-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7A5CE6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span><span class="flow-step" style="background: #5B29FE; color: #fff; box-shadow: 0 12px 26px rgba(59,91,234,.28)">Brain + tools</span><span class="flow-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7A5CE6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span><span class="flow-step frost">Briefs &amp; deadlines</span><span class="flow-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7A5CE6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span><span class="flow-step" style="background: linear-gradient(140deg, #FFE27A, #FFA45C); box-shadow: 0 12px 26px rgba(255,150,60,.28)">Pad dashboard</span></div></div>
+</section>
+
+<section class="sec split rv">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<span class="eyebrow">Decisions I made</span>
+<h2 class="h2">Built to be relied on</h2>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px"><div class="glass card tile" style="padding: 24px 26px; display: flex; flex-direction: column; gap: 6px">
+<h3 class="h3" style="font-size: 19px">It never sends without my yes</h3>
+<p class="small" style="font-size: 15px">Email drafts only, never sends. No message, no spend, no schedule without explicit confirmation.</p>
+</div><div class="glass card tile" style="padding: 24px 26px; display: flex; flex-direction: column; gap: 6px">
+<h3 class="h3" style="font-size: 19px">Gmail stays read-only</h3>
+<p class="small" style="font-size: 15px">It reads important mail first and drafts replies. It never sends anything itself.</p>
+</div><div class="glass card tile" style="padding: 24px 26px; display: flex; flex-direction: column; gap: 6px">
+<h3 class="h3" style="font-size: 19px">Secrets stay in .env</h3>
+<p class="small" style="font-size: 15px">No keys or tokens in the code, the chat or any screenshot. Secrets live only in .env.</p>
+</div></div>
+</section>
+
+<section class="sec rv">
+<div class="panel g-blue" style="padding: clamp(28px, 5vw, 64px); background: #5B29FE; color: #fff; display: flex; flex-direction: column; gap: 32px; border-radius: 36px; box-shadow: 0 30px 80px rgba(60,50,170,.24)">
+<span aria-hidden="true" class="orb bob" style="position: absolute; right: 5%; top: 10%; width: 64px; height: 64px; background-color: rgba(255,255,255,.2); animation-delay: 0s"></span>
+<span aria-hidden="true" class="orb bob" style="position: absolute; right: 16%; bottom: 10%; width: 30px; height: 30px; background-color: rgba(255,255,255,.22); animation-delay: -2.4s"></span>
+<div style="position: relative; display: flex; flex-direction: column; gap: 14px">
+<span class="eyebrow" style="color: #FFFFFF">The result</span>
+<h2 class="h2" style="color: #fff; max-width: 780px">One chat runs the day — briefs, deadlines, orders and news.</h2>
+</div>
+<div class="stats" style="position: relative"><div class="stat"><b>319</b><span>automated checks passing</span></div><div class="stat"><b>16</b><span>tools the brain can use</span></div><div class="stat"><b>25</b><span>Telegram commands</span></div><div class="stat"><b>2</b><span>briefs a day — 07:00 morning, 21:00 evening</span></div></div>
+<p style="position: relative; font-size: 15px; line-height: 1.6; color: #FFF3EC; max-width: 700px">The numbers come from the bot itself: 319 checks passing, 16 tools, 25 commands, two briefs a day.</p>
+</div>
+</section>
+
+<section class="sec">
+<div class="sec-head rv"><div><span class="eyebrow">A look inside</span><h2 class="h2">Screens</h2></div></div>
+<div class="grid g2"><figure class="shot glass rv" style="grid-column: 1 / -1">
+<div class="shot-box g-blue"><div class="win" style="width: 100%; max-width: 620px">
+<div class="demo-bar"><i style="background: #F26D5F"></i><i style="background: #F5BD4F"></i><i style="background: #5FC454"></i><b>Abrar&rsquo;s Assistant · bot · online</b><span class="demo-live" style="text-transform: none; letter-spacing: 0">Telegram</span></div>
+<div style="padding: 18px; display: flex; flex-direction: column; gap: 10px; background: #E7EBF0; font-size: 14.5px; line-height: 1.45; color: #0E1626">
+<div style="align-self: center; background: rgba(255,255,255,.9); border-radius: 99px; padding: 5px 14px; font-size: 12px; font-weight: 700; color: #5A5A78">Today</div>
+<div style="align-self: flex-end; max-width: 86%; background: #D9EFFF; border-radius: 16px; border-bottom-right-radius: 5px; padding: 10px 13px"><small style="display: block; font-size: 11px; color: #8A8AA8; font-weight: 700">06:58</small>add submit AI CV Coach before Dec 1</div>
+<div style="align-self: flex-start; max-width: 86%; background: #fff; border-radius: 16px; border-bottom-left-radius: 5px; padding: 10px 13px; box-shadow: 0 1px 2px rgba(0,0,0,.08)"><small style="display: block; font-size: 11px; color: #8A8AA8; font-weight: 700">Assistant</small><span style="color: #1F9D63; font-weight: 700">Added ✓</span> — Submit AI CV Coach · due Dec 1, 05:00 · Hackathons</div>
+<div style="align-self: flex-end; max-width: 86%; background: #D9EFFF; border-radius: 16px; border-bottom-right-radius: 5px; padding: 10px 13px"><small style="display: block; font-size: 11px; color: #8A8AA8; font-weight: 700">06:59</small>/brief</div>
+<div style="align-self: flex-start; max-width: 86%; background: #fff; border-radius: 16px; border-bottom-left-radius: 5px; padding: 10px 13px; box-shadow: 0 1px 2px rgba(0,0,0,.08)"><small style="display: block; font-size: 11px; color: #8A8AA8; font-weight: 700">Assistant</small>Good morning, Abrar ☀️<br><b>Top 3:</b><br>1. Submit AI CV Coach — Dec 1, 05:00<br>2. Khabar&rsquo;s orders close Fri<br>3. Purple Works follow-ups</div>
+<div style="align-self: flex-end; max-width: 86%; background: #D9EFFF; border-radius: 16px; border-bottom-right-radius: 5px; padding: 10px 13px">🎙 0:08</div>
+<div style="align-self: flex-start; max-width: 86%; background: #fff; border-radius: 16px; border-bottom-left-radius: 5px; padding: 10px 13px; box-shadow: 0 1px 2px rgba(0,0,0,.08)"><small style="display: block; font-size: 11px; color: #8A8AA8; font-weight: 700">Assistant</small>Shunechi — noted for today ✓</div>
+</div>
+</div></div>
+<figcaption>The Telegram chat: add a task, get the morning brief, or send a voice note in Bangla.</figcaption>
+</figure></div>
+</section>
+
+<section class="sec">
+<div class="sec-head rv"><div><span class="eyebrow">Gallery</span><h2 class="h2">All seven photos</h2></div></div>
+<div style="display: flex; flex-direction: column; gap: 20px">
+<img src="images/as-01-hero.jpg" alt="Personal AI assistant overview — one brain for the whole day, with the Telegram chat, the 07:00 morning brief and the Pad dashboard" width="3200" height="1600" loading="lazy" decoding="async" style="display: block; width: 100%; height: auto; border-radius: 24px">
+<img src="images/as-02-phone.jpg" alt="The assistant in Telegram — chat like you talk, with /add, /brief, /deadlines, /news, /lms and /speak commands" width="3200" height="1600" loading="lazy" decoding="async" style="display: block; width: 100%; height: auto; border-radius: 24px">
+<img src="images/as-03-brief.jpg" alt="The 07:00 morning brief — top 3 priorities, deadlines, Khabar's, Purple Works, inbox and calendar, plus the 21:00 evening check-in" width="3200" height="1600" loading="lazy" decoding="async" style="display: block; width: 100%; height: auto; border-radius: 24px">
+<img src="images/as-04-dashboard.jpg" alt="Voice dashboard on the Xiaomi Pad — tap to talk in Bangla, today's to-dos, orders and deadlines, night mode" width="3200" height="1600" loading="lazy" decoding="async" style="display: block; width: 100%; height: auto; border-radius: 24px">
+<img src="images/as-05-night.jpg" alt="The 21:00 evening check-in — done vs carry-over, tomorrow's top 3 already set" width="3200" height="1600" loading="lazy" decoding="async" style="display: block; width: 100%; height: auto; border-radius: 24px">
+<img src="images/as-06-poster.jpg" alt="Ask in Bangla, get your day back — 319 checks passing, 16 tools, 25 commands, 7 workstreams" width="3200" height="1600" loading="lazy" decoding="async" style="display: block; width: 100%; height: auto; border-radius: 24px">
+<img src="images/as-07-phone.jpg" alt="The assistant in one hand — the Telegram chat on a phone, held in a hand" width="3200" height="1600" loading="lazy" decoding="async" style="display: block; width: 100%; height: auto; border-radius: 24px">
+</div>
+</section>
+
+<section class="sec rv">
+<a class="glass card tile" href="loom-to-tasks.html" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: clamp(22px, 3vw, 34px); text-decoration: none">
+<span style="display: flex; flex-direction: column; gap: 6px"><span class="eyebrow" style="color: #5A4B6E">Next project</span><span class="h2" style="font-size: clamp(28px, 3.4vw, 44px)">Loom to Tasks</span></span>
+<span class="btn btn-dark" style="flex: none">View <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+</a>
+</section>
+
+<section class="sec rv">
+<div class="cta">
+<span aria-hidden="true" class="ghost" style="right: -20px; bottom: -50px; font-size: clamp(120px, 17vw, 240px)">hello</span>
+<span aria-hidden="true" class="orb bob" style="position: absolute; top: 30px; right: 44px; width: 84px; height: 84px; background-color: rgba(255,210,150,.28)"></span>
+<span aria-hidden="true" class="orb bob" style="position: absolute; left: 6%; bottom: 14%; width: 46px; height: 46px; background-color: rgba(255,255,255,.18); animation-delay: -2.5s"></span>
+<h2 class="h2" style="position: relative">Want something like this?</h2>
+<p style="position: relative">Tell me about your project. I reply within one working day.</p>
+<div class="btns" style="position: relative; justify-content: center">
+<a class="btn btn-light" href="contact.html">Contact me <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a class="btn btn-ondark" href="mailto:abrarzamil.dev@gmail.com"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>Email me</a>
+</div>
+</div>
+</section>
+
+</main>
+<footer class="foot">
+<div class="foot-in">
+<div class="foot-cols">
+<div class="foot-col" style="flex: 1 1 260px; max-width: 320px; gap: 12px">
+<a class="brand" href="index.html" style="padding: 0"><span class="brand-name">Abrar Zamil<span class="brand-dot" aria-hidden="true"></span></span></a>
+<p class="small">Python developer. Automations, AI tools, dashboards and websites.</p>
+<span class="pill pill-green" style="padding: 5px 12px"><span class="dot"></span>Available for new projects</span>
+</div>
+<div class="foot-col"><span>Pages</span>
+<a href="index.html">Home</a><a href="projects.html">Work</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</div>
+<div class="foot-col"><span>Projects</span>
+<a href="loom-to-tasks.html">Loom to Tasks</a><a href="lead-tracker.html">Lead Tracker</a><a href="sourcing-website.html">Wholesalia website</a>
+</div>
+<div class="foot-col" style="min-width: 220px"><span>Elsewhere</span>
+<div class="socials">
+<a href="https://www.linkedin.com/in/abrar-zamil-shuvo-059b04229" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>LinkedIn</a>
+<a href="https://x.com/AbrarZamilShuvo" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>X</a>
+<a href="https://github.com/AbrarShuvo" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"></path></svg>GitHub</a>
+<a href="mailto:abrarzamil.dev@gmail.com"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>Email</a>
+</div>
+</div>
+</div>
+<div class="foot-bar"><span>&copy; 2026 Abrar Zamil</span><a href="#top" style="font-weight: 600; text-decoration: none; padding: 8px 0">Back to top &uarr;</a></div>
+</div>
+  <div class="foot-word-wrap" aria-hidden="true">
+    <span class="foot-word">Abrar Zamil</span>
+  </div>
+</footer>
+</div>
+</div>
+<button class="to-top" type="button" aria-label="Back to top">&#8593;</button>
+<script src="script.js?v=9b20d2"></script>
+</body>
+</html>

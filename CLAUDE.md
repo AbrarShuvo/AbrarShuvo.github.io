@@ -316,6 +316,48 @@ Motion + colour round 2 (Stokt / Cappen, added 2026-11-26, PUSHED LIVE
   drawn, dot not yet in), dark mode, 390px (0 overflow), services page,
   footer on dark. Previews in ~/workspace/portfolio-preview/brand15-*.jpg.
   NOT pushed — awaiting Abrar's approval with items 2+3.
+  Rounds 13+14+15 PUSHED LIVE 2026-11-27 ~11:41 WIB: snapshot commit
+  9e67d98 (18 files: 15 HTML + styles.css + script.js + CLAUDE.md).
+  Verified live: home 200, ?v=c4d8a1, 0 brand-mark references, hero-flat
+  present.
+  Round 16 (2026-11-27 — photo galleries + 7 new case-study pages,
+  Abrar: "Push all"): all 69 photos wired into pages. Galleries on the 3
+  existing case studies (Loom 7, Lead Tracker 7, Wholesalia 7) + 7 NEW
+  case-study pages (Glass Bento 7, RxGuard 6, Last Visitor 7, Deleted City
+  7, AI CV Coach 7, Wavespace 7, Personal AI assistant 7). Aria pattern:
+  story first, then ALL photos full-width in order 01→07, no captions,
+  loading="lazy" + width/height + meaningful alts, existing classes only
+  (.sec, .sec-head, figure.shot.glass). New pages follow the Loom layout
+  exactly (back link, pill, h1, tags, summary, buttons, meta row, hero,
+  problem, steps, decisions, result, screens, gallery, next project,
+  showreel, CTA); SEO per page (title <60, desc <160, canonical,
+  og/twitter). Next-project cycle now closes the loop: Loom → Lead
+  Tracker → Wholesalia → Glass Bento → RxGuard → Last Visitor → Deleted
+  City → AI CV Coach → Wavespace → Assistant → Loom. projects.html: all
+  10 Work cards now link to a case study (the 4 "Full case study coming
+  soon." panels are gone; Glass Bento / RxGuard / Last Visitor cards got
+  a "View case study" button next to their demo/code links). sitemap.xml
+  now 21 URLs (7 new pages, priority 0.8, lastmod 2026-11-27). Two
+  legibility bugs found while building and fixed in this round: (1) the
+  result panels on Loom / Lead Tracker / Wholesalia (live) + Assistant /
+  Wavespace (new) were white text on pale lavender/lemon/beige
+  (.panel g-blue/g-warm/g-sunset after the flat restyle) — all 5 got an
+  inline violet #5B29FE background; the other 5 panels already had dark
+  backgrounds. (2) styles.css had TWO .stat span rules: line 295
+  #f1eeff (for dark panels) and line 535 var(--muted) (for the light
+  home stats row); the later one won everywhere, dimming panel stat
+  labels — fixed with a scoped .panel .stat span{color:#f1eeff} rule
+  after line 535. Wholesalia photos 01/04/06 reworked: the Massger /
+  Umbrella product photos have clipped baked-in text ("assage Gun",
+  "mbrella") — the text band was cropped out entirely
+  (prod-massger-crop.jpg, prod-umbrella-crop2.jpg), same fix as photo
+  07. Cache tag ?v=9b20d2 on all 22 pages. Verified: local HTTP +
+  puppeteer, desktop 1440 / mobile 390 / dark, 0 overflow, all images
+  load. Verification note: full-page screenshots HIDE .rv sections
+  (scroll-driven view-timeline animations evaluate at scroll 0 during
+  captureBeyondViewport) — verify with viewport shots taken at scroll
+  positions, not fullPage captures. Binaries: 69 photos (~25 MB) via web
+  upload; text via snapshot push.
   Round 9 — SHOWREEL MOVED TO HOME (2026-11-26, still local — Abrar: "what
   you put on work I want that animation on the home page... for works I will
   think something later"): the 9-card showreel moved from projects.html to
@@ -424,6 +466,6 @@ Email is already set: `abrarzamil.dev@gmail.com`
 **Restyle 2026-11-26: flat three-site language (Purple Softworks / Musemind /
 Wavespace), same as the blog. Pushed live 2026-11-26 after Abrar approved the
 preview (snapshot push; the motion round and full-bleed previews went live in
-the same push).** Cache tag is now `?v=35ef37` (rounds 10+11+12 pushed live 2026-11-27 ~04:02 WIB: text 4754f9f + media 0baf200).
+the same push).** Cache tag is now `?v=9b20d2` (rounds 13+14+15 pushed live 2026-11-27 ~11:41 WIB: text 9e67d98; round 16 photo galleries + 7 new pages + panel/stat legibility fixes pending push).
 
 Push to `main`. GitHub Pages rebuilds in about a minute. There is no CI.
