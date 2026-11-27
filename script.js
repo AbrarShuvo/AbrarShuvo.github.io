@@ -346,4 +346,392 @@
   // spans the scrollable distance (wrapHeight - viewportHeight).
   driveParallax(document.querySelector('.skx-wrap'), document.getElementById('skx-stage'),
     { tilt: 10, rz: 0, tyFrom: 0, tyTo: 0, opFrom: 0.2, travel: 600, travelK: 0.3, totalMode: 'scrollable' });
+
+  // Warp Carousel v2 (round 18): faithful vanilla port of the Louis Studios
+  // "Warp Carousel" motion — fitted poseAt ring geometry, spinN whip-then-
+  // creep curve, and autoplayProgress, ported in full from warp-carousel.tsx
+  // (see ~/workspace/research_notes/warp-motion-reference.md). Cards are
+  // positioned per-frame with translate3d + rotateY inside the stage's
+  // perspective, so facing-away cards render as mirrored quads, exactly
+  // like the original's canvas projection. Dark glowing stage. Inits every
+  // [data-warp] on the page, reading its .warp-card list from the markup —
+  // no per-page JS. Reduced motion: no autoplay, plain jumps.
+  // v4 (round 18; Abrar rejected v3's heavy smear): the glass/mirror effect
+  // lives in the BACKGROUND (iridescent prism washes + mirror sheen, see
+  // styles.css .warp-stage::before / .warp-fx); the photo bleed is disabled
+  // in CSS. Cards stay clean: --warp-warp / --warp-dir (ring angular
+  // velocity, smoothed, 0 at rest → 1 mid-spin) now drive only a GENTLE
+  // stretch (scaleX up to +10%) and the faint sliding gloss — no blur,
+  // no fringe. Autoplay is the driver (automated circling, ~4s, whip
+  // curve, pauses on hover/drag/hidden/off-screen); NO scroll driving —
+  // Abrar corrected that ("no need to scroll").
+  // v5 (round 18; Abrar rejected v4's coloured washes — "not even close"):
+  // the stage is CLEAR GLASS, same colour as the page (see styles.css) —
+  // glass visible only via a hairline rainbow edge, faint light streaks
+  // and soft shadows. CONTROLS REMOVED: .warp-controls is display:none
+  // (no "1 / 6" counter, no arrows); the code below already null-guards
+  // count/prevBtn/nextBtn, so hiding them is safe. Autoplay + drag keep
+  // working; the carousel is pure automated animation.
+  // v6 (round 18; Abrar on v5: glass "a bit stronger, not that much" +
+  // photos should warp "like the card at the animation I showed you
+  // before" + the glass band "from left to right, no border, like a
+  // header or footer"): stretch cap back up to +22% and the CSS motion
+  // treatment is restored (img blur up to 3px + cyan/magenta
+  // drop-shadow fringes, all from --warp-warp, zero at rest). The
+  // stage is now a FULL-BLEED band (see styles.css .warp-carousel:
+  // 100vw breakout, radius 0, rainbow hairlines top + bottom only).
+  var WARP_CW = 256;
+  var WARP_FOCAL = 734.103;
+  var WARP_G = { qA: 0.46401, XLA: 165.774, zA: 35.354, psiA: 1.44638, a1: 1.31454, a2: 1.10948, qB: 0.74999, XB: 204.525, ZB: 355.405, bB: 0.69311, bE: 0.04614, vC: 203.134, aC: 229.260, kB: 0.01087, bP: 0.99129, qPR: 1.01828, bPL: 1.00920, qPL: 1.07139 };
+  function warpPoseAt(q0) {
+    var q = q0;
+    if (Math.abs(q) < 1) q -= WARP_G.kB * Math.pow(Math.sin(Math.PI * q), 2);
+    var s = q < 0 ? -1 : 1;
+    var a = Math.abs(q);
+    var half = WARP_CW / 2;
+    if (a <= WARP_G.qA) {
+      var t = a / WARP_G.qA;
+      var xl = -half + (WARP_G.XLA + half) * Math.pow(t, WARP_G.a1);
+      var zl = WARP_G.zA * Math.pow(t, 4);
+      var psi = WARP_G.psiA * Math.pow(t, WARP_G.a2);
+      return [s * (xl + half * Math.cos(psi)), zl + half * Math.sin(psi), s * psi];
+    }
+    var dXL = ((WARP_G.XLA + half) * WARP_G.a1) / WARP_G.qA;
+    var dZL = (WARP_G.zA * 4) / WARP_G.qA;
+    var dps = (WARP_G.psiA * WARP_G.a2) / WARP_G.qA;
+    var Hx, Hz;
+    if (a <= WARP_G.qB) {
+      var L = WARP_G.qB - WARP_G.qA;
+      var tt = (a - WARP_G.qA) / L;
+      var hx = WARP_G.XLA + WARP_CW * Math.cos(WARP_G.psiA);
+      var hz = WARP_G.zA + WARP_CW * Math.sin(WARP_G.psiA);
+      var dhx = dXL - WARP_CW * Math.sin(WARP_G.psiA) * dps;
+      var dhz = dZL + WARP_CW * Math.cos(WARP_G.psiA) * dps;
+      var h00 = 2 * Math.pow(tt, 3) - 3 * Math.pow(tt, 2) + 1;
+      var h10 = Math.pow(tt, 3) - 2 * Math.pow(tt, 2) + tt;
+      var h01 = -2 * Math.pow(tt, 3) + 3 * Math.pow(tt, 2);
+      var h11 = Math.pow(tt, 3) - Math.pow(tt, 2);
+      Hx = h00 * hx + h10 * L * dhx * WARP_G.bB + h01 * WARP_G.XB + h11 * L * WARP_G.vC * WARP_G.bE;
+      Hz = h00 * hz + h10 * L * dhz * WARP_G.bB + h01 * WARP_G.ZB;
+    } else {
+      var d = a - WARP_G.qB;
+      Hx = WARP_G.XB + WARP_G.vC * d + WARP_G.aC * d * d;
+      Hz = WARP_G.ZB;
+    }
+    var qP = s < 0 ? WARP_G.qPL : WARP_G.qPR;
+    var bP = s < 0 ? WARP_G.bPL : WARP_G.bP;
+    var LP = qP - WARP_G.qA;
+    var tp = Math.min(1, (a - WARP_G.qA) / LP);
+    var psi2 = (2 * Math.pow(tp, 3) - 3 * Math.pow(tp, 2) + 1) * WARP_G.psiA + (Math.pow(tp, 3) - 2 * Math.pow(tp, 2) + tp) * LP * dps * bP + (-2 * Math.pow(tp, 3) + 3 * Math.pow(tp, 2)) * Math.PI;
+    return [s * (Hx - half * Math.cos(psi2)), Hz - half * Math.sin(psi2), s * psi2];
+  }
+  var WARP_TK = [0, 3, 6, 8, 10, 11, 12, 13, 14, 16, 18, 21, 25, 30, 36, 45, 55, 70, 88, 110];
+  var WARP_TB = [0, 0.02175, 0.12069, 0.22549, 0.35493, 0.43254, 0.51436, 0.5952, 0.6751, 0.83199, 0.9709, 1.12669, 1.27958, 1.40975, 1.53561, 1.68385, 1.79183, 1.89191, 1.95233, 2];
+  var WARP_DRIFT = 0.06511;
+  var WARP_REST = 81.828;
+  var WARP_FRAMES = 110;
+  var WARP_SLOPES = (function () {
+    var nn = WARP_TK.length;
+    var h = WARP_TK.slice(1).map(function (x, i) { return x - WARP_TK[i]; });
+    var dl = h.map(function (hi, i) { return (WARP_TB[i + 1] - WARP_TB[i]) / hi; });
+    var d = new Array(nn).fill(0);
+    for (var k = 1; k < nn - 1; k++) {
+      if (dl[k - 1] * dl[k] <= 0) d[k] = 0;
+      else {
+        var w1 = 2 * h[k] + h[k - 1];
+        var w2 = h[k] + 2 * h[k - 1];
+        d[k] = (w1 + w2) / (w1 / dl[k - 1] + w2 / dl[k]);
+      }
+    }
+    var v = (dl[0] + dl[nn - 2]) / 2;
+    d[0] = v;
+    d[nn - 1] = v;
+    return d;
+  })();
+  function warpSpin(frames) {
+    if (frames <= 0) return 0;
+    if (frames >= WARP_FRAMES) return 1;
+    var i = 0;
+    while (i < WARP_TK.length - 2 && frames > WARP_TK[i + 1]) i++;
+    var h = WARP_TK[i + 1] - WARP_TK[i];
+    var t = (frames - WARP_TK[i]) / h;
+    var h00 = 2 * t * t * t - 3 * t * t + 1;
+    var h10 = t * t * t - 2 * t * t + t;
+    var h01 = -2 * t * t * t + 3 * t * t;
+    var h11 = t * t * t - t * t;
+    return (h00 * WARP_TB[i] + h10 * h * WARP_SLOPES[i] + h01 * WARP_TB[i + 1] + h11 * h * WARP_SLOPES[i + 1]) / 2;
+  }
+  function warpSpinN(frames, nn) {
+    if (nn <= WARP_FRAMES + 0.5) return warpSpin((frames * WARP_FRAMES) / Math.max(1, nn));
+    var knee = 80;
+    if (frames <= knee) return warpSpin(frames);
+    return warpSpin(knee + ((frames - knee) * (WARP_FRAMES - knee)) / (nn - knee));
+  }
+  var WARP_LEAD = (WARP_FRAMES - WARP_REST) / 30;
+  function warpAutoplay(t, start, step, interval) {
+    if (t < WARP_LEAD) return start - step + WARP_DRIFT + step * warpSpin(WARP_REST + t * 30);
+    var k = Math.floor((t - WARP_LEAD) / interval);
+    var tau = (t - WARP_LEAD - k * interval) * 30;
+    return start + k * step + WARP_DRIFT + step * warpSpinN(tau, interval * 30);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-warp]'), function (root) {
+    var ring = root.querySelector('.warp-ring');
+    var stage = root.querySelector('.warp-stage');
+    var cards = root.querySelectorAll('.warp-card');
+    var count = root.querySelector('.warp-count');
+    var n = cards.length;
+    if (!ring || !stage || n < 2) return;
+    var progress = warpAutoplay(0, 0, 1, 4); // mount: ring creeps into card 0
+    var mode = reduce ? 'idle' : 'auto';
+    var autoStart = 0;
+    var autoT0 = performance.now();
+    var spinAnim = null;
+    var hovering = false;
+    var dragging = false;
+    var inView = true;
+    var pauseStart = null;
+    var hiddenAt = null;
+    var cardW = 0, cardH = 0, unit = 1;
+    var cur = 0;
+    var dragStartX = 0, dragStartProgress = 0, dragDx = 0;
+    // v4: ring-velocity tracker for the gentle motion stretch (smoothed, 0 at rest).
+    var prevProg = progress, prevNow = 0, warpSm = 0, warpDir = 1;
+    // v3 colour bleed — DISABLED in v4 CSS (opacity 0): the prism washes
+    // are the background now. Layers are still created here so the init
+    // code and per-page markup stay untouched.
+    var bleedA = document.createElement('div');
+    bleedA.className = 'warp-bleed';
+    var bleedB = document.createElement('div');
+    bleedB.className = 'warp-bleed';
+    stage.insertBefore(bleedB, ring);
+    stage.insertBefore(bleedA, ring);
+    var bleedOn = bleedA, bleedOff = bleedB, bleedSrc = '';
+    function setBleed(src) {
+      if (!src || src === bleedSrc) return;
+      bleedSrc = src;
+      bleedOff.style.backgroundImage = 'url("' + src + '")';
+      bleedOff.classList.add('is-on');
+      bleedOn.classList.remove('is-on');
+      var tmp = bleedOn; bleedOn = bleedOff; bleedOff = tmp;
+    }
+
+    function paused() { return hovering || dragging || document.hidden || !inView; }
+
+    // Size the stage + cards: front card is --warp-frac of the stage width;
+    // unit = px per pose unit; perspective focal length follows from it.
+    function layout() {
+      var stageW = stage.clientWidth;
+      if (!stageW) return;
+      var frac = parseFloat(getComputedStyle(root).getPropertyValue('--warp-frac')) || 0.69;
+      cardW = Math.round(stageW * frac);
+      cardH = Math.round(cardW / 2);
+      unit = cardW / WARP_CW;
+      stage.style.perspective = (WARP_FOCAL * unit).toFixed(0) + 'px';
+      stage.style.height = (cardH + (stageW <= 720 ? 110 : 120)) + 'px';
+      var stageH = stage.clientHeight;
+      Array.prototype.forEach.call(cards, function (card) {
+        card.style.width = cardW + 'px';
+        card.style.height = cardH + 'px';
+        card.style.left = ((stageW - cardW) / 2).toFixed(1) + 'px';
+        card.style.top = ((stageH - cardH) / 2).toFixed(1) + 'px';
+      });
+    }
+
+    function wrapQ(q) {
+      q = q % n;
+      if (q > n / 2) q -= n;
+      if (q <= -n / 2) q += n;
+      return q;
+    }
+
+    // One frame: pose every card with the fitted geometry, projected by the
+    // stage's perspective. Far cards fade out; nearer cards dim slightly.
+    // v4: also tracks ring angular velocity (smoothed, ~90ms) into
+    // --warp-warp / --warp-dir per card — 0 at rest, 1 mid-whip; the front
+    // card stretches least so it stays readable. v6: moderate stretch
+    // (cap +22%) + CSS blur/fringe from --warp-warp; zero at rest.
+    function renderFrame() {
+      var i, q, pose, aq, fade, dim;
+      var nowMs = performance.now();
+      var dt = prevNow ? Math.min(100, Math.max(8, nowMs - prevNow)) / 1000 : 0.016;
+      prevNow = nowMs;
+      var vel = (progress - prevProg) / dt;
+      prevProg = progress;
+      if (Math.abs(vel) > 0.05) warpDir = vel > 0 ? 1 : -1;
+      var target = reduce ? 0 : Math.min(1, Math.abs(vel) / 1.2);
+      warpSm += (target - warpSm) * Math.min(1, dt / 0.09);
+      if (warpSm < 0.005) warpSm = 0;
+      for (i = 0; i < n; i++) {
+        q = wrapQ(i - progress);
+        pose = warpPoseAt(q);
+        aq = Math.abs(q);
+        var card = cards[i];
+        var cardWarp = warpSm * (aq < 0.3 ? 0.3 : Math.min(1, 0.35 + aq * 0.45));
+        // v6: moderate stretch restored (max +22% on side cards, ~7% on
+        // the front) — the photos warp like the cards in Abrar's original
+        // animation while moving; CSS adds the blur + chromatic fringe
+        // from --warp-warp. At rest warp is 0: perfectly sharp, no smear.
+        var stretch = 1 + cardWarp * 0.22;
+        card.style.transform = 'translate3d(' + (pose[0] * unit).toFixed(1) + 'px, 0, ' + (-pose[1] * unit).toFixed(1) + 'px) rotateY(' + (pose[2] * 180 / Math.PI).toFixed(2) + 'deg) scaleX(' + stretch.toFixed(3) + ')';
+        fade = aq <= 1.5 ? 1 : aq >= 2.5 ? 0 : 1 - (aq - 1.5);
+        card.style.opacity = fade.toFixed(2);
+        dim = Math.min(0.55, aq * 0.22);
+        card.style.setProperty('--warp-dim', dim.toFixed(2));
+        card.style.setProperty('--warp-warp', cardWarp.toFixed(2));
+        card.style.setProperty('--warp-dir', String(warpDir));
+        card.style.zIndex = String(100 - Math.round(aq * 10));
+        card.classList.toggle('is-front', aq < 0.3);
+      }
+      var newCur = ((Math.round(progress - WARP_DRIFT) % n) + n) % n;
+      if (newCur !== cur) {
+        cur = newCur;
+        if (count) count.textContent = (cur + 1) + ' / ' + n;
+        var frontImg = cards[cur] && cards[cur].querySelector('img');
+        if (frontImg) setBleed(frontImg.getAttribute('src'));
+      }
+    }
+
+    // A spin: progress from its current value to toIndex + DRIFT, over
+    // 110 reference frames per card of distance, on the spinN curve.
+    function spinTo(toIndex) {
+      if (reduce) {
+        progress = toIndex + WARP_DRIFT;
+        renderFrame();
+        return;
+      }
+      var target = toIndex + WARP_DRIFT;
+      target += n * Math.round((progress - target) / n);
+      var dist = Math.abs(target - progress);
+      var dur = Math.max(WARP_FRAMES, WARP_FRAMES * Math.ceil(dist));
+      spinAnim = { from: progress, to: target, start: performance.now(), dur: dur, toIndex: toIndex };
+      mode = 'spin';
+    }
+    function go(d) {
+      spinTo(Math.round(progress - WARP_DRIFT) + d);
+    }
+    function goTo(i) {
+      var curIdx = Math.round(progress - WARP_DRIFT);
+      var d = i - curIdx;
+      d = ((d % n) + n) % n;
+      if (d > n / 2) d -= n;
+      if (d) spinTo(curIdx + d);
+    }
+
+    // Main loop: autoplay follows autoplayProgress exactly (whip every
+    // interval, slow creep between); manual spins run on spinN; the clock
+    // freezes while paused (hover / drag / hidden / off-screen).
+    function tick(now) {
+      if (mode === 'auto') {
+        if (paused()) {
+          if (pauseStart === null) pauseStart = now;
+        } else {
+          if (pauseStart !== null) { autoT0 += now - pauseStart; pauseStart = null; }
+          progress = warpAutoplay((now - autoT0) / 1000, autoStart, 1, 4);
+        }
+      } else if (mode === 'spin' && spinAnim) {
+        var f = (now - spinAnim.start) * 30 / 1000;
+        if (f >= spinAnim.dur) {
+          progress = spinAnim.to;
+          autoStart = spinAnim.to - WARP_DRIFT;
+          autoT0 = now - WARP_LEAD * 1000;
+          spinAnim = null;
+          mode = reduce ? 'idle' : 'auto';
+        } else {
+          progress = spinAnim.from + (spinAnim.to - spinAnim.from) * warpSpinN(f, spinAnim.dur);
+        }
+      }
+      renderFrame();
+      requestAnimationFrame(tick);
+    }
+
+    var prevBtn = root.querySelector('[data-warp-prev]');
+    var nextBtn = root.querySelector('[data-warp-next]');
+    if (prevBtn) prevBtn.addEventListener('click', function () { go(-1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { go(1); });
+    root.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+    });
+
+    // Drag / swipe: progress follows the pointer live (one card width of
+    // drag = one card of progress); on release, snap to the nearest index
+    // on the spin curve. Listeners live on window during the drag (pointer
+    // capture swallows synthetic pointer events in some headless browsers).
+    function onDragMove(e) {
+      if (!dragging) return;
+      dragDx = e.clientX - dragStartX;
+      progress = dragStartProgress - dragDx / (cardW || 1);
+      renderFrame();
+    }
+    // Tap a card to bring it front. (Not a click listener: the stage's
+    // pointerdown calls preventDefault, which suppresses the compatibility
+    // click event — so taps are detected here, in pointerup.)
+    function endDrag(e) {
+      if (!dragging) return;
+      dragging = false;
+      ring.classList.remove('is-dragging');
+      window.removeEventListener('pointermove', onDragMove);
+      window.removeEventListener('pointerup', endDrag);
+      window.removeEventListener('pointercancel', endDrag);
+      if (Math.abs(dragDx) < 8 && e && e.target) {
+        var tapped = e.target.closest ? e.target.closest('.warp-card') : null;
+        if (tapped) {
+          var ti = Array.prototype.indexOf.call(cards, tapped);
+          if (ti >= 0) { dragDx = 0; goTo(ti); return; }
+        }
+        // Edge zones: the peeking card's sliver is only ~35px wide (and its
+        // exact edge moves with the ring's drift), so a tap near the stage's
+        // left/right edge still steps prev/next, like tapping the card.
+        var sr = stage.getBoundingClientRect();
+        var tx = e.clientX - sr.left;
+        if (tx > sr.width - 72) { dragDx = 0; go(1); return; }
+        if (tx < 72) { dragDx = 0; go(-1); return; }
+      }
+      if (reduce) {
+        progress = Math.round(progress - WARP_DRIFT) + WARP_DRIFT;
+        mode = 'idle';
+        renderFrame();
+      } else {
+        spinTo(Math.round(progress - WARP_DRIFT));
+      }
+      dragDx = 0;
+    }
+    stage.addEventListener('pointerdown', function (e) {
+      if (e.target.closest('.warp-controls')) return; // arrows/counter are buttons, not a drag
+      root.focus({ preventScroll: true }); // let ArrowLeft/Right work after a mouse/touch interaction
+      e.preventDefault(); // stop the browser's native image drag, which would swallow the pointer stream
+      dragging = true;
+      mode = 'drag';
+      spinAnim = null;
+      dragStartX = e.clientX;
+      dragStartProgress = progress;
+      dragDx = 0;
+      ring.classList.add('is-dragging');
+      window.addEventListener('pointermove', onDragMove);
+      window.addEventListener('pointerup', endDrag);
+      window.addEventListener('pointercancel', endDrag);
+    });
+    stage.addEventListener('mouseenter', function () { hovering = true; });
+    stage.addEventListener('mouseleave', function () { hovering = false; });
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        if (hiddenAt === null) hiddenAt = performance.now();
+      } else if (hiddenAt !== null) {
+        autoT0 += performance.now() - hiddenAt;
+        hiddenAt = null;
+      }
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        inView = entries[0].isIntersecting;
+      }, { threshold: 0.1 }).observe(root);
+    }
+    window.addEventListener('resize', function () { layout(); renderFrame(); });
+
+    layout();
+    renderFrame();
+    var firstImg = cards[0] && cards[0].querySelector('img');
+    if (firstImg) setBleed(firstImg.getAttribute('src'));
+    requestAnimationFrame(tick);
+  });
 })();
