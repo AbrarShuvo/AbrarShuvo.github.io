@@ -345,7 +345,9 @@ Motion + colour round 2 (Stokt / Cappen, added 2026-11-26, PUSHED LIVE
   zoom, fine at card size). Cache tag ?v=469490 on all 22 pages.
   Verified: viewport shots at scroll position (fullPage hides .rv —
   see Round 16 note), desktop 1440 light + dark, mobile 390, 0
-  overflow. NOT pushed — awaiting Abrar's approval.
+  overflow. PUSHED LIVE 2026-11-27 ~15:00 WIB: text daddf26 (24 files)
+  + media 0877874 (6 photos). Verified live: home 200, ?v=469490,
+  section present, all 6 images 200 with exact byte sizes.
   Round 16 (2026-11-27 — photo galleries + 7 new case-study pages,
   Abrar: "Push all"): all 69 photos wired into pages. Galleries on the 3
   existing case studies (Loom 7, Lead Tracker 7, Wholesalia 7) + 7 NEW
