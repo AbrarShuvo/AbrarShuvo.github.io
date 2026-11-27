@@ -167,7 +167,7 @@ Motion + colour round 2 (Stokt / Cappen, added 2026-11-26, PUSHED LIVE
   dark mode OK. The nav button floats high on hover but stays inside the
   bar — looks deliberate, not broken. Reduced-motion disables the lift.
   Round 10 (2026-11-26, "More projects" showreel on the 3 case-study pages,
-  LOCAL, not pushed yet — Abrar asked: middle, first or end, which fits
+  PUSHED LIVE 2026-11-27 ~04:02 WIB with rounds 11+12 — Abrar asked: middle, first or end, which fits
   better): END wins — the reader came for this project, so the showreel sits
   after the story and before the final "Want something like this?" CTA (the
   CTA stays the last beat); first would bury the case study, middle would
@@ -178,8 +178,8 @@ Motion + colour round 2 (Stokt / Cappen, added 2026-11-26, PUSHED LIVE
   (→ projects.html) so no card links to the page you're already on.
   Verified on Loom page: 9 cards, All work first in row 1, CTA directly
   after, p=0 tilted 15°/20°/-700 op .2, p=0.45 flat, dark + mobile overflow 0.
-  Round 11 (2026-11-27, all recent projects added, LOCAL, not pushed yet —
-  Abrar: "go for all of them... improve later, I need projects to
+  Round 11 (2026-11-27, all recent projects added, PUSHED LIVE 2026-11-27
+  ~04:02 WIB with rounds 10+12 — Abrar: "go for all of them... improve later, I need projects to
   customize"): 6 new projects. Showreel dummies replaced in all 4 copies
   (home + 3 case-study pages): RxGuard (real homepage screenshot
   images/rxguard-hero.jpg, 1280x640, grey band cropped off), The Last
@@ -249,6 +249,73 @@ Motion + colour round 2 (Stokt / Cappen, added 2026-11-26, PUSHED LIVE
   rxguard-hero.jpg (40 KB, video poster), last-visitor-hero.jpg
   (108 KB), ai-cv-coach-hero.jpg (148 KB), wavespace-hero.jpg (99 KB).
   Text files: 15 HTML + styles.css + script.js + CLAUDE.md.
+  PUSHED LIVE 2026-11-27 ~04:02 WIB: text commit 4754f9f (18 files) + media
+  commit 0baf200 (5 binaries, one web upload). Verified live: home /
+  projects / loom-to-tasks 200, ?v=35ef37, video ref on home, all 5 binaries
+  200 with exact byte sizes.
+  Round 13 (2026-11-27, Item 2 — all five effects from the three-site study,
+  LOCAL, not pushed): (1) Project marquee — full-bleed dark band after the
+  home showreel, the 9 project names scrolling (CSS-only, duplicate track,
+  -50% loop, edge fade, pauses on hover). (2) Scroll-linked word reveal —
+  .wr headings flip word by word grey -> ink as they travel through the
+  viewport (script.js, scroll-scrubbed); applied to home "Four ways I can
+  help" + "Simple, from first call to handover", services "Simple, from
+  first call to handover", and the problem headings on loom-to-tasks.html
+  and lead-tracker.html (sourcing-website.html has no matching problem
+  heading — skipped). (3) Count-up — the stats row already counted up, so
+  the study's numbered-band treatment was applied instead: mono 001-004
+  labels above each stat. (4) Split-letter roll-in on the home hero H1 —
+  letters roll up with a 26ms stagger; the gradient word "automated." is
+  NEVER split (background-clip:text does not paint through transformed
+  child spans — verified: the word went invisible when split) and keeps
+  its word rise. (5) "What do you need?" picker on services.html —
+  Purple Softworks calculator pattern, NON-PRICE: 4 need buttons swap the
+  matching service card, all copy verbatim from the service cards above
+  (Good for / Typical time / Learn more); first option active in the
+  markup so no-JS still shows a real result. Cache tag ?v=a13f27 on all
+  15 pages. Verified: hero (gradient intact), marquee, word reveal
+  mid-flip, stats labels, widget default + swapped option, 390px (0
+  overflow), Loom problem heading, dark mode. Previews in
+  ~/workspace/portfolio-preview/effects13-*.jpg. NOT pushed — awaiting
+  Abrar's approval with items 3+4.
+  Round 14 (2026-11-27, Item 3 — home header polish, LOCAL, not pushed):
+  the home hero is no longer a card. The `.glass` container is gone —
+  copy and photo sit directly on the flat page background with more air
+  (new `.hero-flat` scope on index.html only, so About keeps its `.hero`
+  card). The giant ghost "automate" word was removed: without the card
+  it doubled the gradient word. The photo caption moved out of the frame
+  to plain text underneath the photo (no more overlay card). Buttons got
+  a real hierarchy on the flat background: "See my work" is now violet
+  `.btn-dark`, "Contact me" an outline `.btn-glass` (both were white
+  before and read as one flat pair). One real bug caught in verification:
+  the `.hero.hero-flat` two-column rule outranked the ≤860px media query
+  (specificity), so mobile stayed two-column and "automated." overlapped
+  the photo — fixed with a `.hero.hero-flat` 1fr override in the media
+  query, plus `white-space:nowrap` on the hero pill so it doesn't wrap
+  at 390px. Round 13 work preserved: split-letter roll-in still runs,
+  gradient word intact (verified settled in shots), no-JS word rise
+  untouched. Cache tag ?v=9f2c41 on all 15 pages. Verified: desktop
+  light + dark, 390px (0 overflow), About hero unchanged. Previews in
+  ~/workspace/portfolio-preview/header14-home-hero.jpg,
+  header14-home-mobile2.jpg (use this, not header14-home-mobile.jpg
+  which shows the overlap bug), header14-home-dark.jpg. NOT pushed —
+  awaiting Abrar's approval with item 4.
+  Round 15 (2026-11-27, Item 4 — header brand wordmark, LOCAL, not pushed):
+  the violet "A" logo mark is retired. The brand is now the name "Abrar Zamil"
+  in clean 800 type, with a violet line that draws itself left to right under
+  the name on load (.55s, .3s delay) and ends in a violet dot at the line's
+  right end (dot pops in at .9s, .35s with a small overshoot); line + dot stay
+  as the static wordmark once settled. Same markup on all 15 pages, nav AND
+  footer (30 instances total — the footer brand carried the "A" mark too, so
+  it got the wordmark for consistency; 404.html uses href="/" like before).
+  The dead `.brand-mark` CSS rule is removed. Reduced motion shows the static
+  wordmark (animation:none, transform:none — verified via computed style).
+  Rounds 13+14 preserved: hero roll-in + gradient word intact, flat hero
+  untouched, nav links/buttons/toggle/hamburger untouched. Cache tag
+  ?v=c4d8a1 on all 15 pages. Verified: home settled + mid-sweep (line half
+  drawn, dot not yet in), dark mode, 390px (0 overflow), services page,
+  footer on dark. Previews in ~/workspace/portfolio-preview/brand15-*.jpg.
+  NOT pushed — awaiting Abrar's approval with items 2+3.
   Round 9 — SHOWREEL MOVED TO HOME (2026-11-26, still local — Abrar: "what
   you put on work I want that animation on the home page... for works I will
   think something later"): the 9-card showreel moved from projects.html to
@@ -357,6 +424,6 @@ Email is already set: `abrarzamil.dev@gmail.com`
 **Restyle 2026-11-26: flat three-site language (Purple Softworks / Musemind /
 Wavespace), same as the blog. Pushed live 2026-11-26 after Abrar approved the
 preview (snapshot push; the motion round and full-bleed previews went live in
-the same push).** Cache tag is now `?v=a7c3e9` (round 11: all recent projects, local, not pushed yet — folds round 10 in).
+the same push).** Cache tag is now `?v=35ef37` (rounds 10+11+12 pushed live 2026-11-27 ~04:02 WIB: text 4754f9f + media 0baf200).
 
 Push to `main`. GitHub Pages rebuilds in about a minute. There is no CI.

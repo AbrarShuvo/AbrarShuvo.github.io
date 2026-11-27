@@ -202,6 +202,99 @@
     }
   }
 
+  // Round 13 — five effects from the three-site study.
+  // 4. Split-letter roll-in on the home hero headline (Purple Softworks H1):
+  // each .w word is split into masked letters that roll up with a stagger.
+  // The word-rise is disabled by .letters in CSS; no JS keeps the old rise.
+  var heroH1 = document.querySelector('.hero .h1');
+  if (heroH1 && !reduce) {
+    var letterDelay = 0;
+    Array.prototype.forEach.call(heroH1.querySelectorAll('.w'), function (w) {
+      var text = w.textContent;
+      // The gradient word is never split: background-clip:text on the parent
+      // does not paint through transformed child spans, so it keeps its
+      // word-rise (see the .letters exception in styles.css).
+      if (w.classList.contains('grad-text')) { letterDelay += text.length; return; }
+      w.textContent = '';
+      text.split('').forEach(function (ch) {
+        var mask = document.createElement('span');
+        mask.className = 'ltr';
+        var inner = document.createElement('span');
+        inner.className = 'ltr-in';
+        inner.textContent = ch;
+        inner.style.setProperty('--d', (letterDelay * 0.026).toFixed(3) + 's');
+        letterDelay++;
+        mask.appendChild(inner);
+        w.appendChild(mask);
+      });
+    });
+    heroH1.classList.add('letters');
+  }
+
+  // 2. Scroll-linked word reveal (Wavespace signature): .wr headings are
+  // split into word spans; each word flips grey -> ink as the heading
+  // travels through the viewport. No JS leaves a plain ink heading.
+  var wrHeads = document.querySelectorAll('.wr');
+  if (wrHeads.length) {
+    Array.prototype.forEach.call(wrHeads, function (h) {
+      var words = h.textContent.trim().split(/\s+/);
+      h.innerHTML = words.map(function (w) { return '<span class="wd">' + w + '</span>'; }).join(' ');
+    });
+    var updateWr = function () {
+      var vh = window.innerHeight;
+      Array.prototype.forEach.call(wrHeads, function (h) {
+        var r = h.getBoundingClientRect();
+        var p = Math.min(Math.max((vh * 0.88 - r.top) / (vh * 0.55), 0), 1);
+        var spans = h.querySelectorAll('.wd');
+        var n = spans.length;
+        Array.prototype.forEach.call(spans, function (s, i) {
+          s.classList.toggle('on', p > (i + 0.5) / n);
+        });
+      });
+    };
+    if (reduce) {
+      Array.prototype.forEach.call(wrHeads, function (h) {
+        Array.prototype.forEach.call(h.querySelectorAll('.wd'), function (s) { s.classList.add('on'); });
+      });
+    } else {
+      var wrTicking = false;
+      var onWrScroll = function () {
+        if (!wrTicking) {
+          wrTicking = true;
+          requestAnimationFrame(function () { updateWr(); wrTicking = false; });
+        }
+      };
+      window.addEventListener('scroll', onWrScroll, { passive: true });
+      window.addEventListener('resize', updateWr);
+      updateWr();
+    }
+  }
+
+  // 5. "What do you need?" picker (Purple Softworks calculator pattern,
+  // non-price): option buttons swap the matching service result card.
+  var picker = document.querySelector('.picker');
+  if (picker) {
+    var pickOpts = picker.querySelectorAll('[data-pick]');
+    var pickPanels = picker.querySelectorAll('.picker-panel');
+    var showPick = function (id) {
+      Array.prototype.forEach.call(pickOpts, function (b) {
+        b.setAttribute('aria-pressed', b.getAttribute('data-pick') === id ? 'true' : 'false');
+      });
+      Array.prototype.forEach.call(pickPanels, function (p) {
+        var show = p.id === id;
+        p.hidden = !show;
+        if (show && !reduce) {
+          p.classList.remove('swap');
+          void p.offsetWidth;
+          p.classList.add('swap');
+        }
+      });
+    };
+    Array.prototype.forEach.call(pickOpts, function (b) {
+      b.addEventListener('click', function () { showPick(b.getAttribute('data-pick')); });
+    });
+  }
+
   // Scroll parallax driver (Aceternity HeroParallax, vanilla port):
   // framer-motion useScroll target=wrap, offset ["start start", "end start"],
   // plus useSpring stiffness 300 / damping 30 / bounce 100, approximated with

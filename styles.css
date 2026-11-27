@@ -98,7 +98,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 /* ---------- nav: sticky, flat, full-width ---------- */
 .nav{position:sticky;top:0;z-index:20;width:100%;background:var(--bg);padding:12px 0;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);padding:8px 0}
-.brand-mark{width:28px;height:28px;border-radius:9px;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font);font-weight:800;font-size:20px;line-height:1}
 .brand-name{font-family:var(--font);font-weight:800;font-size:18px;letter-spacing:-.02em}
 .nav-right{display:flex;align-items:center;gap:2px;flex-wrap:wrap}
 .nav-links{display:contents}
@@ -156,6 +155,22 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .photo-cap b{font-size:16px}
 .photo-cap span{font-size:13px;color:var(--muted)}
 @media (max-width:860px){.hero{grid-template-columns:minmax(0,1fr);min-height:0}.photo-frame{max-width:300px}}
+
+/* ---------- Round 14 (Item 3): home hero goes flat ---------- */
+/* The home hero is no longer a card — the copy and photo sit directly on
+   the page background, with more air and no boxes. The ghost "automate"
+   word is gone: without the card it doubled the gradient word. The photo
+   caption moves out of the frame to plain text underneath. Scoped to
+   .hero-flat so About keeps its .hero card (out of scope). Buttons get a
+   real hierarchy on the flat background: violet primary, outline secondary. */
+.hero.hero-flat{background:none;border:0;border-radius:0;overflow:visible;min-height:0;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);padding:clamp(40px,6vw,72px) 0 clamp(56px,7vw,96px)}
+.hero-flat .pill{white-space:nowrap}
+@media (max-width:860px){.hero.hero-flat{grid-template-columns:minmax(0,1fr);gap:36px;padding-top:32px}}
+.hero-flat .photo-frame{border:0;border-radius:20px;background:none}
+.hero-flat .hero-photo{display:block;text-align:center}
+.hero-flat .photo-frame{margin:0 auto}
+.hero-flat .photo-cap{position:static;margin:14px auto 0;padding:0;background:none;border:0;border-radius:0;display:flex;flex-direction:column;gap:2px;max-width:340px;text-align:left}
+@media (max-width:860px){.hero-flat .photo-cap{max-width:300px}}
 
 /* ---------- live demo (Loom to Tasks) ---------- */
 .demo{width:100%;background:#fff;border:1px solid var(--hairline);border-radius:16px;overflow:hidden;color:var(--ink)}
@@ -364,7 +379,6 @@ figure{margin:0}
 @keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
 @media (max-width:720px){.wait{display:none}}
 @media (prefers-reduced-motion: reduce){.wait{display:none}}
-@media (max-width:720px){.hero .ghost{display:none}}
 @media (max-width:900px){.proj-wide .proj-visual{order:-1}}
 
 /* Screen-reader-only text */
@@ -630,3 +644,78 @@ html[data-theme="dark"] .px-card{box-shadow:0 12px 32px rgba(0,0,0,.45)}
 .btn:hover,.btn:focus-visible{translate:0 -20px;box-shadow:0 25px 50px -12px rgba(0,0,0,.25)}
 html[data-theme="dark"] .btn:hover,html[data-theme="dark"] .btn:focus-visible{box-shadow:0 25px 50px -12px rgba(0,0,0,.6)}
 @media (prefers-reduced-motion: reduce){.btn:hover,.btn:focus-visible{translate:0;box-shadow:none}}
+
+/* ================= Round 13 — five effects (three-site study, 2026-11-27) ================= */
+/* 1. Project marquee (Purple Softworks case-study marquee, CSS-only).
+   Full-bleed dark band, big project names, duplicate track loops -50%.
+   No JS needed; the second set is aria-hidden. Pauses on hover. */
+.mq-band{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);background:var(--dark);color:#fff;padding:30px 0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.mq-track{display:flex;width:max-content;margin:0;padding:0;list-style:none;animation:mq-scroll 38s linear infinite}
+.mq-band:hover .mq-track{animation-play-state:paused}
+.mq-track li{display:flex;align-items:center;gap:28px;padding-right:28px;font-size:clamp(26px,3vw,40px);font-weight:800;letter-spacing:-.02em;line-height:1.1;white-space:nowrap}
+.mq-track li::after{content:"\2733";color:var(--violet-soft);font-size:.65em}
+@keyframes mq-scroll{to{transform:translateX(-50%)}}
+html[data-theme="dark"] .mq-band{background:#1e1e1e;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+
+/* 2. Scroll-linked word reveal (Wavespace signature).
+   JS splits .wr headings into .wd word spans; words flip grey -> ink one by
+   one as the heading travels through the viewport. No JS = plain ink heading. */
+.wr{--wr-off:#cfcfcf}
+html[data-theme="dark"] .wr{--wr-off:#3d3d3d}
+.wr .wd{color:var(--wr-off);transition:color .45s ease}
+.wr .wd.on{color:var(--ink)}
+
+/* 3. Numbered stats band (Musemind 001-005 style).
+   The count-up itself already exists (script.js, data-count) — this adds the
+   mono index labels so the band reads like the study's numbered band. */
+.stat .stat-n{display:block;margin-top:0;margin-bottom:12px;font-family:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;font-size:12px;font-weight:600;letter-spacing:.16em;color:var(--violet)}
+html[data-theme="dark"] .stat .stat-n{color:var(--violet-soft)}
+
+/* 4. Split-letter roll-in headline (Purple Softworks H1).
+   JS splits each .w word into .ltr masks + .ltr-in letters; letters roll up
+   like a slot machine with a stagger. The word-rise is disabled once the
+   h1 gets .letters (no JS = the old word rise still runs) — except the
+   gradient word, which keeps its word rise: background-clip:text on the
+   parent does not paint through transformed child spans, so it is never
+   split (script.js skips .grad-text). */
+.hero .h1.letters .w:not(.grad-text){animation:none}
+.ltr{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
+.ltr-in{display:inline-block;transform:translateY(118%);animation:ltr-roll .6s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s);will-change:transform}
+@keyframes ltr-roll{to{transform:translateY(0)}}
+
+/* 5. "What do you need?" picker (Purple Softworks calculator pattern, NON-PRICE).
+   Button group swaps a result card — the matching service, in the service's
+   own words from services.html. No prices, no budget pills, nothing invented.
+   First option is active in the markup, so no-JS still shows a real result. */
+.picker{padding:clamp(24px,3.4vw,40px);display:flex;flex-direction:column;gap:22px}
+.picker-opts{display:flex;flex-wrap:wrap;gap:10px}
+.picker-opt{padding:12px 20px;border-radius:999px;border:1px solid var(--hairline);background:var(--card);color:var(--ink);font-size:15px;font-weight:600;cursor:pointer;transition:background .2s ease,color .2s ease,border-color .2s ease,translate .2s ease}
+.picker-opt:hover{border-color:var(--violet);translate:0 -2px}
+.picker-opt[aria-pressed="true"]{background:var(--violet);border-color:var(--violet);color:#fff}
+.picker-panel{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.picker-panel[hidden]{display:none}
+.picker-panel.swap{animation:picker-in .35s ease}
+@keyframes picker-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.picker-panel .svc-icon{margin-bottom:2px}
+.picker-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px}
+@media (prefers-reduced-motion: reduce){
+  .mq-track{animation:none;flex-wrap:wrap;width:auto;justify-content:center;padding:0 16px}
+  .mq-track [aria-hidden="true"]{display:none}
+  .wr .wd{transition:none}
+  .ltr-in{animation:none;transform:none}
+  .picker-panel.swap{animation:none}
+  .picker-opt:hover{translate:0}
+}
+
+/* ================= Round 15 — brand wordmark (Item 4, 2026-11-27) ================= */
+/* The violet "A" logo mark is gone from nav + footer on all 15 pages. The brand
+   is the name in clean 800 type, with a violet line that draws itself left to
+   right under the name on load and ends in a violet dot at the line's right
+   end. Line + dot stay as the static wordmark once the animation settles.
+   Same markup on every page (nav + footer), so the mark is retired everywhere. */
+.brand-name{position:relative;padding-bottom:3px}
+.brand-name::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--violet);border-radius:2px;transform:scaleX(0);transform-origin:left center;animation:brand-line .55s .3s cubic-bezier(.22,1,.36,1) forwards}
+.brand-dot{position:absolute;right:-1px;bottom:-2px;width:7px;height:7px;border-radius:50%;background:var(--violet);transform:scale(0);animation:brand-dot .35s .9s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes brand-line{to{transform:scaleX(1)}}
+@keyframes brand-dot{to{transform:scale(1)}}
+@media (prefers-reduced-motion: reduce){.brand-name::after,.brand-dot{animation:none;transform:none}}

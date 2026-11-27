@@ -23,7 +23,7 @@
 <meta name="twitter:description" content="Workflow automation, AI integrations, data dashboards and websites. What you get, what each is good for, and how we work together.">
 <meta name="twitter:image" content="https://abrarshuvo.github.io/images/og-cover.png">
 <link rel="icon" href="images/favicon.svg">
-<link rel="stylesheet" href="styles.css?v=35ef37">
+<link rel="stylesheet" href="styles.css?v=c4d8a1">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a><div class="progress" aria-hidden="true"></div>
@@ -38,7 +38,7 @@
 </div>
 <div class="wrap">
 <nav class="nav" aria-label="Main">
-<a class="brand" href="index.html"><span class="brand-mark">A</span><span class="brand-name">Abrar Zamil</span></a>
+<a class="brand" href="index.html"><span class="brand-name">Abrar Zamil<span class="brand-dot" aria-hidden="true"></span></span></a>
 <div class="nav-right">
 <div class="nav-links" id="nav-links">
 <a href="projects.html">Work</a>
@@ -101,8 +101,55 @@
 </div>
 </article>
 </section>
+<!-- "What do you need?" picker (round 13 — Purple Softworks calculator pattern,
+     NON-PRICE: picking a need shows the matching service, in that service's own
+     words from the cards above. First option is active in the markup, so no-JS
+     still shows a real result.) -->
 <section class="sec">
-<div class="sec-head rv"><div><span class="eyebrow">How I work</span><h2 class="h2">Simple, from first call to handover</h2></div></div>
+<div class="sec-head rv"><div><span class="eyebrow">Find your fit</span><h2 class="h2">Which one fits your task?</h2></div></div>
+<div class="glass card picker rv">
+<div class="picker-opts" role="group" aria-label="Pick what you need most">
+<button type="button" class="picker-opt" data-pick="pick-automation" aria-pressed="true">I repeat the same task every week</button>
+<button type="button" class="picker-opt" data-pick="pick-ai" aria-pressed="false">I want AI to read and sort things</button>
+<button type="button" class="picker-opt" data-pick="pick-dashboards" aria-pressed="false">I can&rsquo;t see my numbers clearly</button>
+<button type="button" class="picker-opt" data-pick="pick-websites" aria-pressed="false">I need a website (or fixes to one)</button>
+</div>
+<div class="picker-panel" id="pick-automation">
+<span class="svc-icon i-blue"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"></path></svg></span>
+<h3 class="h3">Workflow automation</h3>
+<p class="body" style="font-size: 17px">If someone on your team does the same thing by hand every week, it can probably run by itself.</p>
+<p class="small"><b style="color: var(--ink)">Good for:</b> Emails into a spreadsheet &middot; weekly reports &middot; sorting and renaming files &middot; moving data between two tools</p>
+<p class="small"><b style="color: var(--ink)">Typical time:</b> 1&ndash;2 weeks</p>
+<div class="picker-links"><a class="btn btn-dark" href="workflow-automation.html">Learn more about workflow automation <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div>
+</div>
+<div class="picker-panel" id="pick-ai" hidden>
+<span class="svc-icon i-orange"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2z"></path></svg></span>
+<h3 class="h3">AI integrations</h3>
+<p class="body" style="font-size: 17px">AI where it saves real time: reading long text, pulling out the facts and sorting things into the right place. Every answer is checked against a fixed format, so you can rely on it.</p>
+<p class="small"><b style="color: var(--ink)">Good for:</b> Meeting notes into tasks &middot; details pulled from documents &middot; sorting leads, tickets or enquiries</p>
+<p class="small"><b style="color: var(--ink)">Typical time:</b> 2&ndash;3 weeks</p>
+<div class="picker-links"><a class="btn btn-dark" href="ai-integrations.html">Learn more about AI integrations <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div>
+</div>
+<div class="picker-panel" id="pick-dashboards" hidden>
+<span class="svc-icon i-yellow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16M7 16v-4M12 16V6M17 16v-7"></path></svg></span>
+<h3 class="h3">Data dashboards</h3>
+<p class="body" style="font-size: 17px">Your numbers are already in spreadsheets nobody opens. I clean them up and build one page that answers the question you ask every week.</p>
+<p class="small"><b style="color: var(--ink)">Good for:</b> Sales and lead tracking &middot; weekly KPIs &middot; data you can&rsquo;t trust yet</p>
+<p class="small"><b style="color: var(--ink)">Typical time:</b> 1&ndash;2 weeks</p>
+<div class="picker-links"><a class="btn btn-dark" href="data-dashboards.html">Learn more about data dashboards <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div>
+</div>
+<div class="picker-panel" id="pick-websites" hidden>
+<span class="svc-icon i-green"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9s1.3-6.4 3.8-9z"></path></svg></span>
+<h3 class="h3">Websites</h3>
+<p class="body" style="font-size: 17px">Business websites you can keep up to date yourself, with an admin panel for products and content. I also change and fix existing WordPress sites.</p>
+<p class="small"><b style="color: var(--ink)">Good for:</b> Company and catalog sites &middot; quote and enquiry forms &middot; WordPress changes and fixes</p>
+<p class="small"><b style="color: var(--ink)">Typical time:</b> 2&ndash;4 weeks</p>
+<div class="picker-links"><a class="btn btn-dark" href="websites.html">Learn more about websites <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div>
+</div>
+</div>
+</section>
+<section class="sec">
+<div class="sec-head rv"><div><span class="eyebrow">How I work</span><h2 class="h2 wr">Simple, from first call to handover</h2></div></div>
 <div class="glass card pad rv">
 <div class="steps">
 <div class="step">
@@ -160,7 +207,7 @@
 <div class="foot-in">
 <div class="foot-cols">
 <div class="foot-col" style="flex: 1 1 260px; max-width: 320px; gap: 12px">
-<a class="brand" href="index.html" style="padding: 0"><span class="brand-mark">A</span><span class="brand-name">Abrar Zamil</span></a>
+<a class="brand" href="index.html" style="padding: 0"><span class="brand-name">Abrar Zamil<span class="brand-dot" aria-hidden="true"></span></span></a>
 <p class="small">Python developer. Automations, AI tools, dashboards and websites.</p>
 <span class="pill pill-green" style="padding: 5px 12px"><span class="dot"></span>Available for new projects</span>
 </div>
@@ -188,6 +235,6 @@
 </div>
 </div>
 <button class="to-top" type="button" aria-label="Back to top">&#8593;</button>
-<script src="script.js?v=35ef37"></script>
+<script src="script.js?v=c4d8a1"></script>
 </body>
 </html>
