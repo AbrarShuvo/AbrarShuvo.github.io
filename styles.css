@@ -143,8 +143,32 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 /* No title/heading — just the video (Abrar 2026-11-28). Tighter top padding
    than a normal .sec since there is no heading above the frame. */
 .showreel-sec{padding-top:clamp(36px,5vw,64px)}
-.showreel-frame{border-radius:24px;overflow:hidden;border:1px solid var(--hairline);background:#000;box-shadow:0 12px 32px rgba(9,9,9,.08)}
-.showreel-frame video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#000}
+/* The frame is a borderless rounded video card: the video fills it
+   edge to edge (no black bars anywhere — frame and video backgrounds
+   are transparent), no border line and no shadow, so the sides are
+   all page background and the video blends into the page — only the
+   rounded corners shape it. The controls are a light pill, not the
+   browser's black bar. */
+.showreel-frame{position:relative;border-radius:24px;overflow:hidden;border:0;background:transparent;box-shadow:none;aspect-ratio:16/9}
+.showreel-frame video{display:block;width:100%;height:100%;object-fit:cover;background:transparent}
+.sr-controls{position:absolute;left:14px;right:14px;bottom:14px;display:flex;align-items:center;gap:10px;padding:6px 10px;border-radius:999px;background:#fff;border:1px solid var(--hairline);box-shadow:0 6px 20px rgba(9,9,9,.16)}
+.sr-btn{flex:none;display:flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;border:0;border-radius:50%;background:transparent;color:var(--ink);cursor:pointer}
+.sr-btn:hover{background:rgba(91,41,254,.1);color:var(--violet)}
+.sr-btn svg{width:20px;height:20px;display:block}
+.sr-play .i-play{display:none}
+.sr-play.is-playing .i-play{display:block}
+.sr-play.is-playing .i-pause{display:none}
+.sr-mute .i-vol-off{display:none}
+.sr-mute.is-muted .i-vol-off{display:block}
+.sr-mute.is-muted .i-vol-on{display:none}
+.sr-progress{position:relative;flex:1;height:6px;border-radius:3px;background:rgba(9,9,9,.14);cursor:pointer;overflow:hidden}
+.sr-progress-fill{display:block;height:100%;width:0;border-radius:3px;background:var(--violet)}
+.sr-time{flex:none;font-size:12px;font-weight:600;color:var(--muted);white-space:nowrap}
+.sr-sound{position:absolute;left:50%;bottom:76px;transform:translateX(-50%);display:none;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;border:1px solid var(--hairline);background:#fff;color:var(--ink);font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 8px 24px rgba(9,9,9,.18)}
+.sr-sound.show{display:inline-flex}
+.sr-sound svg{width:18px;height:18px;display:block}
+.sr-sound:hover{border-color:var(--violet);color:var(--violet)}
+@media (max-width:720px){.sr-time{display:none}.sr-controls{left:10px;right:10px;bottom:10px}.sr-sound{bottom:66px}}
 
 /* ---------- cards & grids ---------- */
 .card{border-radius:24px}
@@ -632,7 +656,11 @@ html[data-theme="dark"] .nav-links a.roll::after{color:var(--violet-soft)}
    80px gaps (space-x-20 / mb-20). */
 .px-stage{display:flex;flex-direction:column;align-items:center;gap:80px;transform-style:preserve-3d;will-change:transform,opacity;padding:40px 0}
 .px-row{display:flex;gap:80px;width:max-content;will-change:transform}
-.px-card{position:relative;flex-shrink:0;display:block;width:min(480px,82vw);aspect-ratio:5/4;border-radius:16px;overflow:hidden;text-decoration:none;color:#fff;transition:transform .35s ease,box-shadow .35s ease;box-shadow:0 12px 32px rgba(9,9,9,.14)}
+/* Grid v3 (2026-11-28): all photo cards are now 16:9 refcards, so cards are
+   16/9 too — at the old 5/4, object-fit:cover cropped ~30% of the width
+   (Lead lost its whole left rail, Bento lost the laptop's right edge).
+   Text cards share the ratio so the grid stays uniform. */
+.px-card{position:relative;flex-shrink:0;display:block;width:min(480px,82vw);aspect-ratio:16/9;border-radius:16px;overflow:hidden;text-decoration:none;color:#fff;transition:transform .35s ease,box-shadow .35s ease;box-shadow:0 12px 32px rgba(9,9,9,.14)}
 .px-card:hover,.px-card:focus-visible{transform:translateY(-20px);box-shadow:0 25px 50px -12px rgba(0,0,0,.25)}
 .px-card:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
 .px-visual{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-start;gap:8px;padding:20px}

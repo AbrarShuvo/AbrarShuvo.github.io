@@ -23,7 +23,7 @@
 <meta name="twitter:description" content="Python developer. I automate repetitive work, add AI to the tools you already use, and build dashboards and websites.">
 <meta name="twitter:image" content="https://abrarshuvo.github.io/images/og-cover.png">
 <link rel="icon" href="images/favicon.svg">
-<link rel="stylesheet" href="styles.css?v=359e6a">
+<link rel="stylesheet" href="styles.css?v=29af3e">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Abrar Zamil","jobTitle":"Python developer","url":"https://abrarshuvo.github.io/","sameAs":["https://github.com/AbrarShuvo","https://www.linkedin.com/in/abrar-zamil-shuvo-059b04229"]}</script>
 </head>
 <body>
@@ -76,7 +76,15 @@
      "What I work with", per Abrar's placement. -->
 <section class="sec showreel-sec" aria-label="Showreel video">
 <div class="showreel-frame rv">
-<video controls autoplay muted loop playsinline preload="metadata" poster="images/poster-showreel-60s.jpg" src="images/showreel-60s-cp6.mp4" width="1920" height="1080"></video>
+<video id="showreelVideo" autoplay muted loop playsinline preload="metadata" poster="images/poster-showreel-60s.jpg" src="images/showreel-60s-cp6.mp4" width="1920" height="1080"></video>
+<button class="sr-sound" id="showreelSound" type="button" aria-label="Turn sound on"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg><span>Sound on</span></button>
+<div class="sr-controls" role="group" aria-label="Video controls">
+<button class="sr-btn sr-play" id="showreelPlay" type="button" aria-label="Pause video"><svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg><svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+<div class="sr-progress" id="showreelProgress" role="slider" aria-label="Seek" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="sr-progress-fill" id="showreelProgressFill"></span></div>
+<span class="sr-time" id="showreelTime">0:00 / 1:00</span>
+<button class="sr-btn sr-mute" id="showreelMute" type="button" aria-label="Turn sound on"><svg class="i-vol-on" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg><svg class="i-vol-off" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16 8.5l5.5 7M21.5 8.5l-5.5 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></button>
+<button class="sr-btn" id="showreelFull" type="button" aria-label="Full screen"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+</div>
 </div>
 </section>
 
@@ -103,29 +111,81 @@
 <div class="px-stage" id="px-stage">
 <div class="px-row" data-dir="1">
 <a class="px-card" href="loom-to-tasks.html" aria-label="Loom to Tasks — view project">
-<img class="px-visual px-visual--img" src="images/loom-thumb.jpg" alt="Loom to Tasks demo: a meeting transcript turned into a task list" width="920" height="414" loading="lazy" decoding="async">
+<img class="px-visual px-visual--img" src="images/grid-loom-v3.jpg" alt="Loom to Tasks: a task list built from a meeting transcript — 67 of 67 checks passed" width="1920" height="1080" loading="lazy" decoding="async">
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Loom to Tasks</span>
+</a>
+<a class="px-card" href="loom-to-tasks.html" aria-label="Loom to Tasks — view project">
+<img class="px-visual px-visual--img" src="images/grid-loom-v1-v3.jpg" alt="Loom to Tasks on a tablet held in hand: the meeting transcript with tasks" width="1920" height="1080" loading="lazy" decoding="async">
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Loom to Tasks</span>
+</a>
+<a class="px-card" href="loom-to-tasks.html" aria-label="Loom to Tasks — view project">
+<img class="px-visual px-visual--img" src="images/grid-loom-still-v3.jpg" alt="Loom to Tasks on a laptop: the demo, up close — transcript in, task list out" width="1920" height="1080" loading="lazy" decoding="async">
 <span class="px-shade" aria-hidden="true"></span>
 <span class="px-title">Loom to Tasks</span>
 </a>
 <a class="px-card" href="lead-tracker.html" aria-label="Lead Tracker — view project">
-<img class="px-visual px-visual--img" src="images/lead-tracker-thumb.jpg" alt="Lead Tracker dashboard with sample data: new, contacted and won leads" width="760" height="490" loading="lazy" decoding="async">
+<img class="px-visual px-visual--img" src="images/grid-lead-v3.jpg" alt="Lead Tracker dashboard: 40 leads total — 24 new, 11 contacted, 5 won" width="1920" height="1080" loading="lazy" decoding="async">
 <span class="px-shade" aria-hidden="true"></span>
 <span class="px-title">Lead Tracker</span>
 </a>
-<a class="px-card" href="sourcing-website.html" aria-label="Wholesalia website — view project">
-<img class="px-visual px-visual--img" src="images/wholesalia-hero.jpg" alt="Featured products on the Wholesalia homepage" width="1280" height="1018" loading="lazy" decoding="async">
+<a class="px-card" href="lead-tracker.html" aria-label="Lead Tracker — view project">
+<img class="px-visual px-visual--img" src="images/grid-lead-phone-v3.jpg" alt="Lead Tracker on a phone: 24 new, 11 contacted, 5 won" width="1920" height="1080" loading="lazy" decoding="async">
 <span class="px-shade" aria-hidden="true"></span>
-<span class="px-title">Wholesalia website</span>
+<span class="px-title">Lead Tracker</span>
+</a>
+<a class="px-card" href="lead-tracker.html" aria-label="Lead Tracker — view project">
+<img class="px-visual px-visual--img" src="images/grid-lead-dash-v3.jpg" alt="Lead Tracker dashboard on a monitor: 24 new, 11 contacted, 5 won" width="1920" height="1080" loading="lazy" decoding="async">
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Lead Tracker</span>
 </a>
 </div>
 <div class="px-row" data-dir="-1">
+<a class="px-card" href="sourcing-website.html" aria-label="Wholesalia website — view project">
+<img class="px-visual px-visual--img" src="images/grid-wholesalia-v3.jpg" alt="Wholesalia homepage on a laptop: your one-stop wholesale destination, with featured products and a quotation form" width="1920" height="1080" loading="lazy" decoding="async">
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Wholesalia website</span>
+</a>
+<a class="px-card" href="sourcing-website.html" aria-label="Wholesalia website — view project">
+<img class="px-visual px-visual--img" src="images/grid-wholesalia-v2-v3.jpg" alt="Wholesalia on a laptop on a chair: featured products" width="1920" height="1080" loading="lazy" decoding="async">
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Wholesalia website</span>
+</a>
+<a class="px-card" href="sourcing-website.html" aria-label="Wholesalia website — view project">
+<img class="px-visual px-visual--img" src="images/grid-wholesalia-still-v3.jpg" alt="Wholesalia on a laptop: your one-stop wholesale destination" width="1920" height="1080" loading="lazy" decoding="async">
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Wholesalia website</span>
+</a>
 <a class="px-card" href="glass-bento.html" aria-label="Glass Bento portfolio template — view project">
-<img class="px-visual px-visual--img" src="images/glass-bento-preview.jpg" alt="The Glass Bento portfolio template home page" width="1280" height="800" loading="lazy" decoding="async">
+<img class="px-visual px-visual--img" src="images/grid-bento-v3.jpg" alt="Glass Bento portfolio template on a laptop: your headline goes here" width="1920" height="1080" loading="lazy" decoding="async">
 <span class="px-shade" aria-hidden="true"></span>
 <span class="px-title">Glass Bento template</span>
 </a>
+<a class="px-card" href="glass-bento.html" aria-label="Glass Bento portfolio template — view project">
+<img class="px-visual px-visual--img" src="images/grid-bento-v1-v3.jpg" alt="Glass Bento template on a laptop held in hand: your headline goes here" width="1920" height="1080" loading="lazy" decoding="async">
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Glass Bento template</span>
+</a>
+<a class="px-card" href="glass-bento.html" aria-label="Glass Bento portfolio template — view project">
+<img class="px-visual px-visual--img" src="images/grid-bento-phone-v1-v3.jpg" alt="Glass Bento template on a phone: your headline goes here" width="1920" height="1080" loading="lazy" decoding="async">
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Glass Bento template</span>
+</a>
+<a class="px-card" href="glass-bento.html" aria-label="Glass Bento portfolio template — view project">
+<img class="px-visual px-visual--img" src="images/grid-bento-still-v3.jpg" alt="Glass Bento template on a laptop: a frosted-glass portfolio for students and freelancers" width="1920" height="1080" loading="lazy" decoding="async">
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">Glass Bento template</span>
+</a>
+</div>
+<div class="px-row" data-dir="1">
 <a class="px-card" href="rxguard.html" aria-label="RxGuard — view project">
-<video class="px-visual px-visual--video" src="images/rxguard-loop.mp4" poster="images/rxguard-hero.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+<img class="px-visual px-visual--img" src="images/grid-rxguard-v3.jpg" alt="RxGuard on a phone: 3 medicines today, tap when taken" width="1920" height="1080" loading="lazy" decoding="async">
+<span class="px-shade" aria-hidden="true"></span>
+<span class="px-title">RxGuard</span>
+</a>
+<a class="px-card" href="rxguard.html" aria-label="RxGuard — view project">
+<img class="px-visual px-visual--img" src="images/grid-rxguard-phone-v2-v3.jpg" alt="RxGuard on a phone: your day, planned — medicines in order" width="1920" height="1080" loading="lazy" decoding="async">
 <span class="px-shade" aria-hidden="true"></span>
 <span class="px-title">RxGuard</span>
 </a>
@@ -134,8 +194,6 @@
 <span class="px-shade" aria-hidden="true"></span>
 <span class="px-title">The Last Visitor</span>
 </a>
-</div>
-<div class="px-row" data-dir="1">
 <a class="px-card" href="the-deleted-city.html" aria-label="The Deleted City — view project">
 <span class="px-visual px-visual--git"><span class="px-visual-big">The Deleted City</span><span class="px-visual-sub">A paper city, erased &mdash; rebuild it by staying</span></span>
 <span class="px-shade" aria-hidden="true"></span>
@@ -307,6 +365,6 @@
 </div>
 </div>
 <button class="to-top" type="button" aria-label="Back to top">&#8593;</button>
-<script src="script.js?v=359e6a"></script>
+<script src="script.js?v=29af3e"></script>
 </body>
 </html>

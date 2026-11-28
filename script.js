@@ -176,6 +176,67 @@
     }
   }
 
+  // Showreel video: sound on automatically when it scrolls into view.
+  // Browsers only allow sound after the visitor has tapped or clicked
+  // something, so before that the video stays muted and a "Sound on"
+  // button shows; the first tap anywhere turns the sound on. A manual
+  // mute is respected — scrolling will not unmute it again. Sound mutes
+  // again when the video scrolls out of view.
+  var sv = document.getElementById('showreelVideo');
+  if (sv) {
+    var srPlay = document.getElementById('showreelPlay');
+    var srMute = document.getElementById('showreelMute');
+    var srFull = document.getElementById('showreelFull');
+    var srSound = document.getElementById('showreelSound');
+    var srProg = document.getElementById('showreelProgress');
+    var srFill = document.getElementById('showreelProgressFill');
+    var srTime = document.getElementById('showreelTime');
+    var userMuted = false;
+    var srInView = false;
+    var srFmt = function (s) { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); };
+    var srPaint = function () {
+      if (srFill) srFill.style.width = (sv.duration ? (sv.currentTime / sv.duration) * 100 : 0) + '%';
+      if (srTime) srTime.textContent = srFmt(sv.currentTime) + ' / ' + srFmt(sv.duration);
+      if (srProg) srProg.setAttribute('aria-valuenow', String(Math.round(sv.duration ? (sv.currentTime / sv.duration) * 100 : 0)));
+      if (srPlay) { srPlay.classList.toggle('is-playing', !sv.paused); srPlay.setAttribute('aria-label', sv.paused ? 'Play video' : 'Pause video'); }
+      if (srMute) { srMute.classList.toggle('is-muted', sv.muted); srMute.setAttribute('aria-label', sv.muted ? 'Turn sound on' : 'Turn sound off'); }
+      if (srSound) srSound.classList.toggle('show', sv.muted && srInView && !userMuted);
+    };
+    var srTrySound = function () {
+      if (userMuted || !srInView) return;
+      sv.muted = false;
+      var p = sv.play();
+      if (p && p.catch) p.catch(function () { sv.muted = true; srPaint(); });
+      srPaint();
+    };
+    if ('IntersectionObserver' in window) {
+      var sio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          srInView = en.isIntersecting;
+          if (srInView) { srTrySound(); } else if (!sv.muted) { sv.muted = true; srPaint(); }
+        });
+      }, { threshold: 0.35 });
+      sio.observe(sv);
+    }
+    document.addEventListener('pointerdown', srTrySound);
+    document.addEventListener('keydown', srTrySound);
+    if (srSound) srSound.addEventListener('click', function () { userMuted = false; srTrySound(); });
+    if (srMute) srMute.addEventListener('click', function () {
+      if (sv.muted) { userMuted = false; sv.muted = false; var p = sv.play(); if (p && p.catch) p.catch(function () {}); }
+      else { userMuted = true; sv.muted = true; }
+      srPaint();
+    });
+    if (srPlay) srPlay.addEventListener('click', function () { if (sv.paused) { sv.play().catch(function () {}); } else { sv.pause(); } srPaint(); });
+    if (srProg) srProg.addEventListener('click', function (e) { var r = srProg.getBoundingClientRect(); var x = (e.clientX - r.left) / r.width; if (sv.duration) sv.currentTime = Math.max(0, Math.min(1, x)) * sv.duration; srPaint(); });
+    if (srFull) srFull.addEventListener('click', function () { var f = sv.parentElement; if (document.fullscreenElement) { document.exitFullscreen().catch(function () {}); } else if (f.requestFullscreen) { f.requestFullscreen().catch(function () {}); } });
+    sv.addEventListener('timeupdate', srPaint);
+    sv.addEventListener('play', srPaint);
+    sv.addEventListener('pause', srPaint);
+    sv.addEventListener('volumechange', srPaint);
+    sv.addEventListener('loadedmetadata', srPaint);
+    srPaint();
+  }
+
   // Card videos (RxGuard loop): play only while on screen; the still
   // poster shows when reduced motion is on or the video cannot play.
   var cardVideos = document.querySelectorAll('.px-visual--video, .proj-visual video');
