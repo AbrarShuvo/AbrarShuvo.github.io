@@ -74,9 +74,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .blobs{display:none}
 .wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:16px clamp(16px,3vw,32px) 0;display:flex;flex-direction:column;background:var(--bg)}
 .sec{padding-top:clamp(72px,9vw,112px)}
-/* Capabilities follows the showreel grid directly (the marquee moved after
-   it) — tighter top padding so there is no empty band between grid and Capabilities. */
-section[aria-label="Capabilities"]{padding-top:clamp(28px,4vw,48px)}
+/* Capabilities sits in the middle between the showreel grid above and the
+   marquee banner below: top padding and bottom margin are matched so the
+   space above the heading equals the space below the section. */
+section[aria-label="Capabilities"]{padding-top:clamp(48px,6vw,72px);padding-bottom:clamp(40px,5vw,64px);margin-bottom:clamp(76px,calc(6vw + 28px),100px);background:var(--grey-band);margin-inline:calc(50% - 50vw);padding-inline:max(clamp(16px,3vw,32px),calc(50vw - 600px + clamp(16px,3vw,32px)))}
 .sec-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 32px;margin-bottom:32px}
 .sec-head>div{display:flex;flex-direction:column;gap:12px;max-width:720px}
 
@@ -315,46 +316,60 @@ section[aria-label="Capabilities"]{padding-top:clamp(28px,4vw,48px)}
 .svc li svg{flex:none;margin-top:3px}
 .svc .link{margin-top:auto;padding-top:6px}
 
-/* ---------- capabilities (round 17 — Musemind "End-to-End Digital Capabilities":
-     6 pastel photo cards, one per real service page. The photo is the whole card
-     (4:5, clean pastel top quarter); the HTML title sits over that clean area,
-     so the title colour is fixed dark ink — the photo stays light in dark mode too.) ---------- */
-.cap-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-@media (max-width:1000px){.cap-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:720px){.cap-grid{grid-template-columns:minmax(0,1fr)}}
-.cap-card{position:relative;display:block;border-radius:24px;overflow:hidden;aspect-ratio:4/5;text-decoration:none;background:var(--grey-band)}
-.cap-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
-.cap-card:hover img,.cap-card:focus-visible img{transform:scale(1.03)}
-.cap-title{position:absolute;top:0;left:0;right:0;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:22px 24px;color:#090909}
-.cap-title .arr{flex:none;margin-top:5px;color:#090909}
-/* One-line service description under the card title (merged from the
-   deleted "Four ways I can help" section). Sits on the same clean pastel
-   top quarter as the title; colour stays fixed #090909 so it reads in
-   dark mode too, like the title. */
-.cap-t{display:flex;flex-direction:column;gap:8px;min-width:0}
-.cap-name{font-size:clamp(20px,1.9vw,25px);font-weight:800;line-height:1.15;letter-spacing:-.02em}
-.cap-desc{display:block;font-size:14px;font-weight:500;line-height:1.5;letter-spacing:0;color:#090909;max-width:300px}
+/* ---------- capabilities v4 — case-card pattern copied from the reference
+     agency (refs 2-4: big bright photo on top, WHITE panel below with black
+     title, dark description, orange stat, outlined pill button; the whole
+     section sits on light grey, var(--grey-band) = #f0f0f0, exactly the
+     refs' page grey). Measured from refs (card 423px wide): photo 423x~281
+     (aspect 3:2), panel ~160px, gap 21px, radius ~10px, title ~27px/700,
+     desc ~13px, stat ~26px/800 orange #ff531a (= var(--orange)), button
+     pill ~13px. Scaled to the 1136px container, 2-col grid. NO dark wash
+     anywhere: the photos are the bright masters, the writing sits on the
+     white panel. Panel colours are FIXED (not var(--ink)) so the black
+     text stays readable on the white panel in dark mode too. ---------- */
+.cap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.cap-card{display:flex;flex-direction:column;border-radius:10px;overflow:hidden;text-decoration:none;background:#fff;color:#090909}
+.cap-photo{display:block;aspect-ratio:3/2;overflow:hidden;background:var(--grey-band)}
+.cap-photo img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.cap-card:hover .cap-photo img,.cap-card:focus-visible .cap-photo img{transform:scale(1.03)}
+.cap-panel{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;padding:24px;flex:1}
+.cap-main{display:flex;flex-direction:column;gap:10px;min-width:0}
+.cap-name{font-size:28px;font-weight:700;line-height:1.1;letter-spacing:-.02em;color:#090909}
+.cap-desc{display:block;font-size:16px;font-weight:400;line-height:1.5;color:#3d3d3d}
+.cap-side{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:16px}
+.cap-side--solo{justify-content:flex-end}
+.cap-stat{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.cap-stat-num{font-size:30px;font-weight:800;line-height:1;letter-spacing:-.01em;color:var(--orange)}
+.cap-stat-label{font-size:11px;font-weight:600;line-height:1.3;letter-spacing:.05em;text-transform:uppercase;color:#090909;text-align:right}
+.cap-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid #d9d9d9;border-radius:6px;background:#fff;padding:10px 14px;font-size:13px;font-weight:600;line-height:1;color:#090909;white-space:nowrap}
+.cap-btn .arr{width:14px;height:14px}
+.cap-card:hover .cap-btn{border-color:#090909}
+.cap-card:hover .cap-btn .arr{translate:4px 0}
 .cap-card:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
-@media (prefers-reduced-motion:reduce){.cap-card img{transition:none}}
+@media (max-width:1000px){.cap-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.cap-panel{grid-template-columns:minmax(0,1fr)}.cap-side{flex-direction:row;align-items:center;justify-content:space-between}.cap-stat{align-items:flex-start}.cap-stat-label{text-align:left}}
+@media (prefers-reduced-motion:reduce){.cap-photo img{transition:none}}
 
 /* ---------- home: scroll sentences (Purple Softworks style) ---------- */
 /* Four real lines from this site, each on its own photo card, revealed
    one by one as you scroll. Hidden only under .js-sent (added by script.js
    when IntersectionObserver is available), so no-JS still shows them.
-   Stagger comes from the per-card transition-delay. */
-.sent-list{display:flex;flex-direction:column;gap:20px}
-.sent-card{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);background:var(--card);border:1px solid var(--hairline);border-radius:24px;overflow:hidden}
-.sent-card:nth-child(even) .sent-img{order:2}
-.sent-img{min-height:220px}
+   Stagger comes from the per-card transition-delay.
+   Layout (2026-11-28): one horizontal row — 4 narrow cards across on
+   desktop, a swipeable scroll-snap row on mobile. Image on top (16:9),
+   same-size text below, so the row reads as one uniform strip. */
+.sent-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.sent-card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--hairline);border-radius:24px;overflow:hidden}
+.sent-img{aspect-ratio:16/9;min-height:0}
 .sent-img img{width:100%;height:100%;object-fit:cover;display:block}
-.sent-text{display:flex;align-items:center;padding:clamp(24px,4vw,48px)}
-.sent-text p{font-size:clamp(24px,2.8vw,36px);font-weight:800;line-height:1.15;letter-spacing:-.02em;color:var(--ink)}
+.sent-text{padding:18px 20px 22px}
+.sent-text p{font-size:clamp(17px,1.4vw,20px);font-weight:800;line-height:1.35;letter-spacing:-.01em;color:var(--ink)}
 .js-sent .sent-card{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
 .js-sent .sent-card:nth-child(2){transition-delay:.12s}
 .js-sent .sent-card:nth-child(3){transition-delay:.24s}
 .js-sent .sent-card:nth-child(4){transition-delay:.36s}
 .js-sent .sent-card.in{opacity:1;transform:none}
-@media (max-width:720px){.sent-card{grid-template-columns:minmax(0,1fr)}.sent-img{min-height:180px}.sent-card:nth-child(even) .sent-img{order:0}}
+@media (max-width:720px){.sent-list{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;gap:16px;padding-bottom:8px;scrollbar-width:none}.sent-list::-webkit-scrollbar{display:none}.sent-card{flex:0 0 78%;scroll-snap-align:start}}
 @media (prefers-reduced-motion:reduce){.sent-card{opacity:1;transform:none;transition:none}}
 
 /* ---------- steps ---------- */
