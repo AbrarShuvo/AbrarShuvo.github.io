@@ -130,22 +130,6 @@
     Array.prototype.forEach.call(document.querySelectorAll('.rv'), function (el) { io.observe(el); });
   }
 
-  // Scroll sentences (home): each .sent-card reveals one by one as it
-  // scrolls into view. .js-sent hides them first (CSS); without IO or
-  // with reduced motion they are all shown at once.
-  var sentCards = document.querySelectorAll('.sent-card');
-  if (sentCards.length) {
-    if (!reduce && 'IntersectionObserver' in window) {
-      root.classList.add('js-sent');
-      var sio = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); sio.unobserve(en.target); } });
-      }, { threshold: 0.15 });
-      Array.prototype.forEach.call(sentCards, function (el) { sio.observe(el); });
-    } else {
-      Array.prototype.forEach.call(sentCards, function (el) { el.classList.add('in'); });
-    }
-  }
-
   var form = document.querySelector('form[action*="formsubmit"]');
   if (form) form.addEventListener('submit', function () {
     var b = form.querySelector('[type="submit"]');
@@ -229,6 +213,24 @@
     if (srPlay) srPlay.addEventListener('click', function () { if (sv.paused) { sv.play().catch(function () {}); } else { sv.pause(); } srPaint(); });
     if (srProg) srProg.addEventListener('click', function (e) { var r = srProg.getBoundingClientRect(); var x = (e.clientX - r.left) / r.width; if (sv.duration) sv.currentTime = Math.max(0, Math.min(1, x)) * sv.duration; srPaint(); });
     if (srFull) srFull.addEventListener('click', function () { var f = sv.parentElement; if (document.fullscreenElement) { document.exitFullscreen().catch(function () {}); } else if (f.requestFullscreen) { f.requestFullscreen().catch(function () {}); } });
+    // Controls are hover-only (CSS); on touch there is no hover, so a tap
+    // on the frame reveals them for a few seconds.
+    var srFrame = sv.parentElement, srTouchTimer = null;
+    if (srFrame) {
+      srFrame.addEventListener('touchstart', function () {
+        srFrame.classList.add('sr-touch');
+        if (srTouchTimer) clearTimeout(srTouchTimer);
+        srTouchTimer = setTimeout(function () { srFrame.classList.remove('sr-touch'); }, 3500);
+      }, { passive: true });
+      // A clicked control keeps keyboard focus, which would hold the bar
+      // open after the mouse leaves — drop it on mouseleave so the bar
+      // hides as soon as the pointer is gone. Keyboard-only tabbing never
+      // fires mouseleave, so focus still keeps the bar open there.
+      srFrame.addEventListener('mouseleave', function () {
+        var a = document.activeElement;
+        if (a && srFrame.contains(a)) a.blur();
+      });
+    }
     sv.addEventListener('timeupdate', srPaint);
     sv.addEventListener('play', srPaint);
     sv.addEventListener('pause', srPaint);
@@ -819,4 +821,45 @@
     renderFrame();
     requestAnimationFrame(tick);
   });
+
+  // Cinematic footer (home): GSAP curtain reveal + magnetic pills.
+  // Progressive enhancement — if GSAP/ScrollTrigger failed to load, or
+  // with reduced motion, the footer stays fully visible (no hidden
+  // states live in CSS; gsap.fromTo only hides while it animates).
+  var cfReveal = document.querySelector('.cf-reveal');
+  if (cfReveal && !reduce && window.gsap && window.ScrollTrigger) {
+    window.gsap.registerPlugin(window.ScrollTrigger);
+    window.gsap.fromTo('.cf-giant',
+      { y: '10vh', scale: 0.8, opacity: 0 },
+      { y: '0vh', scale: 1, opacity: 1, ease: 'power1.out',
+        scrollTrigger: { trigger: '.cf-reveal', start: 'top 80%', end: 'bottom bottom', scrub: 1 } });
+    window.gsap.fromTo(['.cf-heading', '.cf-sub', '.cf-links'],
+      { y: 50, opacity: 0 },
+      { y: 0, opacity: 1, stagger: 0.15, ease: 'power3.out',
+        scrollTrigger: { trigger: '.cf-reveal', start: 'top 40%', end: 'bottom bottom', scrub: 1 } });
+  }
+  // Magnetic pills: drift toward the cursor, spring back on leave.
+  if (cfReveal && !reduce && window.gsap) {
+    Array.prototype.forEach.call(document.querySelectorAll('.cf-magnetic'), function (el) {
+      el.addEventListener('mousemove', function (e) {
+        var r = el.getBoundingClientRect();
+        var x = e.clientX - r.left - r.width / 2;
+        var y = e.clientY - r.top - r.height / 2;
+        window.gsap.to(el, { x: x * 0.4, y: y * 0.4, rotationX: -y * 0.15, rotationY: x * 0.15, scale: 1.05, ease: 'power2.out', duration: 0.4 });
+      });
+      el.addEventListener('mouseleave', function () {
+        window.gsap.to(el, { x: 0, y: 0, rotationX: 0, rotationY: 0, scale: 1, ease: 'elastic.out(1, 0.3)', duration: 1.2 });
+      });
+    });
+  }
+  // Footer back-to-top button (the floating .to-top button keeps its own handler).
+  var cfTop = document.querySelector('.cf-top');
+  if (cfTop) cfTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); });
+  // Hide the floating .to-top while the cinematic footer is in view (it has its own button).
+  var cfReveal = document.querySelector('.cf-reveal');
+  if (cfReveal && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      document.body.classList.toggle('cf-inview', entries[0].isIntersecting);
+    }, { threshold: 0.15 }).observe(cfReveal);
+  }
 })();
