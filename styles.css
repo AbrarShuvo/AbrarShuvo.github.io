@@ -12,14 +12,15 @@
   font-display: swap;
 }
 
-/* Logo font: Inter 800 (self-hosted, latin) — the closest free match to
-   Musemind's Aeonik (wide neo-grotesque, bold; Aeonik itself is paid,
-   CoType, ~GBP 50 for one style). Abrar picked Inter 2026-11-27. Used for
-   the "Abrar Zamil" wordmark (.brand-name) ONLY; the rest of the site
-   stays on Plus Jakarta Sans. The hero H1 stays on Plus Jakarta Sans. */
+/* Logo font: Bricolage Grotesque 800 (self-hosted, latin) — the font from
+   the start of the showreel video (video lockup: blue "A" mark + "Abrar
+   Zamil", Bricolage 800, letter-spacing -0.03em). Free Google Font (OFL).
+   Used for the "Abrar Zamil" wordmark (.brand-name) ONLY; the rest of the
+   site stays on Plus Jakarta Sans. The hero H1 stays on Plus Jakarta Sans.
+   Replaces Inter 800 (round 15 wordmark), 2026-11-28. */
 @font-face {
-  font-family: "Inter";
-  src: url("fonts/inter-800.woff2") format("woff2");
+  font-family: "Bricolage Grotesque";
+  src: url("fonts/bricolage-800.woff2") format("woff2");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
@@ -46,7 +47,7 @@
   --card: #ffffff;
   --grad-text: linear-gradient(90deg, #ff8768, #ff41ac 50%, #752ee1);
   --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-hero: "Inter", "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-hero: "Bricolage Grotesque", "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -112,7 +113,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 /* ---------- nav: sticky, flat, full-width ---------- */
 .nav{position:sticky;top:0;z-index:20;width:100%;background:var(--bg);padding:12px 0;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);padding:8px 0}
-.brand-name{font-family:var(--font-hero);font-weight:800;font-size:18px;letter-spacing:-.02em}
+.brand-name{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-hero);font-weight:800;font-size:18px;letter-spacing:-.03em;color:var(--ink)}
+.brand-a{font-family:var(--font-hero);font-weight:800;font-size:1.3em;line-height:.8;color:#3350DC}
+/* The footer is a dark band in both themes, so its wordmark name stays light there. */
+.foot .brand-name{color:#f4eeff}
 .nav-right{display:flex;align-items:center;gap:2px;flex-wrap:wrap}
 .nav-links{display:contents}
 .nav-links a{padding:12px 14px;font-weight:500;font-size:15px;text-decoration:none;color:var(--body);border-radius:999px}
@@ -134,6 +138,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   .nav.open .nav-links{display:flex;animation:navIn .22s ease-out}
   .nav-links a{display:block;padding:14px}
 }
+
+/* ---------- showreel video (60s, between hero and "What I work with") ---------- */
+/* No title/heading — just the video (Abrar 2026-11-28). Tighter top padding
+   than a normal .sec since there is no heading above the frame. */
+.showreel-sec{padding-top:clamp(36px,5vw,64px)}
+.showreel-frame{border-radius:24px;overflow:hidden;border:1px solid var(--hairline);background:#000;box-shadow:0 12px 32px rgba(9,9,9,.08)}
+.showreel-frame video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#000}
 
 /* ---------- cards & grids ---------- */
 .card{border-radius:24px}
