@@ -130,6 +130,22 @@
     Array.prototype.forEach.call(document.querySelectorAll('.rv'), function (el) { io.observe(el); });
   }
 
+  // Scroll sentences (home): each .sent-card reveals one by one as it
+  // scrolls into view. .js-sent hides them first (CSS); without IO or
+  // with reduced motion they are all shown at once.
+  var sentCards = document.querySelectorAll('.sent-card');
+  if (sentCards.length) {
+    if (!reduce && 'IntersectionObserver' in window) {
+      root.classList.add('js-sent');
+      var sio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); sio.unobserve(en.target); } });
+      }, { threshold: 0.15 });
+      Array.prototype.forEach.call(sentCards, function (el) { sio.observe(el); });
+    } else {
+      Array.prototype.forEach.call(sentCards, function (el) { el.classList.add('in'); });
+    }
+  }
+
   var form = document.querySelector('form[action*="formsubmit"]');
   if (form) form.addEventListener('submit', function () {
     var b = form.querySelector('[type="submit"]');
@@ -160,11 +176,13 @@
     }
   }
 
-  // Showreel video: sound on automatically when it scrolls into view.
-  // Browsers only allow sound after the visitor has tapped or clicked
-  // something, so before that the video stays muted and a "Sound on"
-  // button shows; the first tap anywhere turns the sound on. A manual
-  // mute is respected — scrolling will not unmute it again. Sound mutes
+  // Showreel video: sound is ON by default. The video tries to play with
+  // sound on load; browsers block autoplay-with-sound before the visitor's
+  // first click/tap, so if that attempt is rejected it falls back to muted
+  // playback and the "Sound on" pill shows — the pill appears ONLY when
+  // sound was actually blocked. The first tap/click anywhere, or scrolling
+  // into view, turns the sound on. The mute button turns it off and that
+  // choice is respected (scrolling will not unmute it again). Sound mutes
   // again when the video scrolls out of view.
   var sv = document.getElementById('showreelVideo');
   if (sv) {
@@ -176,6 +194,7 @@
     var srFill = document.getElementById('showreelProgressFill');
     var srTime = document.getElementById('showreelTime');
     var userMuted = false;
+    var srSoundBlocked = false;
     var srInView = false;
     var srFmt = function (s) { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); };
     var srPaint = function () {
@@ -184,15 +203,29 @@
       if (srProg) srProg.setAttribute('aria-valuenow', String(Math.round(sv.duration ? (sv.currentTime / sv.duration) * 100 : 0)));
       if (srPlay) { srPlay.classList.toggle('is-playing', !sv.paused); srPlay.setAttribute('aria-label', sv.paused ? 'Play video' : 'Pause video'); }
       if (srMute) { srMute.classList.toggle('is-muted', sv.muted); srMute.setAttribute('aria-label', sv.muted ? 'Turn sound on' : 'Turn sound off'); }
-      if (srSound) srSound.classList.toggle('show', sv.muted && srInView && !userMuted);
+      if (srSound) srSound.classList.toggle('show', srSoundBlocked && sv.muted && srInView && !userMuted);
     };
     var srTrySound = function () {
       if (userMuted || !srInView) return;
       sv.muted = false;
       var p = sv.play();
-      if (p && p.catch) p.catch(function () { sv.muted = true; srPaint(); });
+      if (p && p.then) {
+        p.then(function () { srSoundBlocked = false; srPaint(); }, function () { sv.muted = true; srSoundBlocked = true; srPaint(); });
+      }
       srPaint();
     };
+    // Sound on by default: try playing with sound right now. If the browser
+    // rejects it (no user gesture yet), fall back to muted playback so the
+    // video still plays, and flag it so the "Sound on" pill shows.
+    sv.muted = false;
+    var srFirst = sv.play();
+    if (srFirst && srFirst.then) {
+      srFirst.then(function () { srSoundBlocked = false; srPaint(); }, function () {
+        sv.muted = true; srSoundBlocked = true;
+        var q = sv.play(); if (q && q.catch) q.catch(function () {});
+        srPaint();
+      });
+    }
     if ('IntersectionObserver' in window) {
       var sio = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {

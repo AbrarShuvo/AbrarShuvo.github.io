@@ -74,6 +74,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .blobs{display:none}
 .wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:16px clamp(16px,3vw,32px) 0;display:flex;flex-direction:column;background:var(--bg)}
 .sec{padding-top:clamp(72px,9vw,112px)}
+/* Capabilities follows the showreel grid directly (the marquee moved after
+   it) — tighter top padding so there is no empty band between grid and Capabilities. */
+section[aria-label="Capabilities"]{padding-top:clamp(28px,4vw,48px)}
 .sec-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 32px;margin-bottom:32px}
 .sec-head>div{display:flex;flex-direction:column;gap:12px;max-width:720px}
 
@@ -335,6 +338,25 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 @media (prefers-reduced-motion:reduce){.cap-card img{transition:none}}
 
 /* ---------- home: scroll sentences (Purple Softworks style) ---------- */
+/* Four real lines from this site, each on its own photo card, revealed
+   one by one as you scroll. Hidden only under .js-sent (added by script.js
+   when IntersectionObserver is available), so no-JS still shows them.
+   Stagger comes from the per-card transition-delay. */
+.sent-list{display:flex;flex-direction:column;gap:20px}
+.sent-card{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);background:var(--card);border:1px solid var(--hairline);border-radius:24px;overflow:hidden}
+.sent-card:nth-child(even) .sent-img{order:2}
+.sent-img{min-height:220px}
+.sent-img img{width:100%;height:100%;object-fit:cover;display:block}
+.sent-text{display:flex;align-items:center;padding:clamp(24px,4vw,48px)}
+.sent-text p{font-size:clamp(24px,2.8vw,36px);font-weight:800;line-height:1.15;letter-spacing:-.02em;color:var(--ink)}
+.js-sent .sent-card{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.js-sent .sent-card:nth-child(2){transition-delay:.12s}
+.js-sent .sent-card:nth-child(3){transition-delay:.24s}
+.js-sent .sent-card:nth-child(4){transition-delay:.36s}
+.js-sent .sent-card.in{opacity:1;transform:none}
+@media (max-width:720px){.sent-card{grid-template-columns:minmax(0,1fr)}.sent-img{min-height:180px}.sent-card:nth-child(even) .sent-img{order:0}}
+@media (prefers-reduced-motion:reduce){.sent-card{opacity:1;transform:none;transition:none}}
+
 /* ---------- steps ---------- */
 .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
 @media (max-width:1000px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
